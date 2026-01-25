@@ -3215,35 +3215,35 @@ function ie() {
   const t = navigator.language, a = D(t);
   return a || "en-US";
 }
-const o = new ne(ie()), T = {
-  LANGUAGE: o.lang,
+const s = new ne(ie()), T = {
+  LANGUAGE: s.lang,
   DEBOUNCE_DELAY: 1e3,
   CACHE_TTL: 30 * 60 * 1e3,
   // 30 minutes
   BATCH_QUEUE_DELAY: 500,
   MAX_COMMAND_LENGTH: 30,
   MAX_PREVIEW_LENGTH: 50,
-  NOTE_TITLE: o.t("note_title") || "User Prompts",
+  NOTE_TITLE: s.t("note_title") || "User Prompts",
   CACHE_VERSION: "1.1"
   // Cache Version
 }, oe = {
   PLACEHOLDER_ELEMENT: "p.is-empty.is-editor-empty"
 }, se = () => [
-  o.t("placeholder_1"),
-  o.t("placeholder_2"),
-  o.t("placeholder_3"),
-  o.t("placeholder_4"),
-  o.t("placeholder_5"),
-  o.t("placeholder_6"),
-  o.t("placeholder_7"),
-  o.t("placeholder_8"),
-  o.t("placeholder_9"),
-  o.t("placeholder_10"),
-  o.t("placeholder_11"),
-  o.t("placeholder_12"),
-  o.t("placeholder_13"),
-  o.t("placeholder_14"),
-  o.t("placeholder_15")
+  s.t("placeholder_1"),
+  s.t("placeholder_2"),
+  s.t("placeholder_3"),
+  s.t("placeholder_4"),
+  s.t("placeholder_5"),
+  s.t("placeholder_6"),
+  s.t("placeholder_7"),
+  s.t("placeholder_8"),
+  s.t("placeholder_9"),
+  s.t("placeholder_10"),
+  s.t("placeholder_11"),
+  s.t("placeholder_12"),
+  s.t("placeholder_13"),
+  s.t("placeholder_14"),
+  s.t("placeholder_15")
 ], le = [
   "#chat-input",
   'div.flex-1.flex.flex-col.relative.w-full [contenteditable="true"]',
@@ -3257,20 +3257,20 @@ const o = new ne(ie()), T = {
   '[role="textbox"]:not([style*="display: none"])',
   '[data-testid*="input"]:not([style*="display: none"])'
 ], L = () => [
-  { id: "writing", name: o.t("cat_writing"), order: 1 },
-  { id: "productivity", name: o.t("cat_productivity"), order: 2 },
-  { id: "learning", name: o.t("cat_learning"), order: 3 },
-  { id: "coding", name: o.t("cat_coding"), order: 4 },
-  { id: "data", name: o.t("cat_data"), order: 5 },
-  { id: "lifestyle", name: o.t("cat_lifestyle"), order: 6 },
-  { id: "roleplay", name: o.t("cat_roleplay"), order: 7 }
+  { id: "writing", name: s.t("cat_writing"), order: 1 },
+  { id: "productivity", name: s.t("cat_productivity"), order: 2 },
+  { id: "learning", name: s.t("cat_learning"), order: 3 },
+  { id: "coding", name: s.t("cat_coding"), order: 4 },
+  { id: "data", name: s.t("cat_data"), order: 5 },
+  { id: "lifestyle", name: s.t("cat_lifestyle"), order: 6 },
+  { id: "roleplay", name: s.t("cat_roleplay"), order: 7 }
 ], $ = L();
-o.t("var_text"), o.t("var_text_desc"), o.t("var_textarea"), o.t("var_textarea_desc"), o.t("var_select"), o.t("var_select_desc"), o.t("var_number"), o.t("var_number_desc"), o.t("var_checkbox"), o.t("var_checkbox_desc"), o.t("var_date"), o.t("var_date_desc"), o.t("var_datetime_local"), o.t("var_datetime_local_desc"), o.t("var_color"), o.t("var_color_desc"), o.t("var_email"), o.t("var_email_desc"), o.t("var_month"), o.t("var_month_desc"), o.t("var_range"), o.t("var_range_desc"), o.t("var_tel"), o.t("var_tel_desc"), o.t("var_time"), o.t("var_time_desc"), o.t("var_url"), o.t("var_url_desc"), o.t("var_map"), o.t("var_map_desc");
-o.t("sys_clipboard"), o.t("sys_clipboard_desc"), o.t("sys_clipboard_note");
+s.t("var_text"), s.t("var_text_desc"), s.t("var_textarea"), s.t("var_textarea_desc"), s.t("var_select"), s.t("var_select_desc"), s.t("var_number"), s.t("var_number_desc"), s.t("var_checkbox"), s.t("var_checkbox_desc"), s.t("var_date"), s.t("var_date_desc"), s.t("var_datetime_local"), s.t("var_datetime_local_desc"), s.t("var_color"), s.t("var_color_desc"), s.t("var_email"), s.t("var_email_desc"), s.t("var_month"), s.t("var_month_desc"), s.t("var_range"), s.t("var_range_desc"), s.t("var_tel"), s.t("var_tel_desc"), s.t("var_time"), s.t("var_time_desc"), s.t("var_url"), s.t("var_url_desc"), s.t("var_map"), s.t("var_map_desc");
+s.t("sys_clipboard"), s.t("sys_clipboard_desc"), s.t("sys_clipboard_note");
 const ce = 'You are a professional Open WebUI prompt generation assistant. Your core task is to intelligently generate a high-quality, versatile prompt template containing reasonable variables based on the "functional description" provided by the user.\n\n## Generation Principles\n\n1.  **Focus on Core Needs**: Deeply understand the user\'s "functional description" and accurately extract their core intent.\n2.  **Design Versatile Templates**: The generated prompt content should be refined and versatile, applicable to various similar scenarios.\n3.  **Intelligent Variable Usage**:\n    *   Automatically identify and set reasonable variables to increase template flexibility.\n    *   **Variable Names**: Should be concise and descriptive. For **{{INTERFACE_LANGUAGE}}** prompts, you MAY use localized variable names (e.g., Chinese variable names for Chinese prompts) so they appear as friendly labels in the UI.\n    *   **Variable UI Text**: Any user-facing text within variable definitions (such as `placeholder`, `options` for select types, or text-based `default` values) **MUST** be in **{{INTERFACE_LANGUAGE}}**.\n    *   **Prohibition**: Do NOT use variables or placeholders (like `{{...}}`) inside property values (e.g., `placeholder`, `default`). The value must be a static string.\n        *   ✅ Correct: `{{code | textarea:placeholder="Paste your code here"}}`\n        *   ❌ Incorrect: `{{code | textarea:placeholder="{{INTERFACE_LANGUAGE}}Paste your code here"}}`\n    *   Set appropriate types and default values for variables.\n4.  **Clear Structure**: Use Markdown to format the prompt content, making it structured and easy to read.\n5.  **Precise Classification**: You must select the most appropriate category for the prompt from the "Available Category List" below and return its **ID** in the `category` field of the JSON output.\n6.  **Command Name Standard**:\n    *   The `command` field must be in **English**, using hyphens or underscores as separators (e.g., `weekly-report`, `code_reviewer`).\n    *   The command name should be closely related to the prompt function.\n7.  **Language Consistency**:\n    *   **CRITICAL**: If the user does not explicitly specify a language, you MUST generate the prompt title (`title`), content (`content`), and all variable UI text (placeholders, options) in **{{INTERFACE_LANGUAGE}}**.\n\n## Output Format\n\nPlease strictly return the result in the following JSON format, without adding any extra explanation or description.\n**IMPORTANT**: Ensure the output is valid JSON. For multi-line strings (like `content`), use `\\n` for line breaks. Do NOT use actual line breaks inside the JSON string values.\n\n```json\n{\n  "title": "Concise and clear title",\n  "content": "Prompt content carefully designed using Markdown and English variables...\\n\\nUse escaped newlines for multi-line content.",\n  "category": "Category ID selected from the available category list",\n  "command": "english-command-name"\n}\n```\n\nPlease immediately start analyzing the user\'s needs and generating the prompt.', de = ce;
 class U {
   constructor() {
-    this.placeholderSet = !1, o.subscribe(() => {
+    this.placeholderSet = !1, s.subscribe(() => {
       this.placeholderSet = !1, this.setRandomPlaceholder();
     });
   }
@@ -3313,7 +3313,7 @@ class U {
     const t = document.createElement("div");
     t.className = "flex";
     const a = document.createElement("button");
-    return a.id = "prompt-manager-integrated-btn", a.type = "button", a.className = "px-2 py-2 flex gap-1.5 items-center text-sm rounded-full transition-colors duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300", a.setAttribute("aria-label", o.t("prompt_management")), a.title = o.t("prompt_management_tooltip"), a.innerHTML = `
+    return a.id = "prompt-manager-integrated-btn", a.type = "button", a.className = "px-2 py-2 flex gap-1.5 items-center text-sm rounded-full transition-colors duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300", a.setAttribute("aria-label", s.t("prompt_management")), a.title = s.t("prompt_management_tooltip"), a.innerHTML = `
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" class="size-5 w-5 h-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
             </svg>
@@ -3322,7 +3322,7 @@ class U {
   // Select Placeholder Text
   selectPlaceholder(e, t, a) {
     const r = document.createRange(), n = window.getSelection();
-    let i = 0, c = null, s = 0, d = null, p = 0;
+    let i = 0, c = null, l = 0, d = null, p = 0;
     const u = document.createTreeWalker(
       e,
       NodeFilter.SHOW_TEXT,
@@ -3332,13 +3332,13 @@ class U {
     let m;
     for (; m = u.nextNode(); ) {
       const g = m.textContent.length;
-      if (!c && i + g > t && (c = m, s = t - i), !d && i + g >= t + a) {
+      if (!c && i + g > t && (c = m, l = t - i), !d && i + g >= t + a) {
         d = m, p = t + a - i;
         break;
       }
       i += g;
     }
-    c && d && (r.setStart(c, s), r.setEnd(d, p), n.removeAllRanges(), n.addRange(r));
+    c && d && (r.setStart(c, l), r.setEnd(d, p), n.removeAllRanges(), n.addRange(r));
   }
   // Handle Placeholder Navigation
   handlePlaceholderNavigation(e, t) {
@@ -3349,15 +3349,15 @@ class U {
     if (i.length === 0) return;
     e.preventDefault();
     const c = window.getSelection();
-    let s = 0;
+    let l = 0;
     if (c.rangeCount > 0) {
       const p = c.getRangeAt(0), u = p.cloneRange();
-      u.selectNodeContents(a), u.setEnd(p.startContainer, p.startOffset), s = u.toString().length;
+      u.selectNodeContents(a), u.setEnd(p.startContainer, p.startOffset), l = u.toString().length;
     }
     let d = null;
     for (let p = 0; p < i.length; p++) {
       const u = i[p];
-      if (u.index > s) {
+      if (u.index > l) {
         d = u;
         break;
       }
@@ -3401,7 +3401,7 @@ function pe(f, e) {
 function Q(f) {
   return f.toLowerCase().replace(/[^a-z0-9_-]/g, "-").replace(/-+/g, "-").replace(/_+/g, "_").replace(/^-|-$/g, "").replace(/^_|_$/g, "").substring(0, 30) || "prompt";
 }
-function me(f) {
+function ue(f) {
   const e = /* @__PURE__ */ new Date(), t = {
     "{{DATE}}": e.toLocaleDateString(),
     "{{TIME}}": e.toLocaleTimeString(),
@@ -3412,7 +3412,7 @@ function me(f) {
     a = a.replace(new RegExp(r.replace(/[{}]/g, "\\$&"), "g"), n);
   return a;
 }
-function ue(f) {
+function me(f) {
   const e = [
     // Core Function Category
     "writing",
@@ -3534,15 +3534,15 @@ class he {
     this.level <= I.ERROR && console.error("%c[PromptSystem] [ERROR]", "color: #ef4444;", e, ...t);
   }
 }
-const l = new he();
-window.logger = l;
+const o = new he();
+window.logger = o;
 class _e {
   constructor() {
     this.baseURL = window.location.origin, this.apiURL = `${this.baseURL}/api/v1/prompts/`, this.chatURL = `${this.baseURL}/api/v1/chat/completions`, this.modelsURL = `${this.baseURL}/api/models/base`;
   }
   async getAuthToken() {
     const e = localStorage.getItem("token");
-    return l.debug("[Auth] Token exists:", !!e, "Length:", (e == null ? void 0 : e.length) || 0), e;
+    return o.debug("[Auth] Token exists:", !!e, "Length:", (e == null ? void 0 : e.length) || 0), e;
   }
   // Get the currently selected model by the user (avoid calling getAvailableModels to prevent loops)
   async getCurrentModel() {
@@ -3550,15 +3550,15 @@ class _e {
       const e = localStorage.getItem("selectedModel");
       return e || "gpt-4.1";
     } catch (e) {
-      return l.warn("Failed to get current model:", e), "gpt-4.1";
+      return o.warn("Failed to get current model:", e), "gpt-4.1";
     }
   }
   // Get available model list (fetch dynamically from API)
   async getAvailableModels() {
-    l.debug("🔥🔥🔥 [ModelAPI] getAvailableModels called!");
+    o.debug("🔥🔥🔥 [ModelAPI] getAvailableModels called!");
     try {
       const e = await this.getAuthToken(), t = `${this.baseURL}/api/models`;
-      l.debug("[ModelAPI] 🌐 Requesting model list:", t, "Token:", e ? "Yes" : "No");
+      o.debug("[ModelAPI] 🌐 Requesting model list:", t, "Token:", e ? "Yes" : "No");
       const a = await fetch(t, {
         method: "GET",
         headers: {
@@ -3567,17 +3567,17 @@ class _e {
           Authorization: `Bearer ${e}`
         }
       });
-      if (l.debug("[ModelAPI] Response status:", a.status, a.statusText), !a.ok)
+      if (o.debug("[ModelAPI] Response status:", a.status, a.statusText), !a.ok)
         throw new Error(`HTTP ${a.status}: ${a.statusText}`);
       const r = await a.json();
-      if (l.debug("[ModelAPI] Response data:", r), r.data && Array.isArray(r.data)) {
+      if (o.debug("[ModelAPI] Response data:", r), r.data && Array.isArray(r.data)) {
         const n = r.data.map((i) => ({
           id: i.id,
           name: i.name || i.id,
           owned_by: i.owned_by,
           is_active: !0
         }));
-        return l.debug("[ModelAPI] Parsed", n.length, "models"), n.length === 0 && l.warn("[ModelAPI] ⚠️ Received empty model list from backend:", r), n;
+        return o.debug("[ModelAPI] Parsed", n.length, "models"), n.length === 0 && o.warn("[ModelAPI] ⚠️ Received empty model list from backend:", r), n;
       }
       if (Array.isArray(r)) {
         const n = r.map((i) => ({
@@ -3586,11 +3586,11 @@ class _e {
           owned_by: i.owned_by,
           is_active: !0
         }));
-        return l.debug("[ModelAPI] Parsed", n.length, "models (array format)"), n;
+        return o.debug("[ModelAPI] Parsed", n.length, "models (array format)"), n;
       }
-      return l.warn("[ModelAPI] Abnormal return format"), [];
+      return o.warn("[ModelAPI] Abnormal return format"), [];
     } catch (e) {
-      throw l.error("[ModelAPI] Failed to get model list:", e), e;
+      throw o.error("[ModelAPI] Failed to get model list:", e), e;
     }
   }
   // Prompt related API
@@ -3612,9 +3612,9 @@ class _e {
   async getMetadataStore() {
     const e = await this.getAuthToken();
     if (!e)
-      return l.warn("Auth token not found, returning null to trigger init"), null;
+      return o.warn("Auth token not found, returning null to trigger init"), null;
     try {
-      l.debug("🔍 Checking if _ command exists...");
+      o.debug("🔍 Checking if _ command exists...");
       const t = await fetch(`${this.apiURL}command/_`, {
         method: "GET",
         headers: {
@@ -3622,19 +3622,19 @@ class _e {
         }
       });
       if (t.status === 401 || t.status === 404)
-        return l.debug("📦 _ command does not exist, need to create metadata store"), null;
+        return o.debug("📦 _ command does not exist, need to create metadata store"), null;
       if (!t.ok)
-        return l.warn(`Failed to get metadata store HTTP ${t.status}: ${t.statusText}`), null;
+        return o.warn(`Failed to get metadata store HTTP ${t.status}: ${t.statusText}`), null;
       const a = await t.json();
-      l.debug("✅ Found existing _ command, parsing metadata...");
+      o.debug("✅ Found existing _ command, parsing metadata...");
       try {
         const r = JSON.parse(a.content);
-        return l.debug("📊 Metadata parsed successfully, version:", r.version), r;
+        return o.debug("📊 Metadata parsed successfully, version:", r.version), r;
       } catch (r) {
-        return l.warn("Metadata parsing failed, returning default structure:", r), this.getDefaultMetadataStructure();
+        return o.warn("Metadata parsing failed, returning default structure:", r), this.getDefaultMetadataStructure();
       }
     } catch (t) {
-      return l.warn("Error fetching metadata store:", t.message), null;
+      return o.warn("Error fetching metadata store:", t.message), null;
     }
   }
   // Update central metadata store
@@ -3667,14 +3667,14 @@ class _e {
     const t = await this.getAuthToken();
     if (!t)
       throw new Error("Authentication token not found, please ensure you are logged in");
-    l.debug("📦 Creating central metadata store...");
+    o.debug("📦 Creating central metadata store...");
     const a = {
       command: "/_",
       title: "System Metadata Store",
       content: JSON.stringify(e, null, 2),
       access_control: null
     };
-    l.debug("📤 Sending create request, data:", a);
+    o.debug("📤 Sending create request, data:", a);
     const r = await fetch(`${this.apiURL}create`, {
       method: "POST",
       headers: {
@@ -3685,10 +3685,10 @@ class _e {
     });
     if (!r.ok) {
       const i = await r.text();
-      throw l.error("❌ Failed to create metadata store:", i), new Error(`Failed to create metadata store HTTP ${r.status}: ${i}`);
+      throw o.error("❌ Failed to create metadata store:", i), new Error(`Failed to create metadata store HTTP ${r.status}: ${i}`);
     }
     const n = await r.json();
-    return l.debug("✅ Metadata store created successfully:", n), n;
+    return o.debug("✅ Metadata store created successfully:", n), n;
   }
   // Get current user info
   async getCurrentUser() {
@@ -3710,7 +3710,7 @@ class _e {
         name: a.name || a.email || "Unknown User"
       };
     } catch (t) {
-      return l.warn("Failed to get user info, using default:", t), {
+      return o.warn("Failed to get user info, using default:", t), {
         id: "unknown-user",
         name: "Unknown User"
       };
@@ -3811,7 +3811,7 @@ Tags: `, c = {
       max_tokens: 100,
       temperature: 0.3
     };
-    for (let s = 1; s <= a; s++)
+    for (let l = 1; l <= a; l++)
       try {
         const d = await fetch(this.chatURL, {
           method: "POST",
@@ -3828,9 +3828,9 @@ Tags: `, c = {
           return p.choices[0].message.content.split(",").map((m) => m.trim()).filter(Boolean);
         throw new Error("Invalid response format");
       } catch (d) {
-        if (l.warn(`AI tag generation failed (Attempt ${s}/${a}):`, d), s === a)
+        if (o.warn(`AI tag generation failed (Attempt ${l}/${a}):`, d), l === a)
           throw d;
-        await new Promise((p) => setTimeout(p, 1e3 * s));
+        await new Promise((p) => setTimeout(p, 1e3 * l));
       }
   }
   // Batch get categories
@@ -3862,7 +3862,7 @@ Title: ${d.title}
 Content: ${d.content.substring(0, 150)}...`
     ).join(`
 
-`), s = {
+`), l = {
       model: await this.getCurrentModel(),
       messages: [
         { role: "system", content: n },
@@ -3880,7 +3880,7 @@ Content: ${d.content.substring(0, 150)}...`
             "Content-Type": "application/json",
             Authorization: `Bearer ${a}`
           },
-          body: JSON.stringify(s)
+          body: JSON.stringify(l)
         });
         if (!p.ok)
           throw new Error(`HTTP ${p.status}: ${p.statusText}`);
@@ -3900,14 +3900,14 @@ Content: ${d.content.substring(0, 150)}...`
             const _ = b.match(/(?:ID:\s*)?(\d+)[,:]\s*(?:Category:\s*)?([a-z-]+)/i);
             if (_) {
               const y = parseInt(_[1], 10) - 1, x = _[2].trim();
-              y >= 0 && y < e.length && v.includes(x) ? h[y] = x : y >= 0 && y < e.length && (l.warn(`Invalid batch category "${x}" for prompt ${y + 1}, using default`), h[y] = "productivity");
+              y >= 0 && y < e.length && v.includes(x) ? h[y] = x : y >= 0 && y < e.length && (o.warn(`Invalid batch category "${x}" for prompt ${y + 1}, using default`), h[y] = "productivity");
             }
           }), h;
         }
         throw new Error("Invalid response format");
       } catch (p) {
-        if (l.warn(`Batch classification failed (Attempt ${d}/${t}):`, p), d === t)
-          return l.warn("Batch classification failed, using keyword fallback"), e.map((u) => {
+        if (o.warn(`Batch classification failed (Attempt ${d}/${t}):`, p), d === t)
+          return o.warn("Batch classification failed, using keyword fallback"), e.map((u) => {
             const m = (u.title + " " + u.content).toLowerCase();
             return m.includes("code") || m.includes("programming") || m.includes("dev") ? "coding" : m.includes("data") || m.includes("analysis") ? "data" : m.includes("write") || m.includes("article") || m.includes("creative") ? "writing" : (m.includes("business") || m.includes("office") || m.includes("email"), "productivity");
           });
@@ -3941,7 +3941,7 @@ Command Name: `, c = {
       max_tokens: 50,
       temperature: 0.3
     };
-    for (let s = 1; s <= a; s++)
+    for (let l = 1; l <= a; l++)
       try {
         const d = await fetch(this.chatURL, {
           method: "POST",
@@ -3960,9 +3960,9 @@ Command Name: `, c = {
         }
         throw new Error("Invalid response format");
       } catch (d) {
-        if (l.warn(`AI command generation failed (Attempt ${s}/${a}):`, d), s === a)
+        if (o.warn(`AI command generation failed (Attempt ${l}/${a}):`, d), l === a)
           throw d;
-        await new Promise((p) => setTimeout(p, 1e3 * s));
+        await new Promise((p) => setTimeout(p, 1e3 * l));
       }
   }
   // Format Conversion
@@ -4003,7 +4003,7 @@ Command Name: `, c = {
       stream: !1,
       temperature: 0.7
     };
-    for (let s = 1; s <= a; s++)
+    for (let l = 1; l <= a; l++)
       try {
         const d = await fetch(this.chatURL, {
           method: "POST",
@@ -4016,17 +4016,17 @@ Command Name: `, c = {
         if (!d.ok)
           throw new Error(`HTTP ${d.status}: ${d.statusText}`);
         const p = await d.json();
-        if (l.debug("AI Raw Response Data:", p), !p)
+        if (o.debug("AI Raw Response Data:", p), !p)
           throw new Error("API returned empty/null response");
         if (p.choices && p.choices.length > 0) {
           const u = p.choices[0].message.content;
-          return l.debug("AI Raw Response Content:", u), this.parseGeneratedContent(u);
+          return o.debug("AI Raw Response Content:", u), this.parseGeneratedContent(u);
         }
-        throw l.error("Invalid response structure:", p), new Error("Invalid response format: missing choices field");
+        throw o.error("Invalid response structure:", p), new Error("Invalid response format: missing choices field");
       } catch (d) {
-        if (l.warn(`AI prompt generation failed (Attempt ${s}/${a}):`, d), s === a)
+        if (o.warn(`AI prompt generation failed (Attempt ${l}/${a}):`, d), l === a)
           throw d;
-        await new Promise((p) => setTimeout(p, 1e3 * s));
+        await new Promise((p) => setTimeout(p, 1e3 * l));
       }
   }
   // Build AI Prompt Generation Template
@@ -4038,15 +4038,15 @@ Command Name: `, c = {
       strictNamingRules: n,
       variableSyntaxRules: i,
       availableVariables: c,
-      availableCategoriesList: s
+      availableCategoriesList: l
       // Get dynamic category list
     } = e, d = a ? "- **Important**: The prompt content MUST include the `{{CLIPBOARD}}` variable to receive clipboard content." : "";
     let p = "";
-    s && Array.isArray(s) && s.length > 0 && (p = `## Available Category List
-`, p += s.map((h) => `- ${h.id} (${h.name})`).join(`
+    l && Array.isArray(l) && l.length > 0 && (p = `## Available Category List
+`, p += l.map((h) => `- ${h.id} (${h.name})`).join(`
 `));
     let u = "English";
-    switch (o.lang) {
+    switch (s.lang) {
       case "zh-CN":
         u = "Simplified Chinese";
         break;
@@ -4095,7 +4095,7 @@ ${t}
 ${d}
 ${r || ""}
 `;
-    return l.debug("Final prompt sent to AI:", g), g;
+    return o.debug("Final prompt sent to AI:", g), g;
   }
   // Parse AI Generated Content
   parseGeneratedContent(e) {
@@ -4166,10 +4166,10 @@ ${r || ""}
     ];
     let n;
     for (; (n = t.exec(e)) !== null; ) {
-      const [i, c, , s, , d] = n;
+      const [i, c, , l, , d] = n;
       r.includes(c) || a.find((p) => p.name === c) || a.push({
         name: c,
-        type: s || "text",
+        type: l || "text",
         properties: d || "",
         fullSyntax: i
       });
@@ -4191,7 +4191,7 @@ class fe {
    */
   save(e) {
     if (!e || !e.prompts || !e.categories) {
-      l.warn("⚠️ Invalid data, save operation cancelled.");
+      o.warn("⚠️ Invalid data, save operation cancelled.");
       return;
     }
     try {
@@ -4200,9 +4200,9 @@ class fe {
         timestamp: Date.now(),
         data: e
       };
-      this.storage.setItem(this.storageKey, JSON.stringify(t)), l.debug(`💾 Data saved to local cache (Version: ${this.version})`);
+      this.storage.setItem(this.storageKey, JSON.stringify(t)), o.debug(`💾 Data saved to local cache (Version: ${this.version})`);
     } catch (t) {
-      l.error("❌ Failed to save local cache:", t), this.isQuotaExceeded(t) && (l.warn("⚠️ Storage quota exceeded, clearing old cache..."), this.clear());
+      o.error("❌ Failed to save local cache:", t), this.isQuotaExceeded(t) && (o.warn("⚠️ Storage quota exceeded, clearing old cache..."), this.clear());
     }
   }
   /**
@@ -4213,14 +4213,14 @@ class fe {
     try {
       const e = this.storage.getItem(this.storageKey);
       if (!e)
-        return l.debug("ℹ️ Local cache is empty."), null;
+        return o.debug("ℹ️ Local cache is empty."), null;
       const t = JSON.parse(e);
       if (t.version !== this.version)
-        return l.warn(`Cache version mismatch (Required: ${this.version}, Found: ${t.version}). Cache invalidated.`), this.clear(), null;
+        return o.warn(`Cache version mismatch (Required: ${this.version}, Found: ${t.version}). Cache invalidated.`), this.clear(), null;
       const a = Date.now() - t.timestamp;
-      return a > T.CACHE_TTL && l.debug(`Cache expired (${Math.round(a / 1e3 / 60)} mins ago), background update triggered.`), l.debug(`✅ Loaded data from local cache (Version: ${this.version})`), t.data;
+      return a > T.CACHE_TTL && o.debug(`Cache expired (${Math.round(a / 1e3 / 60)} mins ago), background update triggered.`), o.debug(`✅ Loaded data from local cache (Version: ${this.version})`), t.data;
     } catch (e) {
-      return l.error("❌ Failed to load local cache:", e), this.clear(), null;
+      return o.error("❌ Failed to load local cache:", e), this.clear(), null;
     }
   }
   /**
@@ -4228,9 +4228,9 @@ class fe {
    */
   clear() {
     try {
-      this.storage.removeItem(this.storageKey), l.debug("🗑️ Local cache cleared.");
+      this.storage.removeItem(this.storageKey), o.debug("🗑️ Local cache cleared.");
     } catch (e) {
-      l.error("❌ Failed to clear local cache:", e);
+      o.error("❌ Failed to clear local cache:", e);
     }
   }
   /**
@@ -4268,13 +4268,13 @@ class O {
   // Refresh categories with current language
   refreshCategories() {
     const e = L(), t = this.metadata && this.metadata.categories ? this.metadata.categories : [];
-    this.categories = this.mergeCategories(e, t), l.debug("[PromptManager] Categories refreshed for lang:", T.LANGUAGE);
+    this.categories = this.mergeCategories(e, t), o.debug("[PromptManager] Categories refreshed for lang:", T.LANGUAGE);
   }
   // Merge default categories with custom/cached categories
   mergeCategories(e, t) {
     const a = [...e], r = new Set(e.map((n) => n.id));
     return !t || !Array.isArray(t) || (t.forEach((n) => {
-      const i = a.findIndex((s) => s.id === n.id);
+      const i = a.findIndex((l) => l.id === n.id);
       if (i !== -1) {
         const d = { ...a[i] };
         n.order !== void 0 && (d.order = n.order), a[i] = d;
@@ -4286,22 +4286,22 @@ class O {
   }
   // New Central Storage Data Loading Strategy (Stale-While-Revalidate)
   async loadData(e) {
-    l.debug("🚀 Loading data (Stale-While-Revalidate)..."), this.categories = L();
+    o.debug("🚀 Loading data (Stale-While-Revalidate)..."), this.categories = L();
     const t = this.storage.load();
-    t && (this.prompts = t.prompts || [], t.categories && Array.isArray(t.categories) && (this.categories = t.categories), t.metadata && t.metadata.categories && (this.categories = this.mergeCategories(L(), t.metadata.categories)), this.metadata = t.metadata || null, this.currentUser = t.currentUser || null, l.debug(`✅ Loaded ${this.prompts.length} prompts from cache.`), typeof e == "function" && e(this.prompts));
+    t && (this.prompts = t.prompts || [], t.categories && Array.isArray(t.categories) && (this.categories = t.categories), t.metadata && t.metadata.categories && (this.categories = this.mergeCategories(L(), t.metadata.categories)), this.metadata = t.metadata || null, this.currentUser = t.currentUser || null, o.debug(`✅ Loaded ${this.prompts.length} prompts from cache.`), typeof e == "function" && e(this.prompts));
     try {
-      l.debug("🔄 [Background] Syncing latest data...");
+      o.debug("🔄 [Background] Syncing latest data...");
       const a = await this.api.getCurrentUser(), r = await this.api.getAllPrompts(), n = await this.api.getMetadataStore();
-      this.currentUser = a, n ? this.metadata = n : (l.debug("📦 [Background] Metadata store does not exist, initializing..."), await this.initializeMetadataStore()), await this.syncMetadataWithPrompts(r), this.metadata && this.metadata.categories && (this.categories = this.mergeCategories(L(), this.metadata.categories));
+      this.currentUser = a, n ? this.metadata = n : (o.debug("📦 [Background] Metadata store does not exist, initializing..."), await this.initializeMetadataStore()), await this.syncMetadataWithPrompts(r), this.metadata && this.metadata.categories && (this.categories = this.mergeCategories(L(), this.metadata.categories));
       const i = await this.convertAllFromOpenWebUIFormat(r), c = localStorage.getItem("defaultPromptsSeeded");
       if (!i.some((d) => d.command === "de-sql-optimizer") && !c) {
-        l.debug("🌱 Missing default prompts detected and not seeded, starting auto-seeding..."), await this.seedDefaultPrompts(), localStorage.setItem("defaultPromptsSeeded", "true");
+        o.debug("🌱 Missing default prompts detected and not seeded, starting auto-seeding..."), await this.seedDefaultPrompts(), localStorage.setItem("defaultPromptsSeeded", "true");
         const d = await this.api.getAllPrompts(), p = await this.convertAllFromOpenWebUIFormat(d);
-        this.prompts = p, this.enhancePromptsWithMetadata(this.prompts), l.debug("✨ Default data seeding completed, refreshing UI"), typeof e == "function" && e(this.prompts), this.saveDataToCache();
+        this.prompts = p, this.enhancePromptsWithMetadata(this.prompts), o.debug("✨ Default data seeding completed, refreshing UI"), typeof e == "function" && e(this.prompts), this.saveDataToCache();
       } else
-        this.enhancePromptsWithMetadata(i), JSON.stringify(this.prompts) !== JSON.stringify(i) ? (l.debug("✨ [Background] Data updated, refreshing UI and updating cache."), this.prompts = i, typeof e == "function" && e(this.prompts), this.saveDataToCache()) : l.debug("✅ [Background] Data is up to date.");
+        this.enhancePromptsWithMetadata(i), JSON.stringify(this.prompts) !== JSON.stringify(i) ? (o.debug("✨ [Background] Data updated, refreshing UI and updating cache."), this.prompts = i, typeof e == "function" && e(this.prompts), this.saveDataToCache()) : o.debug("✅ [Background] Data is up to date.");
     } catch (a) {
-      l.error("❌ [Background] Failed to sync data:", a), t || (l.debug("Failing over to default prompts"), await this.initializeWithDefaults(), typeof e == "function" && e(this.prompts));
+      o.error("❌ [Background] Failed to sync data:", a), t || (o.debug("Failing over to default prompts"), await this.initializeWithDefaults(), typeof e == "function" && e(this.prompts));
     }
     return this.prompts;
   }
@@ -4339,16 +4339,16 @@ class O {
   // Initialize Metadata Store
   async initializeMetadataStore() {
     var e;
-    l.debug("🔧 Initializing central metadata store...");
+    o.debug("🔧 Initializing central metadata store...");
     try {
       let t = [];
       try {
-        t = await this.api.getAllPrompts(), l.debug("📄 Found", t.length, "existing business prompts");
+        t = await this.api.getAllPrompts(), o.debug("📄 Found", t.length, "existing business prompts");
       } catch (a) {
-        l.warn("⚠️ Failed to get existing prompts:", a), t = [];
+        o.warn("⚠️ Failed to get existing prompts:", a), t = [];
       }
-      if (this.metadata = this.api.getDefaultMetadataStructure(), l.debug("📦 Creating default metadata structure"), t && t.length > 0) {
-        l.debug("📝 Starting to generate metadata for existing prompts...");
+      if (this.metadata = this.api.getDefaultMetadataStructure(), o.debug("📦 Creating default metadata structure"), t && t.length > 0) {
+        o.debug("📝 Starting to generate metadata for existing prompts...");
         for (let a = 0; a < t.length; a++) {
           const r = t[a], n = ((e = r.command) == null ? void 0 : e.replace("/", "")) || r.id || `prompt_${a}`, i = this.fallbackCategoryDetection(r.content, r.title);
           this.metadata.prompts[n] = {
@@ -4362,25 +4362,25 @@ class O {
             lastModifiedBy: this.currentUser || { id: "unknown", name: "Unknown User" },
             createdAt: r.timestamp ? new Date(r.timestamp * 1e3).toISOString() : (/* @__PURE__ */ new Date()).toISOString(),
             updatedAt: (/* @__PURE__ */ new Date()).toISOString()
-          }, l.debug(`✓ [${a + 1}/${t.length}] Initializing prompt "${r.title}" -> Category: ${i}`);
+          }, o.debug(`✓ [${a + 1}/${t.length}] Initializing prompt "${r.title}" -> Category: ${i}`);
         }
-        l.debug("✅ Existing prompts metadata generation completed");
+        o.debug("✅ Existing prompts metadata generation completed");
       } else
-        l.debug("ℹ️ No existing business prompts found, using clean metadata structure");
-      (!t || t.length === 0) && l.debug("ℹ️ No existing business prompts found, creating empty metadata structure"), l.debug("💾 Saving metadata store to OpenWebUI..."), await this.api.createMetadataStore(this.metadata), l.debug("✅ Metadata store initialization completed, containing metadata for", Object.keys(this.metadata.prompts).length, "prompts");
+        o.debug("ℹ️ No existing business prompts found, using clean metadata structure");
+      (!t || t.length === 0) && o.debug("ℹ️ No existing business prompts found, creating empty metadata structure"), o.debug("💾 Saving metadata store to OpenWebUI..."), await this.api.createMetadataStore(this.metadata), o.debug("✅ Metadata store initialization completed, containing metadata for", Object.keys(this.metadata.prompts).length, "prompts");
     } catch (t) {
-      throw l.error("❌ Failed to initialize metadata store:", t), this.metadata = this.api.getDefaultMetadataStructure(), t;
+      throw o.error("❌ Failed to initialize metadata store:", t), this.metadata = this.api.getDefaultMetadataStructure(), t;
     }
   }
   // Sync Metadata with Prompts Data
   async syncMetadataWithPrompts(e) {
     var r;
-    l.debug("🔄 Syncing metadata with prompts...");
+    o.debug("🔄 Syncing metadata with prompts...");
     let t = !1;
     for (const n of e) {
       const i = ((r = n.command) == null ? void 0 : r.replace("/", "")) || n.id;
       if (!this.metadata.prompts[i]) {
-        l.debug("➕ Found new prompt:", n.title, "adding to metadata with auto-detection");
+        o.debug("➕ Found new prompt:", n.title, "adding to metadata with auto-detection");
         const c = this.fallbackCategoryDetection(n.content, n.title);
         this.metadata.prompts[i] = {
           categoryId: c,
@@ -4403,14 +4403,14 @@ class O {
     for (const n of Object.keys(this.metadata.prompts)) {
       if (n === "/_" || n === "_") continue;
       const i = n.replace(/^\//, "");
-      a.includes(i) || (l.debug("🗑️ Cleaning up metadata for deleted prompt:", n), delete this.metadata.prompts[n], t = !0);
+      a.includes(i) || (o.debug("🗑️ Cleaning up metadata for deleted prompt:", n), delete this.metadata.prompts[n], t = !0);
     }
-    t && (await this.saveMetadataStore(), l.debug("💾 Metadata sync completed"));
+    t && (await this.saveMetadataStore(), o.debug("💾 Metadata sync completed"));
   }
   // Enhance Prompts with Metadata
   enhancePromptsWithMetadata(e) {
     var t;
-    l.debug("✨ Enhancing prompts with metadata...");
+    o.debug("✨ Enhancing prompts with metadata...");
     for (const a of e) {
       const r = a.command || a.id;
       let n = this.metadata.prompts[r];
@@ -4420,18 +4420,18 @@ class O {
   // Save Metadata to Central Storage
   async saveMetadataStore() {
     if (!this.metadata) {
-      l.warn("⚠️ Metadata is empty, skipping save");
+      o.warn("⚠️ Metadata is empty, skipping save");
       return;
     }
     try {
-      await this.api.updateMetadataStore(this.metadata), l.debug("💾 Metadata saved to central storage");
+      await this.api.updateMetadataStore(this.metadata), o.debug("💾 Metadata saved to central storage");
     } catch (e) {
-      throw l.error("❌ Failed to save metadata:", e), e;
+      throw o.error("❌ Failed to save metadata:", e), e;
     }
   }
   // Fallback plan when API fails (No longer load default prompts)
   async initializeWithDefaults() {
-    l.debug("🔧 API connection failed, initializing default system...");
+    o.debug("🔧 API connection failed, initializing default system...");
     try {
       this.prompts = R.map((e) => ({
         id: e.id,
@@ -4443,7 +4443,7 @@ class O {
         isFavorite: !1,
         createdAt: (/* @__PURE__ */ new Date()).toISOString(),
         updatedAt: (/* @__PURE__ */ new Date()).toISOString()
-      })), l.debug("📝 Initializing default prompt list:", this.prompts.length), this.metadata = this.api.getDefaultMetadataStructure();
+      })), o.debug("📝 Initializing default prompt list:", this.prompts.length), this.metadata = this.api.getDefaultMetadataStructure();
       for (const e of this.prompts) {
         const t = e.command;
         this.metadata.prompts[t] = {
@@ -4457,18 +4457,18 @@ class O {
         };
       }
       try {
-        await this.api.createMetadataStore(this.metadata), l.debug("✅ Default metadata store created successfully");
+        await this.api.createMetadataStore(this.metadata), o.debug("✅ Default metadata store created successfully");
       } catch (e) {
-        l.warn("⚠️ Failed to create metadata store, system will run in memory:", e);
+        o.warn("⚠️ Failed to create metadata store, system will run in memory:", e);
       }
-      l.debug("✅ Default system initialization completed");
+      o.debug("✅ Default system initialization completed");
     } catch (e) {
-      l.error("❌ Initialization failed:", e), this.prompts || (this.prompts = []), this.metadata || (this.metadata = this.api.getDefaultMetadataStructure());
+      o.error("❌ Initialization failed:", e), this.prompts || (this.prompts = []), this.metadata || (this.metadata = this.api.getDefaultMetadataStructure());
     }
   }
   // Seed Default Prompts to Server
   async seedDefaultPrompts() {
-    l.debug("🌱 Seeding default prompts...");
+    o.debug("🌱 Seeding default prompts...");
     let e = 0;
     for (const t of R)
       try {
@@ -4487,32 +4487,32 @@ class O {
           updatedAt: (/* @__PURE__ */ new Date()).toISOString()
         }), e++;
       } catch (a) {
-        a.message && a.message.includes("already exists") ? l.debug(`Prompt ${t.title} already exists, skipping`) : l.error(`Failed to seed prompt ${t.title}:`, a);
+        a.message && a.message.includes("already exists") ? o.debug(`Prompt ${t.title} already exists, skipping`) : o.error(`Failed to seed prompt ${t.title}:`, a);
       }
-    e > 0 && this.metadata && (await this.saveMetadataStore(), l.debug(`✅ Successfully seeded ${e} default prompts`));
+    e > 0 && this.metadata && (await this.saveMetadataStore(), o.debug(`✅ Successfully seeded ${e} default prompts`));
   }
   // Notes sync function removed, focus on central metadata storage
   // Sync Prompts to OpenWebUI API
   async syncPromptsToAPI(e = "Prompts", t = this.prompts) {
-    l.debug(`🌐 Starting to sync ${t.length} ${e} to OpenWebUI API...`);
+    o.debug(`🌐 Starting to sync ${t.length} ${e} to OpenWebUI API...`);
     let a = 0, r = 0;
     for (let n = 0; n < t.length; n++) {
       const i = t[n];
       try {
-        const c = (i.command || i.id).replace(/^\/+/, ""), s = {
+        const c = (i.command || i.id).replace(/^\/+/, ""), l = {
           command: `/${c}`,
           title: i.title,
           content: i.content,
           access_control: null
         };
-        l.debug(`📤 [${n + 1}/${t.length}] Creating prompt: ${i.title} (Command: /${c})`);
-        const d = await this.api.createPrompt(s);
-        l.debug(`✅ [${n + 1}/${t.length}] Created successfully:`, d), a++;
+        o.debug(`📤 [${n + 1}/${t.length}] Creating prompt: ${i.title} (Command: /${c})`);
+        const d = await this.api.createPrompt(l);
+        o.debug(`✅ [${n + 1}/${t.length}] Created successfully:`, d), a++;
       } catch (c) {
-        r++, String(c.message).includes("409") ? l.warn(`⚠️ [${n + 1}/${t.length}] Prompt "${i.title}" already exists in OpenWebUI, skipping creation.`) : l.error(`❌ [${n + 1}/${t.length}] Failed to sync prompt "${i.title}" to OpenWebUI API:`, c);
+        r++, String(c.message).includes("409") ? o.warn(`⚠️ [${n + 1}/${t.length}] Prompt "${i.title}" already exists in OpenWebUI, skipping creation.`) : o.error(`❌ [${n + 1}/${t.length}] Failed to sync prompt "${i.title}" to OpenWebUI API:`, c);
       }
     }
-    return l.debug(`🎯 ${e} sync completed! Success: ${a}, Error: ${r}`), { successCount: a, errorCount: r };
+    return o.debug(`🎯 ${e} sync completed! Success: ${a}, Error: ${r}`), { successCount: a, errorCount: r };
   }
   // Save Data (Use debounce to save metadata)
   saveData() {
@@ -4549,7 +4549,7 @@ class O {
       if (a && a.length > 0)
         return ge(a);
     } catch (a) {
-      l.warn("AI tag generation failed, using keyword matching:", a);
+      o.warn("AI tag generation failed, using keyword matching:", a);
     }
     return this.fallbackCategoryDetection(e, t);
   }
@@ -4563,7 +4563,7 @@ class O {
       if (n && n.length > 0)
         return this.cache.aiTags.set(a, n), n;
     } catch (n) {
-      l.warn("AI tag extraction failed, using keyword matching:", n);
+      o.warn("AI tag extraction failed, using keyword matching:", n);
     }
     const r = this.fallbackTagExtraction(e, t);
     return this.cache.aiTags.set(a, r), r;
@@ -4619,7 +4619,7 @@ class O {
           timestamp: Date.now()
         }), t.push(r);
       } catch (r) {
-        l.warn("Batch tag generation failed:", r), t.push(this.fallbackTagExtraction(a.content, a.title));
+        o.warn("Batch tag generation failed:", r), t.push(this.fallbackTagExtraction(a.content, a.title));
       }
     return t[t.length - 1];
   }
@@ -4649,14 +4649,14 @@ class O {
       e - r.timestamp > t && this.cache.apiResults.delete(a);
     for (const [a, r] of this.cache.commands.entries())
       e - this.cache.lastCacheClean > t && this.cache.commands.delete(a);
-    this.cache.lastCacheClean = e, l.debug("Cache cleaned.");
+    this.cache.lastCacheClean = e, o.debug("Cache cleaned.");
   }
   // Preload Common Data
   async preloadCommonData() {
     const e = this.prompts.sort((t, a) => a.usageCount - t.usageCount).slice(0, 5);
     for (const t of e) {
       const a = this.generateCacheKey(t.content, t.title, "tags");
-      this.cache.aiTags.has(a) || this.extractTags(t.content, t.title).catch(l.warn);
+      this.cache.aiTags.has(a) || this.extractTags(t.content, t.title).catch(o.warn);
     }
   }
   // Use General Chat Interface for Batch Category Retrieval
@@ -4670,7 +4670,7 @@ class O {
   }
   // Keyword Tag Extraction Fallback Plan
   fallbackTagExtraction(e, t) {
-    return ue(e + " " + t);
+    return me(e + " " + t);
   }
   // Use AI to Generate Smart Command Name
   async generateCommand(e, t = "") {
@@ -4679,7 +4679,7 @@ class O {
       if (a)
         return this.api.sanitizeCommand(a);
     } catch (a) {
-      l.warn("AI command generation failed, using fallback plan:", a);
+      o.warn("AI command generation failed, using fallback plan:", a);
     }
     return this.fallbackGenerateCommand(e);
   }
@@ -4736,7 +4736,7 @@ class O {
   async createPrompt(e) {
     try {
       let t = e.command || this.fallbackGenerateCommand(e.title);
-      ["_"].includes(t) && (t = `${t}-custom`, l.debug(`⚠️ Command conflict detected "${t}", auto-adjusted to "${t}-custom"`));
+      ["_"].includes(t) && (t = `${t}-custom`, o.debug(`⚠️ Command conflict detected "${t}", auto-adjusted to "${t}-custom"`));
       const r = e.id || P(), n = this.normalizeCategoryId(e.category), i = {
         id: r,
         title: e.title,
@@ -4757,13 +4757,13 @@ class O {
       };
       try {
         await this.api.createPrompt(c);
-      } catch (s) {
-        if (s.message.includes("400") || s.message.includes("already registered")) {
-          l.warn(`Command "/${t}" already exists, trying with suffix...`);
+      } catch (l) {
+        if (l.message.includes("400") || l.message.includes("already registered")) {
+          o.warn(`Command "/${t}" already exists, trying with suffix...`);
           const d = Math.floor(Math.random() * 1e4).toString();
-          t = `${t}-${d}`, i.command = t, c.command = `/${t}`, await this.api.createPrompt(c), l.debug(`✅ Prompt created successfully with suffix: ${t}`);
+          t = `${t}-${d}`, i.command = t, c.command = `/${t}`, await this.api.createPrompt(c), o.debug(`✅ Prompt created successfully with suffix: ${t}`);
         } else
-          throw s;
+          throw l;
       }
       return this.prompts.push(i), this.metadata && this.currentUser && (this.metadata.prompts[t] = {
         categoryId: n,
@@ -4776,9 +4776,9 @@ class O {
         lastModifiedBy: this.currentUser,
         createdAt: (/* @__PURE__ */ new Date()).toISOString(),
         updatedAt: (/* @__PURE__ */ new Date()).toISOString()
-      }, this.saveData(), this.saveDataToCache()), l.debug("✅ Prompt created successfully:", i.title), i;
+      }, this.saveData(), this.saveDataToCache()), o.debug("✅ Prompt created successfully:", i.title), i;
     } catch (t) {
-      throw l.error("❌ Failed to create prompt:", t), t;
+      throw o.error("❌ Failed to create prompt:", t), t;
     }
   }
   // Update prompt
@@ -4794,13 +4794,13 @@ class O {
         ...t,
         category: n,
         updatedAt: (/* @__PURE__ */ new Date()).toISOString()
-      }, c = i.command || this.fallbackGenerateCommand(i.title), s = {
+      }, c = i.command || this.fallbackGenerateCommand(i.title), l = {
         command: `/${c}`,
         title: i.title,
         content: i.content,
         access_control: null
       };
-      if (await this.api.updatePrompt(c, s), this.prompts[a] = i, this.metadata && this.currentUser) {
+      if (await this.api.updatePrompt(c, l), this.prompts[a] = i, this.metadata && this.currentUser) {
         const d = c;
         this.metadata.prompts[d] ? (this.metadata.prompts[d].categoryId = n, this.metadata.prompts[d].lastModifiedBy = this.currentUser, this.metadata.prompts[d].updatedAt = (/* @__PURE__ */ new Date()).toISOString()) : this.metadata.prompts[d] = {
           categoryId: n,
@@ -4815,9 +4815,9 @@ class O {
           updatedAt: (/* @__PURE__ */ new Date()).toISOString()
         }, this.saveData(), this.saveDataToCache();
       }
-      return l.debug("✅ Prompt updated successfully:", i.title), this.prompts[a];
+      return o.debug("✅ Prompt updated successfully:", i.title), this.prompts[a];
     } catch (a) {
-      throw l.error("❌ Failed to update prompt:", a), a;
+      throw o.error("❌ Failed to update prompt:", a), a;
     }
   }
   // Delete Prompt
@@ -4830,13 +4830,13 @@ class O {
       let r = a.command;
       r || (r = await this.generateCommand(a.title)), r = r.replace(/^\/+/, ""), r || (r = e.replace(/^openwebui_/, ""));
       try {
-        l.debug(`🗑️ Attempting to delete OpenWebUI prompt, command: ${r}`), await this.api.deletePrompt(r), l.debug("✅ Deleted from OpenWebUI API successfully");
+        o.debug(`🗑️ Attempting to delete OpenWebUI prompt, command: ${r}`), await this.api.deletePrompt(r), o.debug("✅ Deleted from OpenWebUI API successfully");
       } catch (n) {
-        l.warn("⚠️ Failed to delete from OpenWebUI API:", n), n.message.includes("404") || n.message.includes("We could not find") ? l.debug("ℹ️ Prompt does not exist in OpenWebUI API, continuing to delete local record") : l.warn("⚠️ API deletion encountered issue, but will continue to delete local record:", n.message);
+        o.warn("⚠️ Failed to delete from OpenWebUI API:", n), n.message.includes("404") || n.message.includes("We could not find") ? o.debug("ℹ️ Prompt does not exist in OpenWebUI API, continuing to delete local record") : o.warn("⚠️ API deletion encountered issue, but will continue to delete local record:", n.message);
       }
-      return this.prompts.splice(t, 1), this.metadata && this.metadata.prompts[r] && (delete this.metadata.prompts[r], this.saveData(), this.saveDataToCache()), l.debug(`✅ Prompt "${a.title}" deleted`), !0;
+      return this.prompts.splice(t, 1), this.metadata && this.metadata.prompts[r] && (delete this.metadata.prompts[r], this.saveData(), this.saveDataToCache()), o.debug(`✅ Prompt "${a.title}" deleted`), !0;
     } catch (t) {
-      throw l.error("❌ Failed to delete prompt:", t), t;
+      throw o.error("❌ Failed to delete prompt:", t), t;
     }
   }
   // Get Prompts
@@ -4886,7 +4886,7 @@ class O {
   // Deserialize from JSON (Supports code block format)
   deserialize(e, t = !1) {
     const a = this.deserializeToData(e, t);
-    a && (this.prompts = a.prompts, this.categories = a.categories, t || l.debug("Loaded", this.prompts.length, "prompts from JSON format"));
+    a && (this.prompts = a.prompts, this.categories = a.categories, t || o.debug("Loaded", this.prompts.length, "prompts from JSON format"));
   }
   // Deserialize to pure data object (No side effects)
   deserializeToData(e, t = !1) {
@@ -4912,7 +4912,7 @@ class O {
           description: i.description || ""
         })), categories: $ };
     } catch (a) {
-      return t || l.warn("JSON format parse failed, trying CSV format:", a), this.deserializeCSVToData(e, t);
+      return t || o.warn("JSON format parse failed, trying CSV format:", a), this.deserializeCSVToData(e, t);
     }
     return null;
   }
@@ -4922,15 +4922,15 @@ class O {
 `);
     if (a.length < 2) return null;
     const r = a[0].split(","), i = a.slice(1).map((c) => {
-      const s = c.match(/(".*?"|[^,]+)/g);
-      if (!s) return null;
+      const l = c.match(/(".*?"|[^,]+)/g);
+      if (!l) return null;
       const d = {};
       return r.forEach((p, u) => {
-        let m = s[u];
+        let m = l[u];
         m && m.startsWith('"') && m.endsWith('"') && (m = m.slice(1, -1).replace(/""/g, '"')), p === "tags" ? d[p] = m ? m.split(";") : [] : p === "usageCount" ? d[p] = parseInt(m, 10) || 0 : p === "isFavorite" ? d[p] = m === "true" : d[p] = m || "";
       }), d.category = this.normalizeCategoryId(d.category || "productivity"), d;
     }).filter(Boolean);
-    return t || l.debug("Loaded", i.length, "prompts from CSV format"), { prompts: i, categories: $ };
+    return t || o.debug("Loaded", i.length, "prompts from CSV format"), { prompts: i, categories: $ };
   }
   // Deserialize CSV format (Backward compatibility)
   deserializeCSV(e) {
@@ -4945,11 +4945,11 @@ class O {
       const i = n.match(/(".*?"|[^,]+)/g);
       if (!i) return null;
       const c = {};
-      return a.forEach((s, d) => {
+      return a.forEach((l, d) => {
         let p = i[d];
-        p && p.startsWith('"') && p.endsWith('"') && (p = p.slice(1, -1).replace(/""/g, '"')), s === "tags" ? c[s] = p ? p.split(";") : [] : s === "usageCount" ? c[s] = parseInt(p, 10) || 0 : s === "isFavorite" ? c[s] = p === "true" : c[s] = p || "";
+        p && p.startsWith('"') && p.endsWith('"') && (p = p.slice(1, -1).replace(/""/g, '"')), l === "tags" ? c[l] = p ? p.split(";") : [] : l === "usageCount" ? c[l] = parseInt(p, 10) || 0 : l === "isFavorite" ? c[l] = p === "true" : c[l] = p || "";
       }), c;
-    }).filter(Boolean), l.debug("Loaded", this.prompts.length, "prompts from CSV format");
+    }).filter(Boolean), o.debug("Loaded", this.prompts.length, "prompts from CSV format");
   }
   // Get Default Prompts
   getDefaultPrompts() {
@@ -4981,10 +4981,10 @@ class O {
           lastModifiedBy: this.currentUser,
           createdAt: (/* @__PURE__ */ new Date()).toISOString(),
           updatedAt: (/* @__PURE__ */ new Date()).toISOString()
-        }, this.saveData(), l.debug("📊 Prompt usage stats updated:", t.title, `(Total: ${(r == null ? void 0 : r.usage.total) || 1}, User: ${(r == null ? void 0 : r.usage.byUser[this.currentUser.id]) || 1})`);
+        }, this.saveData(), o.debug("📊 Prompt usage stats updated:", t.title, `(Total: ${(r == null ? void 0 : r.usage.total) || 1}, User: ${(r == null ? void 0 : r.usage.byUser[this.currentUser.id]) || 1})`);
       }
     } catch (t) {
-      l.warn("❌ Failed to update usage stats:", t);
+      o.warn("❌ Failed to update usage stats:", t);
     }
   }
   // Toggle Favorite (Sync to central metadata storage)
@@ -5005,11 +5005,11 @@ class O {
           lastModifiedBy: this.currentUser,
           createdAt: (/* @__PURE__ */ new Date()).toISOString(),
           updatedAt: (/* @__PURE__ */ new Date()).toISOString()
-        }, await this.saveMetadataStore(), this.saveDataToCache(), l.debug("⭐ Prompt favorite status updated:", t.title, t.isFavorite ? "Favorited" : "Unfavorited"), t.isFavorite;
+        }, await this.saveMetadataStore(), this.saveDataToCache(), o.debug("⭐ Prompt favorite status updated:", t.title, t.isFavorite ? "Favorited" : "Unfavorited"), t.isFavorite;
       }
       return !1;
     } catch (t) {
-      throw l.error("❌ Failed to toggle favorite status:", t), t;
+      throw o.error("❌ Failed to toggle favorite status:", t), t;
     }
   }
   // Import Prompts (Merge into Note)
@@ -5066,9 +5066,9 @@ class O {
           this.categories.push(...n);
         }
       }
-      return t > 0 && (await this.saveMetadataStore(), l.debug(`Import completed: ${t} new prompts, ${a} skipped`)), { importedCount: t, skippedCount: a };
+      return t > 0 && (await this.saveMetadataStore(), o.debug(`Import completed: ${t} new prompts, ${a} skipped`)), { importedCount: t, skippedCount: a };
     } catch (t) {
-      throw l.error("Failed to import prompts:", t), t;
+      throw o.error("Failed to import prompts:", t), t;
     }
   }
   // Export Prompts (Get latest data from Note)
@@ -5083,25 +5083,25 @@ class O {
   }
   // Force reset central metadata storage (For debugging)
   async forceResetAndSyncDefaults() {
-    l.debug("🔄 Force resetting central metadata storage...");
+    o.debug("🔄 Force resetting central metadata storage...");
     try {
-      return this.prompts = [], this.metadata = null, this.currentUser = null, l.debug("📝 In-memory data cleared"), await this.loadData(), l.debug("✅ Force reset completed!"), this.prompts.length;
+      return this.prompts = [], this.metadata = null, this.currentUser = null, o.debug("📝 In-memory data cleared"), await this.loadData(), o.debug("✅ Force reset completed!"), this.prompts.length;
     } catch (e) {
-      throw l.error("❌ Force reset failed:", e), e;
+      throw o.error("❌ Force reset failed:", e), e;
     }
   }
   // Force resync to API (Reset metadata and re-initialize)
   async forceResyncToAPI() {
-    l.debug("🔄 Force resyncing to API...");
+    o.debug("🔄 Force resyncing to API...");
     try {
-      return this.metadata = null, l.debug("🗑️ Metadata reset"), await this.loadData(), l.debug("✅ Force API resync completed!"), this.prompts.length;
+      return this.metadata = null, o.debug("🗑️ Metadata reset"), await this.loadData(), o.debug("✅ Force API resync completed!"), this.prompts.length;
     } catch (e) {
-      throw l.error("❌ Force resync failed:", e), e;
+      throw o.error("❌ Force resync failed:", e), e;
     }
   }
   // Sync only existing prompts to OpenWebUI API (No reset)
   async syncExistingToAPI() {
-    l.debug("🔄 Starting to sync existing prompts to OpenWebUI API...");
+    o.debug("🔄 Starting to sync existing prompts to OpenWebUI API...");
     let e = 0, t = 0;
     for (let a = 0; a < this.prompts.length; a++) {
       const r = this.prompts[a];
@@ -5112,14 +5112,14 @@ class O {
           content: r.content,
           access_control: null
         };
-        l.debug(`📤 [${a + 1}/${this.prompts.length}] Syncing: ${r.title} (Command: /${n})`);
+        o.debug(`📤 [${a + 1}/${this.prompts.length}] Syncing: ${r.title} (Command: /${n})`);
         const c = await this.api.createPrompt(i);
-        l.debug(`✅ [${a + 1}/${this.prompts.length}] Sync successful:`, c), e++;
+        o.debug(`✅ [${a + 1}/${this.prompts.length}] Sync successful:`, c), e++;
       } catch (n) {
-        t++, String(n.message).includes("409") ? l.warn(`⚠️ [${a + 1}/${this.prompts.length}] Prompt "${r.title}" already exists in OpenWebUI, skipping creation.`) : l.error(`❌ [${a + 1}/${this.prompts.length}] Failed to sync prompt "${r.title}" to OpenWebUI API:`, n);
+        t++, String(n.message).includes("409") ? o.warn(`⚠️ [${a + 1}/${this.prompts.length}] Prompt "${r.title}" already exists in OpenWebUI, skipping creation.`) : o.error(`❌ [${a + 1}/${this.prompts.length}] Failed to sync prompt "${r.title}" to OpenWebUI API:`, n);
       }
     }
-    return l.debug(`🎯 Existing prompts sync completed! Success: ${e}, Error: ${t}`), { successCount: e, errorCount: t };
+    return o.debug(`🎯 Existing prompts sync completed! Success: ${e}, Error: ${t}`), { successCount: e, errorCount: t };
   }
 }
 class ye {
@@ -5130,7 +5130,7 @@ class ye {
    * Start background sync service
    */
   start() {
-    l.debug("🔄 SyncService started..."), window.addEventListener("online", () => this.triggerSync("Network restored")), document.addEventListener("visibilitychange", () => {
+    o.debug("🔄 SyncService started..."), window.addEventListener("online", () => this.triggerSync("Network restored")), document.addEventListener("visibilitychange", () => {
       document.visibilityState === "visible" && this.triggerSync("Page visible again");
     }), this.startPolling();
   }
@@ -5138,7 +5138,7 @@ class ye {
    * Stop background sync service
    */
   stop() {
-    l.debug("🛑 SyncService stopped."), window.removeEventListener("online", () => this.triggerSync("Network restored")), document.removeEventListener("visibilitychange", () => {
+    o.debug("🛑 SyncService stopped."), window.removeEventListener("online", () => this.triggerSync("Network restored")), document.removeEventListener("visibilitychange", () => {
       document.visibilityState === "visible" && this.triggerSync("Page visible again");
     }), this.stopPolling();
   }
@@ -5148,16 +5148,16 @@ class ye {
    */
   async triggerSync(e = "Unknown reason") {
     if (Date.now() - this.lastSyncTime < 60 * 1e3) {
-      l.debug(`ℹ️ [${e}] Sync throttled, less than 1 min since last sync.`);
+      o.debug(`ℹ️ [${e}] Sync throttled, less than 1 min since last sync.`);
       return;
     }
-    l.debug(`🚀 [${e}] Triggering background sync...`);
+    o.debug(`🚀 [${e}] Triggering background sync...`);
     try {
       await this.promptManager.loadData((a) => {
-        l.debug("🔄 [SyncService] Background sync complete, UI updated.");
+        o.debug("🔄 [SyncService] Background sync complete, UI updated.");
       }), this.lastSyncTime = Date.now();
     } catch (a) {
-      l.error("❌ [SyncService] Background sync failed:", a);
+      o.error("❌ [SyncService] Background sync failed:", a);
     }
   }
   /**
@@ -5165,14 +5165,14 @@ class ye {
    */
   startPolling() {
     this.syncInterval && this.stopPolling(), this.syncInterval = setInterval(() => {
-      document.visibilityState === "visible" ? this.triggerSync("Periodic polling") : l.debug("💤 Page hidden, skipping poll.");
-    }, this.syncIntervalTime), l.debug(`🕒 Polling started, interval: ${this.syncIntervalTime / 1e3 / 60} mins`);
+      document.visibilityState === "visible" ? this.triggerSync("Periodic polling") : o.debug("💤 Page hidden, skipping poll.");
+    }, this.syncIntervalTime), o.debug(`🕒 Polling started, interval: ${this.syncIntervalTime / 1e3 / 60} mins`);
   }
   /**
    * Stop periodic polling
    */
   stopPolling() {
-    this.syncInterval && (clearInterval(this.syncInterval), this.syncInterval = null, l.debug("🛑 Polling stopped."));
+    this.syncInterval && (clearInterval(this.syncInterval), this.syncInterval = null, o.debug("🛑 Polling stopped."));
   }
 }
 class j {
@@ -5196,7 +5196,7 @@ class j {
           if (this.isValidInputElement(n))
             return this.cachedSelector = a, n;
       } catch (r) {
-        l.warn(`Invalid selector: ${a}`, r);
+        o.warn(`Invalid selector: ${a}`, r);
       }
     const t = document.activeElement;
     return this.isValidInputElement(t) ? t : null;
@@ -5258,19 +5258,26 @@ class G {
           const r = t.split(`
 `);
           if (r.length === 1) {
-            const c = document.createTextNode(t);
-            a.appendChild(c), a.className = "";
+            const l = document.createTextNode(t);
+            a.appendChild(l), a.className = "";
           } else
-            a.className = "", r.forEach((c, s) => {
-              if (s > 0 && a.appendChild(document.createElement("br")), c.trim()) {
-                const d = document.createTextNode(c);
-                a.appendChild(d);
-              } else s < r.length - 1 && a.appendChild(document.createElement("br"));
+            a.className = "", r.forEach((l, d) => {
+              if (d > 0 && a.appendChild(document.createElement("br")), l.trim()) {
+                const p = document.createTextNode(l);
+                a.appendChild(p);
+              } else d < r.length - 1 && a.appendChild(document.createElement("br"));
             });
           const n = window.getSelection(), i = document.createRange();
-          return i.selectNodeContents(a), i.collapse(!1), n.removeAllRanges(), n.addRange(i), !0;
+          i.selectNodeContents(a), i.collapse(!1), n.removeAllRanges(), n.addRange(i);
+          const c = new InputEvent("input", {
+            bubbles: !0,
+            cancelable: !0,
+            inputType: "insertText",
+            data: t
+          });
+          return e.dispatchEvent(c), !0;
         } catch (a) {
-          console.warn("ProseMirror strategy failed:", a);
+          console.warn("ProseMirror DOM strategy failed:", a), e.innerHTML = "";
         }
         return document.execCommand && document.execCommand("insertText", !1, t) || (e.innerHTML = `<p>${t.replace(/\n/g, "</p><p>")}</p>`), !0;
       }
@@ -5348,7 +5355,7 @@ class G {
     if (a === "textarea" || a === "input" ? r = e.value : e.hasAttribute("contenteditable") && (r = e.textContent || ""), r.length > 0) {
       const n = t.split(" ").slice(0, 3), i = r.split(" ");
       return n.some((c) => i.some(
-        (s) => s.includes(c) || c.includes(s)
+        (l) => l.includes(c) || c.includes(l)
       ));
     }
     return !1;
@@ -5356,15 +5363,24 @@ class G {
 }
 class H {
   constructor(e, t) {
-    this.detector = e, this.inserter = t;
+    this.detector = e, this.inserter = t, this.isInserting = !1;
   }
   async insertPrompt(e, t = "command") {
-    return e ? t === "content" ? await this.insertFullContent(e) : await this.insertCommand(e) : (this.showError("Prompt is empty"), !1);
+    if (o.debug("insertPrompt called", { title: e == null ? void 0 : e.title, mode: t, isInserting: this.isInserting }), this.isInserting)
+      return o.debug("Insertion already in progress, skipping..."), !1;
+    this.isInserting = !0;
+    try {
+      return e ? t === "content" ? await this.insertFullContent(e) : await this.insertCommand(e) : (this.showError("Prompt is empty"), !1);
+    } finally {
+      setTimeout(() => {
+        this.isInserting = !1, o.debug("Insertion lock released");
+      }, 300);
+    }
   }
   async insertFullContent(e) {
-    if (!(e != null && e.content))
+    if (o.debug("insertFullContent"), !(e != null && e.content))
       return this.showError("Prompt content is empty"), !1;
-    const t = me(e.content), a = this.detector.detectActiveInput();
+    const t = ue(e.content), a = this.detector.detectActiveInput();
     if (!a)
       return this.showError("No available input field found"), !1;
     await this.clearInputContent(a), await new Promise((n) => setTimeout(n, 50));
@@ -5372,6 +5388,7 @@ class H {
     return r ? (this.inserter.triggerInputEvents(a), this.updateUsageStats(e), this.handleInitialPlaceholderSelection(a)) : this.showError("Insertion failed, please copy and paste manually"), r;
   }
   async insertCommand(e) {
+    o.debug("insertCommand");
     const t = this.detector.detectActiveInput();
     if (!t)
       return this.showError("No available input field found"), !1;
@@ -5390,15 +5407,18 @@ class H {
   }
   // Simulate step-by-step command typing process (Optimized: Batch typing)
   async simulateTypingCommand(e, t) {
+    console.log("[PromptPlus Debug] simulateTypingCommand", t);
     try {
-      return e.focus(), await new Promise((r) => setTimeout(r, 50)), await this.typeCharacter(e, "/"), await this.waitForSuggestionsPanel() || (console.warn("Prompt panel did not appear, using fixed delay"), await new Promise((r) => setTimeout(r, 300))), t.length > 0 && await this.typeBatch(e, t), await new Promise((r) => setTimeout(r, 150)), await this.simulateTabKey(e), !0;
+      e.focus(), await new Promise((r) => setTimeout(r, 50));
+      const a = e.classList.contains("ProseMirror");
+      return o.debug("isProseMirror:", a), a ? (o.debug("ProseMirror: Inserting slash"), document.execCommand("insertText", !1, "/"), await new Promise((r) => setTimeout(r, 300)), t.length > 0 && (o.debug("ProseMirror: Inserting command name"), document.execCommand("insertText", !1, t)), await new Promise((r) => setTimeout(r, 300)), o.debug("ProseMirror: Triggering Enter"), await this.simulateEnterKey(e), !0) : (o.debug("Standard: Inserting slash"), await this.typeCharacter(e, "/"), await new Promise((r) => setTimeout(r, 300)), t.length > 0 && (o.debug("Standard: Inserting command name"), await this.typeBatch(e, t)), await new Promise((r) => setTimeout(r, 300)), o.debug("Standard: Triggering Enter"), await this.simulateEnterKey(e), !0);
     } catch (a) {
       return console.error("Simulation typing failed:", a), !1;
     }
   }
   // Batch type multiple characters
   async typeBatch(e, t) {
-    e.focus();
+    o.debug("typeBatch", t), e.focus();
     const a = t[0], r = this.getKeyInfo(a), n = new KeyboardEvent("keydown", {
       key: r.key,
       code: r.code,
@@ -5408,31 +5428,38 @@ class H {
       cancelable: !0,
       composed: !0
     });
-    if (e.dispatchEvent(n), !n.defaultPrevented && !(document.execCommand && document.execCommand("insertText", !1, t))) {
-      const u = e.tagName.toLowerCase();
-      if (u === "textarea" || u === "input") {
-        const m = e.selectionStart || 0, g = e.selectionEnd || 0, h = e.value || "";
-        e.value = h.substring(0, m) + t + h.substring(g), e.selectionStart = e.selectionEnd = m + t.length;
+    e.dispatchEvent(n);
+    let i = !1;
+    if (!n.defaultPrevented && (i = document.execCommand && document.execCommand("insertText", !1, t), o.debug("typeBatch execCommand result:", i), !i)) {
+      const p = e.tagName.toLowerCase();
+      if (p === "textarea" || p === "input") {
+        const u = e.selectionStart || 0, m = e.selectionEnd || 0, g = e.value || "";
+        e.value = g.substring(0, u) + t + g.substring(m), e.selectionStart = e.selectionEnd = u + t.length, i = !0;
       } else if (e.hasAttribute("contenteditable")) {
-        const m = window.getSelection(), g = m.getRangeAt(0);
-        g.deleteContents();
-        const h = document.createTextNode(t);
-        g.insertNode(h), g.setStartAfter(h), g.setEndAfter(h), m.removeAllRanges(), m.addRange(g);
+        const u = window.getSelection();
+        if (u.rangeCount > 0) {
+          const m = u.getRangeAt(0);
+          m.deleteContents();
+          const g = document.createTextNode(t);
+          m.insertNode(g), m.setStartAfter(g), m.setEndAfter(g), u.removeAllRanges(), u.addRange(m), i = !0;
+        }
       }
     }
-    await new Promise((p) => setTimeout(p, 10));
-    const i = new InputEvent("input", {
-      bubbles: !0,
-      cancelable: !0,
-      inputType: "insertText",
-      data: t
-    });
-    e.dispatchEvent(i);
-    const c = t[t.length - 1], s = this.getKeyInfo(c), d = new KeyboardEvent("keyup", {
-      key: s.key,
-      code: s.code,
-      keyCode: s.keyCode,
-      which: s.keyCode,
+    if (await new Promise((p) => setTimeout(p, 10)), !i || i && !document.execCommand) {
+      o.debug("typeBatch dispatching manual input event");
+      const p = new InputEvent("input", {
+        bubbles: !0,
+        cancelable: !0,
+        inputType: "insertText",
+        data: t
+      });
+      e.dispatchEvent(p);
+    }
+    const c = t[t.length - 1], l = this.getKeyInfo(c), d = new KeyboardEvent("keyup", {
+      key: l.key,
+      code: l.code,
+      keyCode: l.keyCode,
+      which: l.keyCode,
       bubbles: !0,
       cancelable: !0,
       composed: !0
@@ -5447,15 +5474,15 @@ class H {
       if (r) {
         const n = window.getComputedStyle(r);
         if (n.display !== "none" && n.visibility !== "hidden")
-          return console.log("✅ Prompt panel appeared"), !0;
+          return o.debug("✅ Prompt panel appeared"), !0;
       }
       await new Promise((n) => setTimeout(n, a));
     }
-    return console.warn("⚠️ Wait for prompt panel timeout"), !1;
+    return o.warn("⚠️ Wait for prompt panel timeout"), !1;
   }
   // Simulate key press for single character
   async typeCharacter(e, t) {
-    e.focus();
+    o.debug("typeCharacter", t), e.focus();
     const a = this.getKeyInfo(t), r = new KeyboardEvent("keydown", {
       key: a.key,
       code: a.code,
@@ -5465,20 +5492,25 @@ class H {
       cancelable: !0,
       composed: !0
     });
-    if (e.dispatchEvent(r), !r.defaultPrevented && !(document.execCommand && document.execCommand("insertText", !1, t))) {
-      const d = e.tagName.toLowerCase();
-      if (d === "textarea" || d === "input") {
-        const p = e.selectionStart || 0, u = e.selectionEnd || 0, m = e.value || "";
-        e.value = m.substring(0, p) + t + m.substring(u), e.selectionStart = e.selectionEnd = p + 1;
+    e.dispatchEvent(r);
+    let n = !1;
+    if (!r.defaultPrevented && (n = document.execCommand && document.execCommand("insertText", !1, t), o.debug("typeCharacter execCommand result:", n), !n)) {
+      const l = e.tagName.toLowerCase();
+      if (l === "textarea" || l === "input") {
+        const d = e.selectionStart || 0, p = e.selectionEnd || 0, u = e.value || "";
+        e.value = u.substring(0, d) + t + u.substring(p), e.selectionStart = e.selectionEnd = d + 1, n = !0;
       } else if (e.hasAttribute("contenteditable")) {
-        const p = window.getSelection(), u = p.getRangeAt(0);
-        u.deleteContents();
-        const m = document.createTextNode(t);
-        u.insertNode(m), u.setStartAfter(m), u.setEndAfter(m), p.removeAllRanges(), p.addRange(u);
+        const d = window.getSelection();
+        if (d.rangeCount > 0) {
+          const p = d.getRangeAt(0);
+          p.deleteContents();
+          const u = document.createTextNode(t);
+          p.insertNode(u), p.setStartAfter(u), p.setEndAfter(u), d.removeAllRanges(), d.addRange(p), n = !0;
+        }
       }
     }
-    await new Promise((s) => setTimeout(s, 10));
-    const n = new KeyboardEvent("keypress", {
+    await new Promise((l) => setTimeout(l, 10));
+    const i = new KeyboardEvent("keypress", {
       key: a.key,
       code: a.code,
       keyCode: a.keyCode,
@@ -5487,14 +5519,16 @@ class H {
       cancelable: !0,
       composed: !0
     });
-    e.dispatchEvent(n);
-    const i = new InputEvent("input", {
-      bubbles: !0,
-      cancelable: !0,
-      inputType: "insertText",
-      data: t
-    });
-    e.dispatchEvent(i);
+    if (e.dispatchEvent(i), !n || n && !document.execCommand) {
+      o.debug("typeCharacter dispatching manual input event");
+      const l = new InputEvent("input", {
+        bubbles: !0,
+        cancelable: !0,
+        inputType: "insertText",
+        data: t
+      });
+      e.dispatchEvent(l);
+    }
     const c = new KeyboardEvent("keyup", {
       key: a.key,
       code: a.code,
@@ -5536,26 +5570,18 @@ class H {
       keyCode: e.charCodeAt(0)
     };
   }
-  // Simulate Tab key press
-  async simulateTabKey(e) {
+  // Simulate Enter key press
+  async simulateEnterKey(e) {
+    o.debug("simulateEnterKey");
     const t = new KeyboardEvent("keydown", {
-      key: "Tab",
-      code: "Tab",
-      keyCode: 9,
-      which: 9,
+      key: "Enter",
+      code: "Enter",
+      keyCode: 13,
+      which: 13,
       bubbles: !0,
       cancelable: !0
     });
-    e.dispatchEvent(t), await new Promise((r) => setTimeout(r, 50));
-    const a = new KeyboardEvent("keyup", {
-      key: "Tab",
-      code: "Tab",
-      keyCode: 9,
-      which: 9,
-      bubbles: !0,
-      cancelable: !0
-    });
-    e.dispatchEvent(a);
+    e.dispatchEvent(t);
   }
   async updateUsageStats(e) {
     window.promptManager && await window.promptManager.updateUsageStats(e.id);
@@ -5570,8 +5596,8 @@ class H {
   async clearInputContent(e) {
     if (e)
       try {
-        if (console.log("[Clear] Start clearing input field:", e.id, e.tagName), e.focus(), await new Promise((r) => setTimeout(r, 50)), e.classList.contains("ProseMirror")) {
-          console.log("[Clear] ProseMirror editor detected"), e.innerHTML = "";
+        if (o.debug("[Clear] Start clearing input field:", e.id, e.tagName), e.focus(), await new Promise((r) => setTimeout(r, 50)), e.classList.contains("ProseMirror")) {
+          o.debug("[Clear] ProseMirror editor detected"), e.innerHTML = "";
           const r = document.createElement("p");
           r.className = "is-empty is-editor-empty", e.appendChild(r);
           const n = new InputEvent("input", {
@@ -5579,22 +5605,22 @@ class H {
             cancelable: !0,
             inputType: "deleteContentBackward"
           });
-          e.dispatchEvent(n), console.log("[Clear] ProseMirror cleared");
+          e.dispatchEvent(n), o.debug("[Clear] ProseMirror cleared");
           return;
         }
         try {
           if (e.focus(), document.execCommand("selectAll", !1, null) && document.execCommand("delete", !1, null)) {
-            console.log("[Clear] execCommand clear success"), this.inserter.triggerInputEvents(e);
+            o.debug("[Clear] execCommand clear success"), this.inserter.triggerInputEvents(e);
             return;
           }
         } catch (r) {
-          console.warn("[Clear] execCommand failed:", r);
+          o.warn("[Clear] execCommand failed:", r);
         }
         const t = e.tagName.toLowerCase();
         if (t === "textarea" || t === "input")
-          console.log("[Clear] Processing textarea/input"), e.value = "", e.selectionStart = 0, e.selectionEnd = 0;
+          o.debug("[Clear] Processing textarea/input"), e.value = "", e.selectionStart = 0, e.selectionEnd = 0;
         else if (e.hasAttribute("contenteditable")) {
-          console.log("[Clear] Processing contenteditable"), e.innerHTML = "", e.textContent = "";
+          o.debug("[Clear] Processing contenteditable"), e.innerHTML = "", e.textContent = "";
           try {
             const r = document.createRange(), n = window.getSelection();
             r.selectNodeContents(e), r.collapse(!0), n.removeAllRanges(), n.addRange(r);
@@ -5628,7 +5654,7 @@ class H {
   // Select placeholder
   selectPlaceholder(e, t, a) {
     const r = document.createRange(), n = window.getSelection();
-    let i = 0, c = null, s = 0, d = null, p = 0;
+    let i = 0, c = null, l = 0, d = null, p = 0;
     const u = document.createTreeWalker(
       e,
       NodeFilter.SHOW_TEXT,
@@ -5638,13 +5664,13 @@ class H {
     let m;
     for (; m = u.nextNode(); ) {
       const g = m.textContent.length;
-      if (!c && i + g > t && (c = m, s = t - i), !d && i + g >= t + a) {
+      if (!c && i + g > t && (c = m, l = t - i), !d && i + g >= t + a) {
         d = m, p = t + a - i;
         break;
       }
       i += g;
     }
-    c && d && (r.setStart(c, s), r.setEnd(d, p), n.removeAllRanges(), n.addRange(r));
+    c && d && (r.setStart(c, l), r.setEnd(d, p), n.removeAllRanges(), n.addRange(r));
   }
 }
 class Z {
@@ -5719,8 +5745,8 @@ class Z {
       const p = this.validateVariable(d);
       p.isValid || t.push(`Variable syntax error: {{${d}}} - ${p.error}`);
     }), [...new Set(n.map((d) => d.split("|")[0].trim()))].length !== n.length && a.push("Duplicate variable names detected, please check");
-    const s = t.length === 0 ? 1 : Math.max(0, 1 - t.length * 0.2);
-    return { errors: t, warnings: a, score: s };
+    const l = t.length === 0 ? 1 : Math.max(0, 1 - t.length * 0.2);
+    return { errors: t, warnings: a, score: l };
   }
   // Validate Single Variable
   validateVariable(e) {
@@ -5743,8 +5769,8 @@ class Z {
           };
         const c = r.match(/:(.+)$/);
         if (c) {
-          const s = c[1];
-          if (!this.validateVariableProperties(s))
+          const l = c[1];
+          if (!this.validateVariableProperties(l))
             return {
               isValid: !1,
               error: "Variable property format error"
@@ -5766,12 +5792,12 @@ class Z {
       const [, i, c] = n;
       if (!/^[a-zA-Z][a-zA-Z0-9_]*$/.test(i))
         return !1;
-      const s = c.trim();
-      if (!(/^["'][^"']*["']$/.test(s) || // Quoted string
-      /^\[[^\]]*\]$/.test(s) || // Array
-      /^\d+(\.\d+)?$/.test(s) || // Number
-      /^(true|false)$/.test(s) || // Boolean
-      /^[a-zA-Z0-9_-]+$/.test(s)))
+      const l = c.trim();
+      if (!(/^["'][^"']*["']$/.test(l) || // Quoted string
+      /^\[[^\]]*\]$/.test(l) || // Array
+      /^\d+(\.\d+)?$/.test(l) || // Number
+      /^(true|false)$/.test(l) || // Boolean
+      /^[a-zA-Z0-9_-]+$/.test(l)))
         return !1;
     }
     return !0;
@@ -5885,35 +5911,35 @@ class ve {
   }
   // Intelligent generation with validation
   async generateWithRetry(e, t = null) {
-    l.debug("[AIRetryManager] Starting generateWithRetry with input:", e);
+    o.debug("[AIRetryManager] Starting generateWithRetry with input:", e);
     let a = 0;
     const r = Date.now();
     for (; a < this.maxRetries; )
       try {
-        a++, l.debug(`[AIRetryManager] Attempt ${a}/${this.maxRetries}`), t && t({
+        a++, o.debug(`[AIRetryManager] Attempt ${a}/${this.maxRetries}`), t && t({
           stage: "generating",
           attempt: a,
           maxAttempts: this.maxRetries,
-          message: o.t("generating_attempt", { attempt: a })
-        }), l.debug("[AIRetryManager] Calling api.generatePromptContent with:", e);
+          message: s.t("generating_attempt", { attempt: a })
+        }), o.debug("[AIRetryManager] Calling api.generatePromptContent with:", e);
         const n = await this.api.generatePromptContent(e);
-        l.debug("[AIRetryManager] Received raw result from API:", n), t && t({
+        o.debug("[AIRetryManager] Received raw result from API:", n), t && t({
           stage: "validating",
           attempt: a,
-          message: o.t("validating_content")
-        }), l.debug("[AIRetryManager] Validating generated content...");
+          message: s.t("validating_content")
+        }), o.debug("[AIRetryManager] Validating generated content...");
         const i = this.validator.validateGeneratedContent(n);
-        if (l.debug("[AIRetryManager] Validation result:", i), this.retryHistory.push({
+        if (o.debug("[AIRetryManager] Validation result:", i), this.retryHistory.push({
           attempt: a,
           input: e,
           result: n,
           validation: i,
           timestamp: (/* @__PURE__ */ new Date()).toISOString()
         }), i.isValid)
-          return l.debug("[AIRetryManager] Validation passed, returning success result"), t && t({
+          return o.debug("[AIRetryManager] Validation passed, returning success result"), t && t({
             stage: "completed",
             attempt: a,
-            message: o.t("generation_success"),
+            message: s.t("generation_success"),
             score: i.score
           }), {
             success: !0,
@@ -5923,20 +5949,20 @@ class ve {
             duration: Date.now() - r
           };
         if (a < this.maxRetries) {
-          l.debug(`[AIRetryManager] Validation failed (score: ${i.score}), preparing retry...`), t && t({
+          o.debug(`[AIRetryManager] Validation failed (score: ${i.score}), preparing retry...`), t && t({
             stage: "retrying",
             attempt: a,
-            message: o.t("validation_failed_retry", { score: Math.round(i.score * 100) }),
+            message: s.t("validation_failed_retry", { score: Math.round(i.score * 100) }),
             errors: i.errors,
             warnings: i.warnings
           });
           const c = { ...e };
-          e = this.improveBadGeneration(e, i, a - 1), l.debug("[AIRetryManager] Improved userInput for next retry:", e), l.debug("[AIRetryManager] Original input was:", c), await new Promise((s) => setTimeout(s, 1e3 * a));
+          e = this.improveBadGeneration(e, i, a - 1), o.debug("[AIRetryManager] Improved userInput for next retry:", e), o.debug("[AIRetryManager] Original input was:", c), await new Promise((l) => setTimeout(l, 1e3 * a));
         } else
           return t && t({
             stage: "failed",
             attempt: a,
-            message: o.t("all_retries_failed"),
+            message: s.t("all_retries_failed"),
             finalScore: i.score
           }), {
             success: !1,
@@ -5948,11 +5974,11 @@ class ve {
             canManualEdit: !0
           };
       } catch (n) {
-        if (l.error(`Generation failed (Attempt ${a}):`, n), a >= this.maxRetries)
+        if (o.error(`Generation failed (Attempt ${a}):`, n), a >= this.maxRetries)
           return t && t({
             stage: "error",
             attempt: a,
-            message: o.t("generation_error_msg", { message: n.message })
+            message: s.t("generation_error_msg", { message: n.message })
           }), {
             success: !1,
             error: n.message,
@@ -5965,7 +5991,7 @@ class ve {
   // Improve failed generation
   improveBadGeneration(e, t, a) {
     const r = this.retryStrategies[a] || "addMoreContext", n = t.errors || [], i = t.warnings || [];
-    switch (l.debug(`Improving generation using strategy "${r}" (Attempt ${a + 1})`), r) {
+    switch (o.debug(`Improving generation using strategy "${r}" (Attempt ${a + 1})`), r) {
       case "addMoreContext":
         return this.addMoreContext(e, n, i);
       case "simplifyRequirements":
@@ -6100,26 +6126,26 @@ ${a.join(`
     return a.forEach((n) => {
       n.includes("Variable syntax") && t.push({
         type: "fix",
-        message: o.t("fix_variable_syntax"),
+        message: s.t("fix_variable_syntax"),
         action: "check_variable_syntax",
-        description: o.t("check_variable_syntax")
+        description: s.t("check_variable_syntax")
       }), n.includes("Title") && t.push({
         type: "fix",
-        message: o.t("improve_title"),
+        message: s.t("improve_title"),
         action: "add_title",
-        description: o.t("add_title")
+        description: s.t("add_title")
       }), n.includes("Content") && t.push({
         type: "fix",
-        message: o.t("supplement_content"),
+        message: s.t("supplement_content"),
         action: "add_content",
-        description: o.t("add_content")
+        description: s.t("add_content")
       });
     }), r.forEach((n) => {
       n.includes("too long") && t.push({
         type: "optimize",
-        message: o.t("simplify_content"),
+        message: s.t("simplify_content"),
         action: "shorten_content",
-        description: o.t("shorten_content")
+        description: s.t("shorten_content")
       });
     }), t;
   }
@@ -6135,7 +6161,7 @@ class K {
       this.tokenizeText(a).forEach((n) => {
         this.searchIndex.has(n) || this.searchIndex.set(n, []), this.searchIndex.get(n).push(t.id);
       });
-    }), l.debug(`Simple search initialized with ${this.searchIndex.size} terms and ${this.prompts.length} prompts.`);
+    }), o.debug(`Simple search initialized with ${this.searchIndex.size} terms and ${this.prompts.length} prompts.`);
   }
   // Search method
   search(e) {
@@ -6157,23 +6183,23 @@ class K {
         }
       });
     }), this.prompts.forEach((c) => {
-      const s = c.title.toLowerCase(), d = c.content.toLowerCase();
-      if (s.includes(t) || d.includes(t)) {
+      const l = c.title.toLowerCase(), d = c.content.toLowerCase();
+      if (l.includes(t) || d.includes(t)) {
         const p = r.get(c.id) || 0;
         r.set(c.id, p + a.length + 1);
         const u = n.get(c.id) || [], m = this.findMatches(c, t);
         n.set(c.id, [...u, ...m]);
       }
-    }), Array.from(r.entries()).map(([c, s]) => {
+    }), Array.from(r.entries()).map(([c, l]) => {
       const d = this.prompts.find((u) => u.id === c);
       if (!d) return null;
-      const p = s / (a.length + 1);
+      const p = l / (a.length + 1);
       return {
         item: d,
         score: p,
         matches: n.get(c) || []
       };
-    }).filter(Boolean).sort((c, s) => s.score - c.score);
+    }).filter(Boolean).sort((c, l) => l.score - c.score);
   }
   // Tokenization method
   tokenizeText(e) {
@@ -6213,7 +6239,7 @@ class K {
 class be {
   constructor(e, t = {}) {
     this.container = typeof e == "string" ? document.querySelector(e) : e, this.options = {
-      placeholder: o.t("search_model_placeholder"),
+      placeholder: s.t("search_model_placeholder"),
       onSelect: null,
       ...t
     }, this.models = [], this.filteredModels = [], this.selectedModel = null, this.isOpen = !1, this.highlightIndex = -1, this.element = null, this.input = null, this.dropdown = null, this.init();
@@ -6257,12 +6283,12 @@ class be {
     });
   }
   setModels(e) {
-    this.models = e || [], l.debug("[ModelSelect] Received model list:", this.models.map((t) => t.id)), this.filteredModels = [...this.models], this.renderDropdown();
+    this.models = e || [], o.debug("[ModelSelect] Received model list:", this.models.map((t) => t.id)), this.filteredModels = [...this.models], this.renderDropdown();
   }
   setSelected(e) {
-    l.debug("[ModelSelect] Attempting to select:", e);
+    o.debug("[ModelSelect] Attempting to select:", e);
     const t = this.models.find((a) => a.id === e);
-    t ? (this.selectedModel = t, this.input.value = t.name || t.id, l.debug("[ModelSelect] Selection successful:", t.id)) : (l.warn("[ModelSelect] Model not found:", e), this.input.value = e, this.selectedModel = { id: e, name: e });
+    t ? (this.selectedModel = t, this.input.value = t.name || t.id, o.debug("[ModelSelect] Selection successful:", t.id)) : (o.warn("[ModelSelect] Model not found:", e), this.input.value = e, this.selectedModel = { id: e, name: e });
   }
   filter(e) {
     if (!e)
@@ -6280,7 +6306,7 @@ class be {
   }
   renderDropdown() {
     if (this.filteredModels.length === 0) {
-      this.dropdown.innerHTML = `<div class="model-select-empty">${o.t("no_models_found")}</div>`;
+      this.dropdown.innerHTML = `<div class="model-select-empty">${s.t("no_models_found")}</div>`;
       return;
     }
     this.dropdown.innerHTML = this.filteredModels.map((e, t) => `
@@ -6328,10 +6354,10 @@ class be {
     this.isOpen = !1, this.dropdown.style.display = "none", this.element.classList.remove("open");
   }
   setLoading(e) {
-    e ? (this.input.placeholder = o.t("loading_models"), this.input.disabled = !0) : (this.input.placeholder = this.options.placeholder, this.input.disabled = !1);
+    e ? (this.input.placeholder = s.t("loading_models"), this.input.disabled = !0) : (this.input.placeholder = this.options.placeholder, this.input.disabled = !1);
   }
   setError(e) {
-    this.input.placeholder = e || o.t("load_models_failed"), this.dropdown.innerHTML = `<div class="model-select-error">${e}</div>`;
+    this.input.placeholder = e || s.t("load_models_failed"), this.dropdown.innerHTML = `<div class="model-select-error">${e}</div>`;
   }
 }
 class we {
@@ -6340,10 +6366,10 @@ class we {
   }
   // AI Generate Prompt - Get input from UI
   async generateWithAI() {
-    o.sync(), l.debug("[AIGenerationPanel] generateWithAI called.");
+    s.sync(), o.debug("[AIGenerationPanel] generateWithAI called.");
     const e = document.getElementById("ai-description").value.trim(), t = document.getElementById("ai-use-clipboard").checked, a = document.getElementById("ai-category-select"), r = a ? a.value : "";
     if (!e) {
-      alert(o.t("describe_func_placeholder"));
+      alert(s.t("describe_func_placeholder"));
       return;
     }
     const n = {
@@ -6351,26 +6377,26 @@ class we {
       useClipboard: t,
       selectedCategory: r,
       // Pass selected category
-      strictNamingRules: o.t("strict_naming_rules").trim(),
-      variableSyntaxRules: o.t("variable_syntax_rules").trim(),
+      strictNamingRules: s.t("strict_naming_rules").trim(),
+      variableSyntaxRules: s.t("variable_syntax_rules").trim(),
       availableVariables: this._getVariableHelpMarkdown(),
       availableCategoriesList: this.panelManager.promptManager.categories
       // Pass dynamic category list
     };
-    this.state.lastAIUserInput = { ...n }, l.debug("[AIGenerationPanel] User input saved for retry:", this.state.lastAIUserInput), await this._executeAIGeneration(n);
+    this.state.lastAIUserInput = { ...n }, o.debug("[AIGenerationPanel] User input saved for retry:", this.state.lastAIUserInput), await this._executeAIGeneration(n);
   }
   // Internal core logic for executing AI generation
   async _executeAIGeneration(e) {
-    l.debug("[AIGenerationPanel] Executing AI generation with input:", e), this.resetAIPanelState(), this.showAIProgress(!0), this.updateProgressStep("generating", "active");
+    o.debug("[AIGenerationPanel] Executing AI generation with input:", e), this.resetAIPanelState(), this.showAIProgress(!0), this.updateProgressStep("generating", "active");
     try {
-      l.debug("[AIGenerationPanel] Calling aiRetryManager.generateWithRetry...");
+      o.debug("[AIGenerationPanel] Calling aiRetryManager.generateWithRetry...");
       const t = await this.aiRetryManager.generateWithRetry(
         e,
         (a) => this.handleAIProgress(a)
       );
-      l.debug("[AIGenerationPanel] Received result from aiRetryManager:", t), t.success ? (this.displayAIResult(t.content, t.validation), this.state.currentAIGeneration = t.content) : t.content && t.canManualEdit ? (this.displayAIResult(t.content, t.validation, !0), this.state.currentAIGeneration = t.content) : this.showAIError(t.error || o.t("generation_failed_retry"));
+      o.debug("[AIGenerationPanel] Received result from aiRetryManager:", t), t.success ? (this.displayAIResult(t.content, t.validation), this.state.currentAIGeneration = t.content) : t.content && t.canManualEdit ? (this.displayAIResult(t.content, t.validation, !0), this.state.currentAIGeneration = t.content) : this.showAIError(t.error || s.t("generation_failed_retry"));
     } catch (t) {
-      console.error("[AIGenerationPanel] AI Generation Exception:", t), this.showAIError(`${o.t("generation_error")}${t.message}`);
+      console.error("[AIGenerationPanel] AI Generation Exception:", t), this.showAIError(`${s.t("generation_error")}${t.message}`);
     } finally {
       this.setGenerateButtonState(!1);
     }
@@ -6379,18 +6405,18 @@ class we {
   handleAIProgress(e) {
     const { stage: t, attempt: a, message: r, errors: n, warnings: i, score: c } = e;
     this.updateProgressStep(t, "active");
-    const s = document.getElementById("progress-message");
-    s && (s.textContent = r);
+    const l = document.getElementById("progress-message");
+    l && (l.textContent = r);
   }
   // Display AI Result
   displayAIResult(e, t, a = !1) {
-    l.debug("[AIGenerationPanel] displayAIResult: Starting UI update.", { content: e, validation: t }), this.showAIProgress(!1);
+    o.debug("[AIGenerationPanel] displayAIResult: Starting UI update.", { content: e, validation: t }), this.showAIProgress(!1);
     const r = document.getElementById("progress-message");
-    r && (a ? (r.textContent = `⚠️ ${o.t("generation_failed_retry")}`, r.style.color = "#d69e2e") : (r.textContent = `✅ ${o.t("step_completed")}`, r.style.color = "#38a169"));
+    r && (a ? (r.textContent = `⚠️ ${s.t("generation_failed_retry")}`, r.style.color = "#d69e2e") : (r.textContent = `✅ ${s.t("step_completed")}`, r.style.color = "#38a169"));
     const n = document.getElementById("ai-category-select");
-    n && n.value && (e.category = n.value), l.debug("[AIGenerationPanel] displayAIResult: Prefilling manual form with content:", e), this.panelManager.prefillManualForm(e), setTimeout(() => {
+    n && n.value && (e.category = n.value), o.debug("[AIGenerationPanel] displayAIResult: Prefilling manual form with content:", e), this.panelManager.prefillManualForm(e), setTimeout(() => {
       this.panelManager.editorPanel && this.panelManager.editorPanel.goToStep(2);
-    }, 300), l.debug("[AIGenerationPanel] displayAIResult: UI update process finished.");
+    }, 300), o.debug("[AIGenerationPanel] displayAIResult: UI update process finished.");
   }
   // Toggle AI Panel Collapse/Expand
   toggleAICollapse(e = null) {
@@ -6405,7 +6431,7 @@ class we {
     let a = t.querySelector(".btn-toggle-ai");
     a || (a = document.createElement("button"), a.type = "button", a.className = "btn-toggle-ai", a.style.cssText = "background: none; border: none; cursor: pointer; font-size: 18px; padding: 4px; color: #667eea; transition: transform 0.3s;", t.appendChild(a), a.addEventListener("click", (i) => {
       i.stopPropagation(), this.toggleAICollapse();
-    })), a.innerHTML = e ? "🔼" : "🔽", a.title = e ? o.t("expand_ai") : o.t("collapse_ai");
+    })), a.innerHTML = e ? "🔼" : "🔽", a.title = e ? s.t("expand_ai") : s.t("collapse_ai");
     const r = document.querySelector("#ai-assistant-panel .card-body");
     r && (r.style.display = e ? "none" : "block");
     const n = document.querySelector("#ai-assistant-panel .card-badge");
@@ -6418,7 +6444,7 @@ class we {
       e && t && (e.scrollIntoView({
         behavior: "smooth",
         block: "start"
-      }), l.debug("Auto-scrolling to manual edit form"));
+      }), o.debug("Auto-scrolling to manual edit form"));
     }, 200);
   }
   // Reset AI panel state
@@ -6428,7 +6454,7 @@ class we {
     if (e) {
       e.style.display = "none";
       const t = document.getElementById("progress-message");
-      t && (t.textContent = o.t("ai_processing"), t.style.color = "");
+      t && (t.textContent = s.t("ai_processing"), t.style.color = "");
     }
     this.setGenerateButtonState(!1);
   }
@@ -6462,9 +6488,9 @@ class we {
   // Generate Variable Help Markdown
   _getVariableHelpMarkdown() {
     const e = [
-      ["text", "var_text_desc", "`placeholder`, `default`", `\`{{${o.t("help_example_name")} | text:placeholder="${o.t("help_example_name")}"}}\``],
-      ["textarea", "var_textarea_desc", "`placeholder`, `default`", `\`{{${o.t("help_simple_var")} | textarea:placeholder="${o.t("help_simple_var")}"}}\``],
-      ["select", "var_select_desc", "`options` (JSON array), `default`", `\`{{${o.t("help_typed_var")} | select:options=["${o.t("help_example_high")}","${o.t("help_example_medium")}","${o.t("help_example_low")}"]:default="${o.t("help_example_medium")}"}}\``],
+      ["text", "var_text_desc", "`placeholder`, `default`", `\`{{${s.t("help_example_name")} | text:placeholder="${s.t("help_example_name")}"}}\``],
+      ["textarea", "var_textarea_desc", "`placeholder`, `default`", `\`{{${s.t("help_simple_var")} | textarea:placeholder="${s.t("help_simple_var")}"}}\``],
+      ["select", "var_select_desc", "`options` (JSON array), `default`", `\`{{${s.t("help_typed_var")} | select:options=["${s.t("help_example_high")}","${s.t("help_example_medium")}","${s.t("help_example_low")}"]:default="${s.t("help_example_medium")}"}}\``],
       ["number", "var_number_desc", "`placeholder`, `default`", "`{{quantity | number:default=1}}`"],
       ["checkbox", "var_checkbox_desc", "`default` (Boolean)", "`{{include_summary | checkbox:default=true}}`"],
       ["date", "var_date_desc", "`default`", '`{{start_date | date:default="2024-01-01"}}`'],
@@ -6476,13 +6502,13 @@ class we {
       ["tel", "var_tel_desc", "`placeholder`, `default`", "`{{contact_number | tel}}`"],
       ["time", "var_time_desc", "`default`", '`{{start_time | time:default="09:00"}}`'],
       ["url", "var_url_desc", "`placeholder`, `default`", '`{{source_url | url:placeholder="https://example.com"}}`']
-    ], t = `| ${o.t("var_table_type")} | ${o.t("var_table_desc")} | ${o.t("var_table_props")} | ${o.t("var_table_example")} |`, a = "| ---------------- | ------------------------------------------------------ | ------------------------------ | ---------------------------------------------------------------- |", r = e.map((n) => {
-      const [i, c, s, d] = n;
-      return `| **${i}** | ${o.t(c)} | ${s} | ${d} |`;
+    ], t = `| ${s.t("var_table_type")} | ${s.t("var_table_desc")} | ${s.t("var_table_props")} | ${s.t("var_table_example")} |`, a = "| ---------------- | ------------------------------------------------------ | ------------------------------ | ---------------------------------------------------------------- |", r = e.map((n) => {
+      const [i, c, l, d] = n;
+      return `| **${i}** | ${s.t(c)} | ${l} | ${d} |`;
     }).join(`
 `);
     return `
-${o.t("available_variables_intro")}
+${s.t("available_variables_intro")}
 
 ${t}
 ${a}
@@ -6501,9 +6527,9 @@ class xe {
   }
   // Create the modal element - Two-Step Wizard Layout
   createModal() {
-    l.debug("[EditorPanel] Creating modal with wizard layout. Current lang:", o.lang, "FORCE_UPDATE_CHECK");
+    o.debug("[EditorPanel] Creating modal with wizard layout. Current lang:", s.lang, "FORCE_UPDATE_CHECK");
     const e = document.createElement("div");
-    return e.id = "prompt-edit-modal", e.className = "prompt-modal", e.dataset.lang = o.lang, e.style.zIndex = "10002", ["keydown", "keyup", "keypress"].forEach((t) => {
+    return e.id = "prompt-edit-modal", e.className = "prompt-modal", e.dataset.lang = s.lang, e.style.zIndex = "10002", ["keydown", "keyup", "keypress"].forEach((t) => {
       e.addEventListener(t, (a) => {
         a.key !== "Escape" && (a.stopPropagation(), a.stopImmediatePropagation());
       });
@@ -6512,25 +6538,25 @@ class xe {
                 <!-- Top Toolbar with Step Indicators -->
                 <header class="editor-topbar gradient-header">
                     <div class="topbar-left" style="display: flex; align-items: center; gap: 12px;">
-                        <h2 id="prompt-modal-title" class="editor-title" style="font-size: 1.1rem; font-weight: 600; margin: 0; color: #fff;">${o.t("prompt_editor_title")}</h2>
-                        <span class="editor-badge" style="padding: 4px 10px; border-radius: 20px; background: rgba(255,255,255,0.2); font-size: 11px; font-weight: 500;">${o.t("workspace")}</span>
+                        <h2 id="prompt-modal-title" class="editor-title" style="font-size: 1.1rem; font-weight: 600; margin: 0; color: #fff;">${s.t("prompt_editor_title")}</h2>
+                        <span class="editor-badge" style="padding: 4px 10px; border-radius: 20px; background: rgba(255,255,255,0.2); font-size: 11px; font-weight: 500;">${s.t("workspace")}</span>
                     </div>
                     
                     <!-- Step Indicators (Center) -->
                     <div class="wizard-steps-container">
                         <div class="wizard-step active" data-step="1">
                             <span class="wizard-step-num">1</span>
-                            <span class="wizard-step-label" style="font-size: 13px; font-weight: 500;">${o.t("wizard_step_ai")}</span>
+                            <span class="wizard-step-label" style="font-size: 13px; font-weight: 500;">${s.t("wizard_step_ai")}</span>
                         </div>
                         <div class="wizard-step-line"></div>
                         <div class="wizard-step" data-step="2">
                             <span class="wizard-step-num">2</span>
-                            <span class="wizard-step-label" style="font-size: 13px; font-weight: 500;">${o.t("wizard_step_edit")}</span>
+                            <span class="wizard-step-label" style="font-size: 13px; font-weight: 500;">${s.t("wizard_step_edit")}</span>
                         </div>
                     </div>
                     
                     <div class="topbar-right" style="display: flex; align-items: center; gap: 8px;">
-                        <button type="button" class="topbar-btn topbar-btn-close btn-icon-only btn-close" data-action="closePromptModal" title="${o.t("close")}">
+                        <button type="button" class="topbar-btn topbar-btn-close btn-icon-only btn-close" data-action="closePromptModal" title="${s.t("close")}">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
                         </button>
                     </div>
@@ -6548,54 +6574,54 @@ class xe {
                                     <div class="card-header compact-header" style="padding: 6px 16px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; min-height: 36px;">
                                         <div style="display: flex; align-items: center; gap: 8px;">
                                             <span style="font-size: 14px;">🤖</span>
-                                            <h3 class="card-title" style="font-size: 13px; margin: 0;">${o.t("ai_generate_title")}</h3>
+                                            <h3 class="card-title" style="font-size: 13px; margin: 0;">${s.t("ai_generate_title")}</h3>
                                         </div>
-                                        <span class="card-badge" style="font-size: 10px; padding: 2px 6px;">${o.t("auto_fill")}</span>
+                                        <span class="card-badge" style="font-size: 10px; padding: 2px 6px;">${s.t("auto_fill")}</span>
                                     </div>
                                 
                                 <div class="card-body" style="flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; padding: 12px 16px;">
                                     <div class="ai-form" style="flex: 1; display: flex; flex-direction: column;">
                                         <div class="form-row" style="display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; gap: 12px; margin-bottom: 8px;">
                                             <div class="form-field" style="flex: 1 1 50%; min-width: 0;">
-                                                <label for="ai-model-select" class="field-label" style="display: block; margin-bottom: 2px; font-size: 13px; font-weight: 500;">${o.t("ai_model")}</label>
+                                                <label for="ai-model-select" class="field-label" style="display: block; margin-bottom: 2px; font-size: 13px; font-weight: 500;">${s.t("ai_model")}</label>
                                                 <div id="ai-model-select-container" style="width: 100%;">
                                                     <select id="ai-model-select" class="field-select" style="width: 100%; padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px;">
-                                                        <option value="" disabled selected>${o.t("loading_models") || "Loading models..."}</option>
+                                                        <option value="" disabled selected>${s.t("loading_models") || "Loading models..."}</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-field" style="flex: 1 1 50%; min-width: 0;">
-                                                <label for="ai-category-select" class="field-label" style="display: block; margin-bottom: 2px; font-size: 13px; font-weight: 500;">${o.t("category")}</label>
+                                                <label for="ai-category-select" class="field-label" style="display: block; margin-bottom: 2px; font-size: 13px; font-weight: 500;">${s.t("category")}</label>
                                                 <select id="ai-category-select" class="field-select" style="width: 100%; padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px;">
-                                                    <option value="" disabled selected>${o.t("select_category")}</option>
+                                                    <option value="" disabled selected>${s.t("select_category")}</option>
                                                 </select>
                                             </div>
                                         </div>
                                         
                                         <div class="form-row" style="flex: 1; display: flex; flex-direction: column; min-height: 0;">
                                             <div class="form-field" style="flex: 1; display: flex; flex-direction: column; min-height: 0;">
-                                                <label for="ai-description" class="field-label" style="display: block; margin-bottom: 2px; font-size: 13px; font-weight: 500;">${o.t("func_description")}</label>
+                                                <label for="ai-description" class="field-label" style="display: block; margin-bottom: 2px; font-size: 13px; font-weight: 500;">${s.t("func_description")}</label>
                                                 <textarea id="ai-description" class="field-textarea" style="flex: 1; resize: none; width: 100%; padding: 8px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px;" 
-                                                    placeholder="${o.t("func_desc_placeholder")}"></textarea>
-                                                <p class="field-hint" style="margin: 4px 0 0; font-size: 11px; color: #6b7280;">${o.t("func_desc_hint")}</p>
+                                                    placeholder="${s.t("func_desc_placeholder")}"></textarea>
+                                                <p class="field-hint" style="margin: 4px 0 0; font-size: 11px; color: #6b7280;">${s.t("func_desc_hint")}</p>
                                             </div>
                                         </div>
                                         
                                         <div class="form-row form-row-inline">
                                             <label class="checkbox-field">
                                                 <input type="checkbox" id="ai-use-clipboard" class="field-checkbox">
-                                                <span class="checkbox-label">${o.t("use_clipboard")}</span>
+                                                <span class="checkbox-label">${s.t("use_clipboard")}</span>
                                             </label>
-                                            <p class="field-hint">${o.t("use_clipboard_hint")}</p>
+                                            <p class="field-hint">${s.t("use_clipboard_hint")}</p>
                                         </div>
 
                                         <div class="form-actions" style="display: flex; gap: 8px; justify-content: center; padding: 0; margin-top: 4px;">
                                             <button type="button" class="btn-primary" data-action="generateWithAI" style="min-width: 100px; padding: 4px 12px; height: 32px;">
-                                                <span class="btn-text" style="font-weight: 600; font-size: 12px;">${o.t("generate_btn")}</span>
-                                                <span class="btn-loading" style="display: none;">${o.t("generating")}...</span>
+                                                <span class="btn-text" style="font-weight: 600; font-size: 12px;">${s.t("generate_btn")}</span>
+                                                <span class="btn-loading" style="display: none;">${s.t("generating")}...</span>
                                             </button>
                                             <button type="button" class="btn-secondary" data-action="goToStep2" style="min-width: 80px; padding: 4px 12px; height: 32px; font-size: 12px;">
-                                                ${o.t("skip_to_edit")} →
+                                                ${s.t("skip_to_edit")} →
                                             </button>
                                         </div>
                                         
@@ -6604,20 +6630,20 @@ class xe {
                                             <div class="progress-steps">
                                                 <div class="step" id="step-generating">
                                                     <div class="step-icon">1</div>
-                                                    <div class="step-label">${o.t("step_generating")}</div>
+                                                    <div class="step-label">${s.t("step_generating")}</div>
                                                 </div>
                                                 <div class="step-line"></div>
                                                 <div class="step" id="step-validating">
                                                     <div class="step-icon">2</div>
-                                                    <div class="step-label">${o.t("step_validating")}</div>
+                                                    <div class="step-label">${s.t("step_validating")}</div>
                                                 </div>
                                                 <div class="step-line"></div>
                                                 <div class="step" id="step-completed">
                                                     <div class="step-icon">3</div>
-                                                    <div class="step-label">${o.t("step_completed")}</div>
+                                                    <div class="step-label">${s.t("step_completed")}</div>
                                                 </div>
                                             </div>
-                                            <div id="progress-message" class="progress-message">${o.t("ai_processing")}</div>
+                                            <div id="progress-message" class="progress-message">${s.t("ai_processing")}</div>
                                             <div id="progress-details" class="progress-details"></div>
                                         </div>
                                     </div>
@@ -6632,22 +6658,22 @@ class xe {
                                 
                                     <!-- Compact Header for Step 2 -->
                                     <div class="card-header compact-header" style="padding: 6px 16px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; min-height: 36px;">
-                                        <h3 class="card-title" style="font-size: 13px; margin: 0;">${o.t("manual_edit_title")}</h3>
+                                        <h3 class="card-title" style="font-size: 13px; margin: 0;">${s.t("manual_edit_title")}</h3>
                                         <button type="button" class="btn-text" data-action="goToStep1" style="color: #667eea; font-size: 12px;">
-                                            ← ${o.t("back_to_ai")}
+                                            ← ${s.t("back_to_ai")}
                                         </button>
                                     </div>
 
                                 <div class="card-body" style="flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; padding: 12px 16px;">
                                     <div class="form-row" style="display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; gap: 12px; margin-bottom: 8px;">
                                         <div class="form-field" style="flex: 1 1 50%; min-width: 0;">
-                                            <label for="prompt-edit-title" class="field-label" style="display: block; margin-bottom: 2px; font-size: 13px; font-weight: 500;">${o.t("title")}</label>
-                                            <input type="text" id="prompt-edit-title" class="field-input" required placeholder="${o.t("title_placeholder")}" style="width: 100%; padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px;">
+                                            <label for="prompt-edit-title" class="field-label" style="display: block; margin-bottom: 2px; font-size: 13px; font-weight: 500;">${s.t("title")}</label>
+                                            <input type="text" id="prompt-edit-title" class="field-input" required placeholder="${s.t("title_placeholder")}" style="width: 100%; padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px;">
                                         </div>
                                         <div class="form-field" style="flex: 1 1 50%; min-width: 0;">
-                                            <label for="prompt-edit-category" class="field-label" style="display: block; margin-bottom: 2px; font-size: 13px; font-weight: 500;">${o.t("category")}</label>
+                                            <label for="prompt-edit-category" class="field-label" style="display: block; margin-bottom: 2px; font-size: 13px; font-weight: 500;">${s.t("category")}</label>
                                             <select id="prompt-edit-category" class="field-select" required style="width: 100%; padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px;">
-                                                <option value="" disabled selected>${o.t("select_category")}</option>
+                                                <option value="" disabled selected>${s.t("select_category")}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -6656,7 +6682,7 @@ class xe {
                                         <div class="form-field" style="flex: 1; display: flex; flex-direction: column; min-height: 0;">
                                             <label for="prompt-edit-content" class="field-label" style="display: flex; justify-content: space-between; align-items: center;">
                                                 <span style="font-size: 13px; font-weight: 500;">
-                                                    ${o.t("content")}
+                                                    ${s.t("content")}
                                                 </span>
                                                 <a href="https://docs.openwebui.com/features/workspace/prompts#prompt-variables" 
                                                    target="_blank" 
@@ -6664,17 +6690,17 @@ class xe {
                                                    class="btn-text"
                                                    style="font-size: 11px; display: flex; align-items: center; gap: 4px;">
                                                     <span>💡</span>
-                                                    ${o.t("variable_help")}
+                                                    ${s.t("variable_help")}
                                                 </a>
                                             </label>
-                                            <textarea id="prompt-edit-content" class="field-textarea" style="flex: 1; resize: none;" required placeholder="${o.t("content_placeholder")}"></textarea>
+                                            <textarea id="prompt-edit-content" class="field-textarea" style="flex: 1; resize: none;" required placeholder="${s.t("content_placeholder")}"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="form-actions" style="margin-top: 4px; padding-top: 0; display: flex; justify-content: center;">
                                         <button type="submit" class="btn-primary" style="min-width: 100px; padding: 0 16px; font-weight: 600; height: 32px; font-size: 13px; display: flex; align-items: center; gap: 6px;">
                                             <span class="btn-icon" style="font-size: 14px;">💾</span>
-                                            ${o.t("save_prompt")}
+                                            ${s.t("save_prompt")}
                                         </button>
                                     </div>
                                 </div>
@@ -6712,10 +6738,10 @@ class xe {
   async generatePrompt() {
     const e = document.getElementById("ai-description"), t = document.getElementById("ai-model-select"), a = document.querySelector('[data-action="generateWithAI"]'), r = document.getElementById("ai-progress"), n = document.getElementById("progress-message");
     if (!e || !e.value.trim()) {
-      this.panelManager.domUtils.showAlert(o.t("func_desc_hint") || "Please enter a description");
+      this.panelManager.domUtils.showAlert(s.t("func_desc_hint") || "Please enter a description");
       return;
     }
-    const i = e.value.trim(), c = t ? t.value : null, s = (d, p) => {
+    const i = e.value.trim(), c = t ? t.value : null, l = (d, p) => {
       const u = document.getElementById(`step-${d}`);
       u && (u.classList.remove("active", "completed", "error"), p && u.classList.add(p));
     };
@@ -6723,16 +6749,16 @@ class xe {
       const d = a.querySelector(".btn-text"), p = a.querySelector(".btn-loading");
       d && (d.style.display = "none"), p && (p.style.display = "inline"), a.disabled = !0;
     }
-    r && (r.style.display = "block", s("generating", "active"), s("validating", ""), s("completed", ""), n && (n.textContent = o.t("step_generating")));
+    r && (r.style.display = "block", l("generating", "active"), l("validating", ""), l("completed", ""), n && (n.textContent = s.t("step_generating")));
     try {
       const d = {
         description: i,
         availableCategoriesList: this.promptManager.categories,
         availableVariables: this._getVariableHelpMarkdown()
       }, p = await this.promptManager.api.generatePromptContent(d, c);
-      r && (s("generating", "completed"), s("validating", "active"), n && (n.textContent = o.t("step_validating"))), await new Promise((u) => setTimeout(u, 600)), r && (s("validating", "completed"), s("completed", "completed"), n && (n.textContent = o.t("step_completed"))), this.prefillForm(p), await new Promise((u) => setTimeout(u, 400)), this.goToStep(2);
+      r && (l("generating", "completed"), l("validating", "active"), n && (n.textContent = s.t("step_validating"))), await new Promise((u) => setTimeout(u, 600)), r && (l("validating", "completed"), l("completed", "completed"), n && (n.textContent = s.t("step_completed"))), this.prefillForm(p), await new Promise((u) => setTimeout(u, 400)), this.goToStep(2);
     } catch (d) {
-      console.error("AI Generation failed:", d), r && (s("generating", "error"), s("validating", "error"), n && (n.textContent = o.t("generation_failed"))), this.panelManager.domUtils.showAlert(`${o.t("generation_failed") || "Generation failed"}: ${d.message}`);
+      console.error("AI Generation failed:", d), r && (l("generating", "error"), l("validating", "error"), n && (n.textContent = s.t("generation_failed"))), this.panelManager.domUtils.showAlert(`${s.t("generation_failed") || "Generation failed"}: ${d.message}`);
     } finally {
       if (a) {
         const d = a.querySelector(".btn-text"), p = a.querySelector(".btn-loading");
@@ -6772,7 +6798,7 @@ class xe {
     const e = document.getElementById("prompt-edit-id").value, t = document.getElementById("prompt-edit-title").value.trim(), a = document.getElementById("prompt-edit-content").value.trim();
     let r = document.getElementById("prompt-edit-category").value;
     if (!t || !a) {
-      this.panelManager.domUtils.showAlert(o.t("title_content_required"));
+      this.panelManager.domUtils.showAlert(s.t("title_content_required"));
       return;
     }
     if (!r) {
@@ -6781,7 +6807,7 @@ class xe {
       n && (n.value = r);
     }
     if (!r) {
-      this.panelManager.domUtils.showAlert(o.t("category_required"));
+      this.panelManager.domUtils.showAlert(s.t("category_required"));
       return;
     }
     try {
@@ -6792,19 +6818,19 @@ class xe {
         access_control: null
       };
       let i;
-      e ? (i = await this.promptManager.updatePrompt(e, n), this.panelManager.domUtils.showAlert(o.t("prompt_updated"))) : (i = await this.promptManager.createPrompt(n), this.panelManager.domUtils.showAlert(o.t("prompt_created")), i && i.id && (document.getElementById("prompt-edit-id").value = i.id)), this.panelManager.rebuildSearchIndex && this.panelManager.rebuildSearchIndex(), this.panelManager.managementPanel && (this.panelManager.managementPanel.updatePromptList(), this.panelManager.managementPanel.updateCategoryList());
+      e ? (i = await this.promptManager.updatePrompt(e, n), this.panelManager.domUtils.showAlert(s.t("prompt_updated"))) : (i = await this.promptManager.createPrompt(n), this.panelManager.domUtils.showAlert(s.t("prompt_created")), i && i.id && (document.getElementById("prompt-edit-id").value = i.id)), this.panelManager.rebuildSearchIndex && this.panelManager.rebuildSearchIndex(), this.panelManager.managementPanel && (this.panelManager.managementPanel.updatePromptList(), this.panelManager.managementPanel.updateCategoryList());
     } catch (n) {
-      console.error("Save prompt failed:", n), this.panelManager.domUtils.showAlert(`${o.t("save_failed")}${n.message}`);
+      console.error("Save prompt failed:", n), this.panelManager.domUtils.showAlert(`${s.t("save_failed")}${n.message}`);
     }
   }
   // Open prompt edit modal - initialize to correct step
   openPromptModal(e = null) {
-    o.sync(), this.promptManager.refreshCategories();
+    s.sync(), this.promptManager.refreshCategories();
     let t = document.getElementById("prompt-edit-modal");
     if (!t)
-      l.debug("[EditorPanel] Creating prompt edit modal..."), t = this.createModal(), document.body.appendChild(t);
-    else if (t.dataset.lang !== o.lang) {
-      l.debug(`[EditorPanel] Language mismatch (Modal: ${t.dataset.lang}, Current: ${o.lang}), recreating prompt modal...`);
+      o.debug("[EditorPanel] Creating prompt edit modal..."), t = this.createModal(), document.body.appendChild(t);
+    else if (t.dataset.lang !== s.lang) {
+      o.debug(`[EditorPanel] Language mismatch (Modal: ${t.dataset.lang}, Current: ${s.lang}), recreating prompt modal...`);
       const m = this.createModal();
       t.parentNode ? t.parentNode.replaceChild(m, t) : document.body.appendChild(m), t = m;
     }
@@ -6828,13 +6854,13 @@ class xe {
     }
     r.querySelectorAll("[required]").forEach((m) => {
       m.oninvalid = (g) => {
-        g.target.setCustomValidity(o.t("field_required") || "This field is required");
+        g.target.setCustomValidity(s.t("field_required") || "This field is required");
       }, m.oninput = (g) => {
         g.target.setCustomValidity("");
       };
     }), this.state.currentAIGeneration = null;
-    const s = document.getElementById("validation-result"), d = document.getElementById("ai-progress");
-    s && (s.style.display = "none"), d && (d.style.display = "none"), e ? (a.textContent = o.t("edit_prompt_title"), document.getElementById("prompt-edit-id").value = e.id, document.getElementById("prompt-edit-title").value = e.title, document.getElementById("prompt-edit-content").value = e.content, document.getElementById("prompt-edit-category").value = e.category, this.goToStep(2)) : (a.textContent = o.t("new_prompt_title"), r.reset(), document.getElementById("prompt-edit-id").value = "", this.goToStep(1));
+    const l = document.getElementById("validation-result"), d = document.getElementById("ai-progress");
+    l && (l.style.display = "none"), d && (d.style.display = "none"), e ? (a.textContent = s.t("edit_prompt_title"), document.getElementById("prompt-edit-id").value = e.id, document.getElementById("prompt-edit-title").value = e.title, document.getElementById("prompt-edit-content").value = e.content, document.getElementById("prompt-edit-category").value = e.category, this.goToStep(2)) : (a.textContent = s.t("new_prompt_title"), r.reset(), document.getElementById("prompt-edit-id").value = "", this.goToStep(1));
     const p = document.getElementById("prompt-management-panel");
     p && (p.style.display = "none"), t.style.display = "flex", t.style.zIndex = "99999";
     const u = t.querySelector(".prompt-editor-panel");
@@ -6847,7 +6873,7 @@ class xe {
       console.warn("[EditorPanel] Step content elements not found");
       return;
     }
-    e === 1 ? (t.style.display = "flex", a.style.display = "none", r && (r.classList.add("active"), r.style.background = "rgba(255,255,255,0.25)", r.style.opacity = "1", r.querySelector(".wizard-step-num").style.background = "#fff", r.querySelector(".wizard-step-num").style.color = "#667eea"), n && (n.classList.remove("active"), n.style.background = "transparent", n.style.opacity = "0.7", n.querySelector(".wizard-step-num").style.background = "rgba(255,255,255,0.3)", n.querySelector(".wizard-step-num").style.color = "#fff")) : e === 2 && (t.style.display = "none", a.style.display = "flex", r && (r.classList.remove("active"), r.style.background = "transparent", r.style.opacity = "0.7", r.querySelector(".wizard-step-num").style.background = "rgba(255,255,255,0.3)", r.querySelector(".wizard-step-num").style.color = "#fff"), n && (n.classList.add("active"), n.style.background = "rgba(255,255,255,0.25)", n.style.opacity = "1", n.querySelector(".wizard-step-num").style.background = "#fff", n.querySelector(".wizard-step-num").style.color = "#667eea")), l.debug(`[EditorPanel] Navigated to Step ${e}`);
+    e === 1 ? (t.style.display = "flex", a.style.display = "none", r && (r.classList.add("active"), r.style.background = "rgba(255,255,255,0.25)", r.style.opacity = "1", r.querySelector(".wizard-step-num").style.background = "#fff", r.querySelector(".wizard-step-num").style.color = "#667eea"), n && (n.classList.remove("active"), n.style.background = "transparent", n.style.opacity = "0.7", n.querySelector(".wizard-step-num").style.background = "rgba(255,255,255,0.3)", n.querySelector(".wizard-step-num").style.color = "#fff")) : e === 2 && (t.style.display = "none", a.style.display = "flex", r && (r.classList.remove("active"), r.style.background = "transparent", r.style.opacity = "0.7", r.querySelector(".wizard-step-num").style.background = "rgba(255,255,255,0.3)", r.querySelector(".wizard-step-num").style.color = "#fff"), n && (n.classList.add("active"), n.style.background = "rgba(255,255,255,0.25)", n.style.opacity = "1", n.querySelector(".wizard-step-num").style.background = "#fff", n.querySelector(".wizard-step-num").style.color = "#667eea")), o.debug(`[EditorPanel] Navigated to Step ${e}`);
   }
   _getVariableHelpMarkdown() {
     const e = [
@@ -6865,13 +6891,13 @@ class xe {
       ["tel", "var_tel_desc", "`placeholder`, `default`", "`{{contact_number | tel}}`"],
       ["time", "var_time_desc", "`default`", '`{{start_time | time:default="09:00"}}`'],
       ["url", "var_url_desc", "`placeholder`, `default`", '`{{source_url | url:placeholder="https://example.com"}}`']
-    ], t = `| ${o.t("var_table_type")} | ${o.t("var_table_desc")} | ${o.t("var_table_props")} | ${o.t("var_table_example")} |`, a = "| ---------------- | ------------------------------------------------------ | ------------------------------ | ---------------------------------------------------------------- |", r = e.map((n) => {
-      const [i, c, s, d] = n;
-      return `| **${i}** | ${o.t(c)} | ${s} | ${d} |`;
+    ], t = `| ${s.t("var_table_type")} | ${s.t("var_table_desc")} | ${s.t("var_table_props")} | ${s.t("var_table_example")} |`, a = "| ---------------- | ------------------------------------------------------ | ------------------------------ | ---------------------------------------------------------------- |", r = e.map((n) => {
+      const [i, c, l, d] = n;
+      return `| **${i}** | ${s.t(c)} | ${l} | ${d} |`;
     }).join(`
 `);
     return `
-${o.t("available_variables_intro")}
+${s.t("available_variables_intro")}
 
 ${t}
 ${a}
@@ -6881,7 +6907,7 @@ ${r}
   // Prefill the form with data (e.g., from AI generation)
   prefillForm(e) {
     if (!e) return;
-    l.debug("[EditorPanel] Prefilling form with data:", e);
+    o.debug("[EditorPanel] Prefilling form with data:", e);
     const t = document.getElementById("prompt-edit-title"), a = document.getElementById("prompt-edit-content"), r = document.getElementById("prompt-edit-category"), n = document.getElementById("prompt-edit-id");
     t && (t.value = e.title || ""), a && (a.value = e.content || ""), n && (n.value = e.id || ""), r && e.category && (Array.from(r.options).some((c) => c.value === e.category) ? r.value = e.category : console.warn(`[EditorPanel] Category ${e.category} not found in select options.`)), this.goToStep(2);
   }
@@ -6957,24 +6983,24 @@ class X {
   }
   _renderTabs() {
     const e = this.config.activeCategoryId || "all";
-    this.element.appendChild(this._createTab("all", `${this._getCategoryIcon("all")}${o.t("all_categories")}`, e === "all")), this.element.appendChild(this._createTab("favorites", `${this._getCategoryIcon("favorites")}${o.t("favorite")}`, e === "favorites")), this.config.categories.forEach((a) => {
+    this.element.appendChild(this._createTab("all", `${this._getCategoryIcon("all")}${s.t("all_categories")}`, e === "all")), this.element.appendChild(this._createTab("favorites", `${this._getCategoryIcon("favorites")}${s.t("favorite")}`, e === "favorites")), this.config.categories.forEach((a) => {
       if (this.config.prompts.filter((n) => n.category === a.id).length > 0) {
         const n = a.name, i = this._getCategoryIcon(a.id, a);
         this.element.appendChild(this._createTab(a.id, `${i} ${n}`, e === a.id));
       }
-    }), this.config.prompts.filter((a) => !a.category || a.category === "null").length > 0 && this.element.appendChild(this._createTab("uncategorized", `${this._getCategoryIcon("uncategorized")}${o.t("uncategorized")}`, e === "uncategorized"));
+    }), this.config.prompts.filter((a) => !a.category || a.category === "null").length > 0 && this.element.appendChild(this._createTab("uncategorized", `${this._getCategoryIcon("uncategorized")}${s.t("uncategorized")}`, e === "uncategorized"));
   }
   _createTab(e, t, a) {
     const r = document.createElement("button"), n = "category-tab px-3 py-1.5 rounded-full text-sm font-medium transition-colors flex items-center", i = "active bg-blue-500 text-white", c = "bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700";
-    return r.className = `${n} ${a ? i : c}`, r.dataset.categoryId = e, r.innerHTML = `${t}`, r.addEventListener("click", (s) => {
-      s.preventDefault(), s.stopPropagation(), this.config.callbacks.onFilter && this.config.callbacks.onFilter(e);
+    return r.className = `${n} ${a ? i : c}`, r.dataset.categoryId = e, r.innerHTML = `${t}`, r.addEventListener("click", (l) => {
+      l.preventDefault(), l.stopPropagation(), this.config.callbacks.onFilter && this.config.callbacks.onFilter(e);
     }), r;
   }
   _renderList() {
     const e = this.config.activeCategoryId || "all", t = (c) => {
-      const s = c === e, d = "category-item group flex items-center justify-between px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors min-h-[36px]";
-      return s ? `${d} active bg-gray-100 dark:bg-gray-800 font-medium` : d;
-    }, a = (c, s, d, p, u = !1) => {
+      const l = c === e, d = "category-item group flex items-center justify-between px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors min-h-[36px]";
+      return l ? `${d} active bg-gray-100 dark:bg-gray-800 font-medium` : d;
+    }, a = (c, l, d, p, u = !1) => {
       const m = document.createElement("div");
       m.className = t(c), m.dataset.action = "filterByCategory", m.dataset.categoryId = c;
       const g = `
@@ -6982,7 +7008,7 @@ class X {
                     <span class="category-icon flex-shrink-0 text-gray-500 dark:text-gray-400 ${c === "favorites" ? "text-red-500" : ""}">
                         ${d}
                     </span>
-                    <span class="category-name truncate text-sm">${s}</span>
+                    <span class="category-name truncate text-sm">${l}</span>
                 </div>
             `;
       let h = "";
@@ -6995,10 +7021,10 @@ class X {
                         
                         <!-- Actions: Hidden by default, visible on hover -->
                         <div class="category-actions hidden group-hover:flex items-center gap-1">
-                            <button class="action-btn-edit w-6 h-6 flex items-center justify-center rounded hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400 transition-colors" title="${o.t("edit")}">
+                            <button class="action-btn-edit w-6 h-6 flex items-center justify-center rounded hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400 transition-colors" title="${s.t("edit")}">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3.5 h-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>
                             </button>
-                            <button class="action-btn-delete w-6 h-6 flex items-center justify-center rounded hover:bg-red-100 dark:hover:bg-red-900/30 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors" title="${o.t("delete")}">
+                            <button class="action-btn-delete w-6 h-6 flex items-center justify-center rounded hover:bg-red-100 dark:hover:bg-red-900/30 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors" title="${s.t("delete")}">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3.5 h-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg>
                             </button>
                         </div>
@@ -7015,7 +7041,7 @@ class X {
     }, r = this.config.prompts.length;
     this.element.appendChild(a(
       "all",
-      o.t("all_categories"),
+      s.t("all_categories"),
       '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" /></svg>',
       r,
       !0
@@ -7023,7 +7049,7 @@ class X {
     const n = this.config.prompts.filter((c) => c.isFavorite).length;
     this.element.appendChild(a(
       "favorites",
-      o.t("favorite"),
+      s.t("favorite"),
       '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>',
       n,
       !0
@@ -7031,14 +7057,14 @@ class X {
     const i = this.config.prompts.filter((c) => !c.category || c.category === "null").length;
     this.element.appendChild(a(
       "uncategorized",
-      o.t("uncategorized"),
+      s.t("uncategorized"),
       '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 012.012 1.244l.256.512a2.25 2.25 0 002.013 1.244h3.218a2.25 2.25 0 002.013-1.244l.256-.512a2.25 2.25 0 012.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 00-2.15-1.588H6.911a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661z" /></svg>',
       i,
       !0
     )), this.config.categories.forEach((c) => {
       if (this._editingCategoryId === c.id) {
-        const s = document.createElement("div");
-        s.className = "category-item flex items-center gap-2 px-3 py-2 rounded-md bg-white dark:bg-gray-800 border border-blue-500 shadow-sm";
+        const l = document.createElement("div");
+        l.className = "category-item flex items-center gap-2 px-3 py-2 rounded-md bg-white dark:bg-gray-800 border border-blue-500 shadow-sm";
         const d = document.createElement("input");
         d.type = "text", d.value = c.name, d.className = "flex-1 min-w-0 px-2 py-1 text-sm bg-transparent border-none focus:ring-0 p-0";
         const p = () => {
@@ -7047,14 +7073,14 @@ class X {
         };
         d.onkeydown = (u) => {
           u.key === "Enter" ? p() : u.key === "Escape" && (this._editingCategoryId = null, this.update()), u.stopPropagation();
-        }, d.onblur = () => setTimeout(p, 100), s.appendChild(d), this.element.appendChild(s), setTimeout(() => d.focus(), 0);
+        }, d.onblur = () => setTimeout(p, 100), l.appendChild(d), this.element.appendChild(l), setTimeout(() => d.focus(), 0);
       } else {
-        const s = this.config.prompts.filter((p) => p.category === c.id).length, d = this._getCategoryIcon(c.id, c);
+        const l = this.config.prompts.filter((p) => p.category === c.id).length, d = this._getCategoryIcon(c.id, c);
         this.element.appendChild(a(
           c.id,
           c.name,
           d,
-          s,
+          l,
           !1
           // isSpecial = false, enables hover actions
         ));
@@ -7074,21 +7100,21 @@ class N {
       const n = e === 1, i = e === t;
       r.innerHTML = `
                 <button class="px-2 py-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed" ${n ? "disabled" : ""}>
-                    < ${o.t("prev_page")}
+                    < ${s.t("prev_page")}
                 </button>
-                <span>${o.t("page_info").replace("{current}", e).replace("{total}", t)}</span>
+                <span>${s.t("page_info").replace("{current}", e).replace("{total}", t)}</span>
                 <button class="px-2 py-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed" ${i ? "disabled" : ""}>
-                    ${o.t("next_page")} >
+                    ${s.t("next_page")} >
                 </button>
             `, this._bindEvents(r);
     } else
       t === 1 ? r.innerHTML = `
                     <button class="px-2 py-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-                        < ${o.t("prev_page")}
+                        < ${s.t("prev_page")}
                     </button>
-                    <span>${o.t("page_info").replace("{current}", 1).replace("{total}", 1)}</span>
+                    <span>${s.t("page_info").replace("{current}", 1).replace("{total}", 1)}</span>
                     <button class="px-2 py-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-                        ${o.t("next_page")} >
+                        ${s.t("next_page")} >
                     </button>
                 ` : r.style.display = "none";
     this.container.appendChild(r);
@@ -7125,12 +7151,12 @@ class ee {
     panelManager: i
   }) {
     if (!e) return null;
-    let c = -1, s = [];
+    let c = -1, l = [];
     const d = () => e.querySelector(t), p = () => {
       const _ = d();
-      s = _ ? Array.from(_.querySelectorAll(a)) : [];
+      l = _ ? Array.from(_.querySelectorAll(a)) : [];
     }, u = () => {
-      s.forEach((_) => _.classList.remove("keyboard-selected")), c = -1;
+      l.forEach((_) => _.classList.remove("keyboard-selected")), c = -1;
     }, m = (_, y) => {
       if (!_ || !y || _.id === "quick-prompt-list")
         return;
@@ -7142,65 +7168,65 @@ class ee {
       }, w = 4, k = _.clientHeight, E = _.scrollTop, C = x(y, _), A = C + y.offsetHeight, q = E, M = E + k;
       C < q + w ? _.scrollTop = Math.max(0, C - w) : A > M - w && (_.scrollTop = A - k + w);
     }, g = (_) => {
-      if (u(), s.forEach((y) => y.classList.remove("hover")), _ >= 0 && _ < s.length) {
-        const y = s[_];
+      if (u(), l.forEach((y) => y.classList.remove("hover")), _ >= 0 && _ < l.length) {
+        const y = l[_];
         y.classList.add("keyboard-selected"), c = _, m(d(), y);
       }
     }, h = () => {
       const _ = d();
       _ && (_.addEventListener("mouseover", (y) => {
         const x = y.target.closest(a);
-        x && s.includes(x) && (s.forEach((w) => w.classList.remove("hover")), x.classList.add("hover"));
+        x && l.includes(x) && (l.forEach((w) => w.classList.remove("hover")), x.classList.add("hover"));
       }), _.addEventListener("mouseleave", () => {
-        s.forEach((y) => y.classList.remove("hover"));
+        l.forEach((y) => y.classList.remove("hover"));
       }), _.addEventListener("click", (y) => {
         const x = y.target.closest(a);
-        if (x && s.includes(x)) {
-          const w = s.indexOf(x);
+        if (x && l.includes(x)) {
+          const w = l.indexOf(x);
           g(w);
         }
       }));
     }, v = (_) => {
       const y = e.id.includes("quick") ? "quick" : "management";
       if (y !== "quick" && i && i.state && i.state.isModalOpen || e.style.display === "none" || e.style.visibility === "hidden" || getComputedStyle(e).display === "none") return;
-      l.debug("KeyboardNav keydown:", _.key, "Selected:", c);
+      o.debug("KeyboardNav keydown:", _.key, "Selected:", c);
       const w = i && i.state ? i.state.pagination[y] : null, k = e.querySelector(".quick-search, .main-search"), E = k && document.activeElement === k, C = (A = 0) => {
         y === "quick" && i ? i.updateQuickPromptList() : i && i.updatePromptList && i.updatePromptList(), setTimeout(() => {
-          p(), s.length > 0 && g(A === "last" ? s.length - 1 : A);
+          p(), l.length > 0 && g(A === "last" ? l.length - 1 : A);
         }, 50);
       };
       switch (_.key) {
         case "ArrowDown":
-          if (_.preventDefault(), p(), s.length > 0)
-            if (w && c === s.length - 1 && w.currentPage < Math.ceil(w.totalItems / w.itemsPerPage))
+          if (_.preventDefault(), p(), l.length > 0)
+            if (w && c === l.length - 1 && w.currentPage < Math.ceil(w.totalItems / w.itemsPerPage))
               w.currentPage++, C(0);
             else {
-              const M = c === -1 ? 0 : Math.min(c + 1, s.length - 1);
+              const M = c === -1 ? 0 : Math.min(c + 1, l.length - 1);
               g(M);
             }
           break;
         case "ArrowLeft":
-          if (l.debug("ArrowLeft pressed. panelManager:", !!i), E) return;
+          if (o.debug("ArrowLeft pressed. panelManager:", !!i), E) return;
           _.preventDefault(), i && i.cycleCategory("prev", y);
           break;
         case "ArrowRight":
-          if (l.debug("ArrowRight pressed. panelManager:", !!i), E) return;
+          if (o.debug("ArrowRight pressed. panelManager:", !!i), E) return;
           _.preventDefault(), i && i.cycleCategory("next", y);
           break;
         case "ArrowUp":
-          if (_.preventDefault(), p(), s.length > 0)
+          if (_.preventDefault(), p(), l.length > 0)
             if (w && c === 0 && w.currentPage > 1)
               w.currentPage--, C("last");
             else {
-              const M = c === -1 ? s.length - 1 : Math.max(c - 1, 0);
+              const M = c === -1 ? l.length - 1 : Math.max(c - 1, 0);
               g(M);
             }
           break;
         case "Home":
-          _.preventDefault(), s.length > 0 && g(0);
+          _.preventDefault(), l.length > 0 && g(0);
           break;
         case "End":
-          _.preventDefault(), s.length > 0 && g(s.length - 1);
+          _.preventDefault(), l.length > 0 && g(l.length - 1);
           break;
         case "PageDown":
           _.preventDefault(), w && w.currentPage < Math.ceil(w.totalItems / w.itemsPerPage) && (w.currentPage++, C(), setTimeout(() => g(0), 50));
@@ -7209,7 +7235,7 @@ class ee {
           _.preventDefault(), w && w.currentPage > 1 && (w.currentPage--, C(), setTimeout(() => g(0), 50));
           break;
         case "Enter":
-          _.preventDefault(), p(), c >= 0 && c < s.length ? r(s[c], c) : E && s.length > 0 && (g(0), r(s[0], 0));
+          _.preventDefault(), p(), c >= 0 && c < l.length ? r(l[c], c) : E && l.length > 0 && (g(0), r(l[0], 0));
           break;
         case "Escape":
           _.preventDefault(), c !== -1 ? u() : n();
@@ -7220,7 +7246,7 @@ class ee {
             k.focus(), k.value += _.key;
             const M = new Event("input", { bubbles: !0 });
             k.dispatchEvent(M), setTimeout(() => {
-              p(), s.length > 0 && g(0);
+              p(), l.length > 0 && g(0);
             }, 50);
           }
           break;
@@ -7230,7 +7256,7 @@ class ee {
     const b = e.querySelector(".quick-search, .main-search");
     return b && (b.addEventListener("input", () => {
       setTimeout(() => {
-        p(), s.length > 0 ? g(0) : u();
+        p(), l.length > 0 ? g(0) : u();
       }, 50);
     }), b.addEventListener("keydown", (_) => {
       if (_.key === "ArrowDown" || _.key === "ArrowUp")
@@ -7240,7 +7266,7 @@ class ee {
           b.value = "";
           const y = new Event("input", { bubbles: !0 });
           b.dispatchEvent(y), setTimeout(() => {
-            p(), s.length > 0 && g(0);
+            p(), l.length > 0 && g(0);
           }, 50);
         } else {
           b.blur();
@@ -7251,14 +7277,14 @@ class ee {
           }
         }
     })), setTimeout(() => {
-      p(), s.length > 0 && g(0);
+      p(), l.length > 0 && g(0);
     }, 0), h(), {
       getSelectedIndex: () => c,
       setSelection: g,
       clearSelection: u,
       updateItems: p,
       handleKeyDown: v,
-      getItems: () => s
+      getItems: () => l
     };
   }
 }
@@ -7292,41 +7318,41 @@ class te {
   _renderDetailed(e) {
     e.className = "prompt-item prompt-item--detailed bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 flex flex-row items-center justify-between gap-4 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700", e.dataset.promptId = this.prompt.id;
     const t = document.createElement("select");
-    t.className = "text-sm rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500", t.dataset.action = "updatePromptCategory", t.dataset.promptId = this.prompt.id, t.title = o.t("change_category"), t.onchange = (s) => {
-      this.callbacks.onUpdateCategory && this.callbacks.onUpdateCategory(this.prompt.id, s.target.value);
+    t.className = "text-sm rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500", t.dataset.action = "updatePromptCategory", t.dataset.promptId = this.prompt.id, t.title = s.t("change_category"), t.onchange = (l) => {
+      this.callbacks.onUpdateCategory && this.callbacks.onUpdateCategory(this.prompt.id, l.target.value);
     };
     const a = document.createElement("option");
-    a.value = "null", a.textContent = o.t("uncategorized"), t.appendChild(a), this.categories.forEach((s) => {
+    a.value = "null", a.textContent = s.t("uncategorized"), t.appendChild(a), this.categories.forEach((l) => {
       const d = document.createElement("option");
-      d.value = s.id, d.textContent = s.name, t.appendChild(d);
+      d.value = l.id, d.textContent = l.name, t.appendChild(d);
     }), t.value = this.prompt.category || "null", e.innerHTML = `
             <div class="flex flex-col items-start cursor-pointer prompt-title-area" style="flex: 1; min-width: 0;" data-action="usePrompt">
                 <h4 class="text-base font-semibold text-gray-800 dark:text-gray-100 truncate w-full">${this.prompt.title}</h4>
                 <div class="text-xs text-gray-500 dark:text-gray-400 flex gap-3 mt-1">
-                    <span>${o.t("usage_count")}: ${this.prompt.usageCount}</span>
-                    <span>${o.t("created_at")}: ${new Date(this.prompt.createdAt).toLocaleDateString()}</span>
+                    <span>${s.t("usage_count")}: ${this.prompt.usageCount}</span>
+                    <span>${s.t("created_at")}: ${new Date(this.prompt.createdAt).toLocaleDateString()}</span>
                 </div>
             </div>
             <div class="prompt-category-selector-container" style="width: 140px; flex-shrink: 0;"></div>
             <div class="flex gap-2 flex-shrink-0">
-                <button data-action="toggleFavorite" data-prompt-id="${this.prompt.id}" class="btn-icon-only btn-header ${this.prompt.isFavorite ? "favorited" : ""} text-gray-400 hover:text-red-500 transition-colors" title="${o.t("favorite")}">
+                <button data-action="toggleFavorite" data-prompt-id="${this.prompt.id}" class="btn-icon-only btn-header ${this.prompt.isFavorite ? "favorited" : ""} text-gray-400 hover:text-red-500 transition-colors" title="${s.t("favorite")}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="${this.prompt.isFavorite ? "currentColor" : "none"}" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>
                 </button>
-                <button data-action="editPrompt" data-prompt-id="${this.prompt.id}" class="btn-icon-only btn-header text-gray-400 hover:text-blue-500 transition-colors" title="${o.t("edit")}">
+                <button data-action="editPrompt" data-prompt-id="${this.prompt.id}" class="btn-icon-only btn-header text-gray-400 hover:text-blue-500 transition-colors" title="${s.t("edit")}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>
                 </button>
-                <button data-action="deletePrompt" data-prompt-id="${this.prompt.id}" class="btn-icon-only btn-header text-gray-400 hover:text-red-500 transition-colors" title="${o.t("delete")}">
+                <button data-action="deletePrompt" data-prompt-id="${this.prompt.id}" class="btn-icon-only btn-header text-gray-400 hover:text-red-500 transition-colors" title="${s.t("delete")}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg>
                 </button>
             </div>
         `;
     const r = e.querySelector(".prompt-title-area");
-    r && (r.onclick = (s) => {
-      s.stopPropagation(), this.callbacks.onInsert && this.callbacks.onInsert(this.prompt, s);
+    r && (r.onclick = (l) => {
+      l.stopPropagation(), this.callbacks.onInsert && this.callbacks.onInsert(this.prompt, l);
     });
     const n = e.querySelector('button[data-action="toggleFavorite"]');
-    n && (n.onclick = async (s) => {
-      s.stopPropagation();
+    n && (n.onclick = async (l) => {
+      l.stopPropagation();
       const d = n.classList.toggle("favorited");
       try {
         this.callbacks.onFavorite && await this.callbacks.onFavorite(this.prompt.id);
@@ -7335,12 +7361,12 @@ class te {
       }
     });
     const i = e.querySelector('button[data-action="editPrompt"]');
-    i && this.callbacks.onEdit && (i.onclick = (s) => {
-      s.stopPropagation(), this.callbacks.onEdit(this.prompt.id);
+    i && this.callbacks.onEdit && (i.onclick = (l) => {
+      l.stopPropagation(), this.callbacks.onEdit(this.prompt.id);
     });
     const c = e.querySelector('button[data-action="deletePrompt"]');
-    c && this.callbacks.onDelete && (c.onclick = (s) => {
-      s.stopPropagation(), this.callbacks.onDelete(this.prompt.id);
+    c && this.callbacks.onDelete && (c.onclick = (l) => {
+      l.stopPropagation(), this.callbacks.onDelete(this.prompt.id);
     }), e.querySelector(".prompt-category-selector-container").appendChild(t);
   }
 }
@@ -7359,8 +7385,8 @@ class B {
     if (!r || !r.indices)
       return e;
     let n = "", i = 0;
-    return r.indices.forEach(([c, s]) => {
-      n += e.slice(i, c), n += `<mark>${e.slice(c, s + 1)}</mark>`, i = s + 1;
+    return r.indices.forEach(([c, l]) => {
+      n += e.slice(i, c), n += `<mark>${e.slice(c, l + 1)}</mark>`, i = l + 1;
     }), n += e.slice(i), n;
   }
 }
@@ -7386,18 +7412,18 @@ class Ie {
     t.id = "quick-insert-panel", t.className = "unified-panel unified-panel-modal unified-panel--quick-insert", t.style.visibility = "hidden";
     const a = document.createElement("div");
     a.className = "panel-header-container";
-    const r = new J(o.t("quick_insert"), [{
-      title: o.t("new_prompt"),
+    const r = new J(s.t("quick_insert"), [{
+      title: s.t("new_prompt"),
       icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>',
       action: "createNewPromptViaQuickPanel",
       className: "btn-icon-only"
     }, {
-      title: o.t("manage_prompts"),
+      title: s.t("manage_prompts"),
       icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>',
       action: "navigateToManagementPanel",
       className: "btn-icon-only"
     }, {
-      title: o.t("close"),
+      title: s.t("close"),
       icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>',
       id: "pes-quick-close-btn",
       // Direct binding ID
@@ -7408,7 +7434,7 @@ class Ie {
     const i = new Y({
       containerClass: "search-bar-container",
       inputClass: "quick-search",
-      placeholder: o.t("search_prompts_placeholder"),
+      placeholder: s.t("search_prompts_placeholder"),
       oninput: (h) => this.filter(h.target.value)
     }).element;
     this.categoryFilter = new X({
@@ -7420,8 +7446,8 @@ class Ie {
         onFilter: (h) => this.filterByCategory(h)
       }
     });
-    const c = this.categoryFilter.element, s = document.createElement("div");
-    s.className = "hint-inline", s.innerHTML = o.t("hint_inline"), n.append(i, s, c), a.append(r, n);
+    const c = this.categoryFilter.element, l = document.createElement("div");
+    l.className = "hint-inline", l.innerHTML = s.t("hint_inline"), n.append(i, l, c), a.append(r, n);
     const d = document.createElement("div");
     d.className = "flex-1 p-2 min-h-0 overflow-y-auto", d.id = "quick-prompt-list";
     const p = document.createElement("div");
@@ -7430,13 +7456,13 @@ class Ie {
     })), this._calculatePageSize(), this.updateList(), this.setupKeyboard(t), this.setupSelection(t), this.setupActions(t);
     const u = t.querySelector("#pes-quick-close-btn");
     u && (u.onclick = (h) => {
-      h.preventDefault(), h.stopPropagation(), l.debug("Direct .onclick for close button fired."), this.manager.closeAllPanels();
+      h.preventDefault(), h.stopPropagation(), o.debug("Direct .onclick for close button fired."), this.manager.closeAllPanels();
     });
     const m = t.querySelector("#pes-show-help-btn");
     m && (m.removeAttribute("data-action"), m.addEventListener("pointerdown", (h) => {
       h.preventDefault(), h.stopPropagation(), h.stopImmediatePropagation(), this.manager._suppressGlobalCloseOnce = !0;
     }, !0), m.onclick = (h) => {
-      h.preventDefault(), h.stopPropagation(), h.stopImmediatePropagation(), l.debug("Direct .onclick for help button fired."), this.manager._suppressGlobalCloseOnce = !0, this.manager.toggleShortcutHelp();
+      h.preventDefault(), h.stopPropagation(), h.stopImmediatePropagation(), o.debug("Direct .onclick for help button fired."), this.manager._suppressGlobalCloseOnce = !0, this.manager.toggleShortcutHelp();
     });
     const g = t.querySelector('.hint-inline [data-action="toggleShortcutHelp"]');
     g && (g.getAttribute("href") !== "javascript:void(0)" && g.setAttribute("href", "javascript:void(0)"), g.addEventListener("pointerdown", (h) => {
@@ -7457,7 +7483,7 @@ class Ie {
       if (!n) return;
       const i = n.dataset.action;
       a.stopPropagation();
-      const c = n.closest(".prompt-item--detailed") || n.closest(".prompt-item--compact"), s = n.dataset.promptId || (c == null ? void 0 : c.dataset.promptId), d = n.dataset.categoryId;
+      const c = n.closest(".prompt-item--detailed") || n.closest(".prompt-item--compact"), l = n.dataset.promptId || (c == null ? void 0 : c.dataset.promptId), d = n.dataset.categoryId;
       switch (i) {
         case "prevPage":
         case "nextPage":
@@ -7473,13 +7499,13 @@ class Ie {
           this.close();
           break;
         case "editPrompt":
-          s && this.manager.editPrompt(s);
+          l && this.manager.editPrompt(l);
           break;
         case "deletePrompt":
-          s && this.manager.managementPanel.deletePrompt(s);
+          l && this.manager.managementPanel.deletePrompt(l);
           break;
         case "toggleFavorite":
-          s && this.manager.toggleFavorite(s);
+          l && this.manager.toggleFavorite(l);
           break;
         case "filterByCategory":
           d && this.filterByCategory(d);
@@ -7491,14 +7517,14 @@ class Ie {
           this.manager.closeVariableHelp();
           break;
         default:
-          typeof this.manager[i] == "function" ? this.manager[i]() : l.warn(`Unknown action: ${i}`);
+          typeof this.manager[i] == "function" ? this.manager[i]() : o.warn(`Unknown action: ${i}`);
           break;
       }
     };
     e.addEventListener("click", t), e.dataset.actionsBound = "true";
   }
   toggle() {
-    if (o.sync(), this.promptManager.refreshCategories(), this.state.lastRenderedLang && this.state.lastRenderedLang !== o.lang) {
+    if (s.sync(), this.promptManager.refreshCategories(), this.state.lastRenderedLang && this.state.lastRenderedLang !== s.lang) {
       const a = document.getElementById("quick-insert-panel");
       a && (a.remove(), this.state.quickPanelCreated = !1);
       const r = document.getElementById("prompt-management-panel");
@@ -7506,9 +7532,9 @@ class Ie {
       const n = document.getElementById("prompt-enhancement-system");
       n && n.remove(), this.state.activePanel = null;
     }
-    this.state.lastRenderedLang = o.lang;
+    this.state.lastRenderedLang = s.lang;
     let e = document.getElementById("quick-insert-panel");
-    if (l.debug("[QuickInsert] toggle: activePanel=%s, quickPanel=%s", this.state.activePanel, !!e), this.state.activePanel === "quick") {
+    if (o.debug("[QuickInsert] toggle: activePanel=%s, quickPanel=%s", this.state.activePanel, !!e), this.state.activePanel === "quick") {
       this.close();
       return;
     } else this.state.activePanel && this.manager.closeAllPanels();
@@ -7530,8 +7556,8 @@ class Ie {
         if (this._calculatePageSize(), this.updateList(), e && e._quickSelection) {
           const { getSelectedIndex: n, setSelection: i, updateItems: c } = e._quickSelection;
           c();
-          const s = n();
-          i(s === -1 ? 0 : s);
+          const l = n();
+          i(l === -1 ? 0 : l);
         }
       });
     }
@@ -7556,8 +7582,8 @@ class Ie {
     const n = this.state.pagination.quick;
     n.totalItems = r.length;
     const i = Math.ceil(n.totalItems / n.itemsPerPage);
-    n.currentPage = Math.max(1, Math.min(n.currentPage, i)), l.debug("[QuickList] totalItems=%d, totalPages=%d, currentPage=%d", n.totalItems, i, n.currentPage);
-    const c = (n.currentPage - 1) * n.itemsPerPage, s = c + n.itemsPerPage, d = r.slice(c, s);
+    n.currentPage = Math.max(1, Math.min(n.currentPage, i)), o.debug("[QuickList] totalItems=%d, totalPages=%d, currentPage=%d", n.totalItems, i, n.currentPage);
+    const c = (n.currentPage - 1) * n.itemsPerPage, l = c + n.itemsPerPage, d = r.slice(c, l);
     this._renderPrompts(a, d, "compact"), this.pagination && this.pagination.render(this.state.pagination.quick.currentPage, i), this.updateCategories(), this.manager._ensureQuickPageFits && this.manager._ensureQuickPageFits(r, t);
     const p = document.getElementById("quick-insert-panel");
     if (p && p._quickSelection) {
@@ -7589,17 +7615,17 @@ class Ie {
       return;
     }
     let r = [];
-    this.manager.simpleSearch ? r = this.manager.simpleSearch.search(e).map(({ item: i, score: c, matches: s }) => {
+    this.manager.simpleSearch ? r = this.manager.simpleSearch.search(e).map(({ item: i, score: c, matches: l }) => {
       const d = { ...i };
-      return d._searchScore = c, d._matches = s, d;
+      return d._searchScore = c, d._matches = l, d;
     }) : r = this.promptManager.prompts.filter(
       (n) => n.title.toLowerCase().includes(e.toLowerCase()) || n.content.toLowerCase().includes(e.toLowerCase())
     ), this.updateList(r, t);
   }
   filterByCategory(e) {
-    this.state.pagination.quick.currentPage = 1, l.debug("Filtering category:", e), this.state.currentQuickCategoryId = e, this.updateCategories();
+    this.state.pagination.quick.currentPage = 1, o.debug("Filtering category:", e), this.state.currentQuickCategoryId = e, this.updateCategories();
     let t;
-    e === "all" ? (t = this.promptManager.prompts, l.debug("Showing all prompts:", t.length)) : e === "favorites" ? (t = this.promptManager.prompts.filter((r) => r.isFavorite), l.debug("Showing favorite prompts:", t.length)) : e === "uncategorized" ? (t = this.promptManager.prompts.filter((r) => !r.category || r.category === "null"), l.debug("Showing uncategorized prompts:", t.length)) : (t = this.promptManager.prompts.filter((r) => r.category === e), l.debug("Showing category prompts:", e, t.length)), this.updateList(t);
+    e === "all" ? (t = this.promptManager.prompts, o.debug("Showing all prompts:", t.length)) : e === "favorites" ? (t = this.promptManager.prompts.filter((r) => r.isFavorite), o.debug("Showing favorite prompts:", t.length)) : e === "uncategorized" ? (t = this.promptManager.prompts.filter((r) => !r.category || r.category === "null"), o.debug("Showing uncategorized prompts:", t.length)) : (t = this.promptManager.prompts.filter((r) => r.category === e), o.debug("Showing category prompts:", e, t.length)), this.updateList(t);
     const a = document.getElementById("quick-insert-panel");
     if (a && document.activeElement !== a)
       try {
@@ -7629,12 +7655,12 @@ class Ie {
     e && (e.addEventListener("keydown", (t) => {
       if (t.key !== "Tab" || e.style.display === "none") return;
       t.preventDefault();
-      const a = e.querySelector(".quick-search"), r = document.getElementById("quick-panel-categories"), n = r ? r.querySelector(".category-tab") : null, i = document.getElementById("quick-prompt-list"), c = i ? i.querySelector(".prompt-item--compact") : null, s = [];
-      if (a && s.push(a), n && s.push(n), c && s.push(c), s.length === 0) return;
+      const a = e.querySelector(".quick-search"), r = document.getElementById("quick-panel-categories"), n = r ? r.querySelector(".category-tab") : null, i = document.getElementById("quick-prompt-list"), c = i ? i.querySelector(".prompt-item--compact") : null, l = [];
+      if (a && l.push(a), n && l.push(n), c && l.push(c), l.length === 0) return;
       const d = document.activeElement;
-      let p = s.findIndex((m) => m === d || m.contains && m.contains(d));
-      t.shiftKey ? (p === -1 && (p = 0), p = (p - 1 + s.length) % s.length) : p = (p + 1) % s.length;
-      const u = s[p];
+      let p = l.findIndex((m) => m === d || m.contains && m.contains(d));
+      t.shiftKey ? (p === -1 && (p = 0), p = (p - 1 + l.length) % l.length) : p = (p + 1) % l.length;
+      const u = l[p];
       if (u) {
         if (typeof u.tabIndex == "number" && u.tabIndex < 0) {
           u.tabIndex = 0;
@@ -7681,8 +7707,8 @@ class Ie {
       if (e.innerHTML = "", t.length === 0) {
         const r = document.createElement("div");
         r.className = "prompt-item empty-state", r.innerHTML = `
-                <div class="prompt-title">${o.t("no_prompts")}</div>
-                <div class="prompt-preview">${o.t("no_prompts_hint")}</div>
+                <div class="prompt-title">${s.t("no_prompts")}</div>
+                <div class="prompt-preview">${s.t("no_prompts_hint")}</div>
             `, e.appendChild(r);
         return;
       }
@@ -7709,7 +7735,7 @@ class Ie {
       this.state.pagination && this.state.pagination.quick && (this.state.pagination.quick.itemsPerPage = 5);
       return;
     }
-    const r = getComputedStyle(e), n = parseFloat(r.paddingTop) || 0, i = parseFloat(r.paddingBottom) || 0, c = t.getBoundingClientRect(), s = e.getBoundingClientRect(), d = a && a.getBoundingClientRect().height || 40, p = c.bottom - s.top - d - n - i - 4, u = e.querySelectorAll(".prompt-item--compact");
+    const r = getComputedStyle(e), n = parseFloat(r.paddingTop) || 0, i = parseFloat(r.paddingBottom) || 0, c = t.getBoundingClientRect(), l = e.getBoundingClientRect(), d = a && a.getBoundingClientRect().height || 40, p = c.bottom - l.top - d - n - i - 4, u = e.querySelectorAll(".prompt-item--compact");
     let m = 0, g = 8;
     if (u.length >= 2) {
       const b = u[0].getBoundingClientRect(), _ = u[1].getBoundingClientRect();
@@ -7717,7 +7743,7 @@ class Ie {
     } else u.length === 1 ? m = u[0].getBoundingClientRect().height : m = 56;
     const h = m + g;
     let v = Math.floor((p + g + 4) / h);
-    v = Math.max(4, v), this.state.pagination && this.state.pagination.quick && this.state.pagination.quick.itemsPerPage !== v && (this.state.pagination.quick.itemsPerPage = v, l.debug(`[QuickInsert] Dynamic page size: ${v} items (available: ${p.toFixed(0)}px, item: ${m.toFixed(0)}px, gap: ${g.toFixed(0)}px, total: ${h.toFixed(0)}px)`));
+    v = Math.max(4, v), this.state.pagination && this.state.pagination.quick && this.state.pagination.quick.itemsPerPage !== v && (this.state.pagination.quick.itemsPerPage = v, o.debug(`[QuickInsert] Dynamic page size: ${v} items (available: ${p.toFixed(0)}px, item: ${m.toFixed(0)}px, gap: ${g.toFixed(0)}px, total: ${h.toFixed(0)}px)`));
   }
 }
 const ke = [
@@ -7768,19 +7794,19 @@ class Pe {
     return e.id = "category-edit-modal", e.className = "prompt-modal", e.innerHTML = `
             <div class="prompt-modal-content modal-sm" style="width: 400px; max-width: 90vw; background: #fff; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35); display: flex; flex-direction: column; overflow: hidden;">
                 <div class="modal-header" style="display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; flex-shrink: 0;">
-                    <h3 id="category-modal-title" style="font-size: 1rem; font-weight: 600; margin: 0; color: #fff;">${o.t("new_category")}</h3>
-                    <button type="button" class="btn-close" data-action="closeCategoryModal" title="${o.t("close")}" style="width: 28px; height: 28px; padding: 0; display: flex; align-items: center; justify-content: center; border: none; border-radius: 6px; background: rgba(255, 255, 255, 0.2); color: #fff; cursor: pointer; font-size: 18px; transition: background 0.2s;">×</button>
+                    <h3 id="category-modal-title" style="font-size: 1rem; font-weight: 600; margin: 0; color: #fff;">${s.t("new_category")}</h3>
+                    <button type="button" class="btn-close" data-action="closeCategoryModal" title="${s.t("close")}" style="width: 28px; height: 28px; padding: 0; display: flex; align-items: center; justify-content: center; border: none; border-radius: 6px; background: rgba(255, 255, 255, 0.2); color: #fff; cursor: pointer; font-size: 18px; transition: background 0.2s;">×</button>
                 </div>
                 <form id="category-edit-form" style="padding: 20px; display: flex; flex-direction: column; gap: 16px;">
                     <input type="hidden" id="category-edit-id">
                     
                     <!-- Icon Selection -->
                     <div class="form-group" style="display: flex; flex-direction: column; gap: 8px;">
-                        <label style="font-size: 13px; font-weight: 500; color: #374151;">${o.t("select_icon")}</label>
+                        <label style="font-size: 13px; font-weight: 500; color: #374151;">${s.t("select_icon")}</label>
                         <div style="display: flex; gap: 12px; align-items: center;">
                             <div id="category-icon-preview" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 24px; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 10px; cursor: pointer; transition: all 0.2s;">📁</div>
                             <div style="flex: 1; position: relative;">
-                                <input type="text" id="emoji-search" placeholder="${o.t("search_icon")}" style="width: 100%; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 13px; outline: none;">
+                                <input type="text" id="emoji-search" placeholder="${s.t("search_icon")}" style="width: 100%; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 13px; outline: none;">
                                 <div id="emoji-picker" style="display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 100; margin-top: 4px; background: #fff; border: 1px solid #d1d5db; border-radius: 8px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); max-height: 200px; overflow-y: auto; padding: 8px;">
                                     <div id="emoji-grid" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px;">
                                         <!-- Emojis will be rendered here -->
@@ -7791,12 +7817,12 @@ class Pe {
                     </div>
 
                     <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
-                        <label for="category-edit-name" style="font-size: 13px; font-weight: 500; color: #374151;">${o.t("name")} <span style="color: #ef4444;">*</span></label>
-                        <input type="text" id="category-edit-name" required placeholder="${o.t("category_name_placeholder")}" style="width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+                        <label for="category-edit-name" style="font-size: 13px; font-weight: 500; color: #374151;">${s.t("name")} <span style="color: #ef4444;">*</span></label>
+                        <input type="text" id="category-edit-name" required placeholder="${s.t("category_name_placeholder")}" style="width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
                     </div>
                     <div class="form-actions" style="display: flex; gap: 10px; margin-top: 4px;">
-                        <button type="submit" class="btn-primary" style="flex: 1; padding: 10px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer;">${o.t("save")}</button>
-                        <button type="button" class="btn-secondary" data-action="closeCategoryModal" style="flex: 1; padding: 10px 16px; background: #f3f4f6; color: #374151; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer;">${o.t("cancel")}</button>
+                        <button type="submit" class="btn-primary" style="flex: 1; padding: 10px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer;">${s.t("save")}</button>
+                        <button type="button" class="btn-secondary" data-action="closeCategoryModal" style="flex: 1; padding: 10px 16px; background: #f3f4f6; color: #374151; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer;">${s.t("cancel")}</button>
                     </div>
                 </form>
             </div>
@@ -7840,7 +7866,7 @@ class Pe {
     this.selectedIcon = e, this.iconPreview.textContent = e;
   }
   open(e = null) {
-    e ? (this.modalTitle.textContent = o.t("edit_category"), this.form.querySelector("#category-edit-id").value = e.id, this.form.querySelector("#category-edit-name").value = e.name, this._selectIcon(e.icon || "📁")) : (this.modalTitle.textContent = o.t("new_category"), this.form.reset(), this.form.querySelector("#category-edit-id").value = "", this._selectIcon("📁")), this.element.classList.add("is-visible");
+    e ? (this.modalTitle.textContent = s.t("edit_category"), this.form.querySelector("#category-edit-id").value = e.id, this.form.querySelector("#category-edit-name").value = e.name, this._selectIcon(e.icon || "📁")) : (this.modalTitle.textContent = s.t("new_category"), this.form.reset(), this.form.querySelector("#category-edit-id").value = "", this._selectIcon("📁")), this.element.classList.add("is-visible");
   }
   close() {
     this.element.classList.remove("is-visible"), this.emojiPicker.style.display = "none";
@@ -7868,26 +7894,26 @@ class Ce {
     t.id = "prompt-management-panel", t.className = "unified-panel unified-panel-modal unified-panel--management", t.style.display = "none";
     const a = document.createElement("div");
     a.className = "panel-header-container flex-shrink-0";
-    const r = new J(o.t("prompt_management"), [{
-      title: o.t("new_prompt"),
+    const r = new J(s.t("prompt_management"), [{
+      title: s.t("new_prompt"),
       icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>',
-      text: o.t("create"),
+      text: s.t("create"),
       action: "createNewPrompt",
       className: "btn-secondary"
     }, {
-      title: o.t("import"),
+      title: s.t("import"),
       icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M12 3v13.5m0 0l-4.5-4.5M12 16.5l4.5-4.5" /></svg>',
-      text: o.t("import"),
+      text: s.t("import"),
       action: "importPrompts",
       className: "btn-secondary"
     }, {
-      title: o.t("export"),
+      title: s.t("export"),
       icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>',
-      text: o.t("export"),
+      text: s.t("export"),
       action: "exportPrompts",
       className: "btn-secondary"
     }, {
-      title: o.t("close"),
+      title: s.t("close"),
       icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>',
       action: "closeManagementPanel",
       className: "btn-icon-only btn-close"
@@ -7898,7 +7924,7 @@ class Ce {
     const i = document.createElement("div");
     i.className = "panel-sidebar", i.style.minWidth = "240px", i.style.maxWidth = "320px", i.style.width = "auto", i.style.flex = "0 0 auto";
     const c = document.createElement("div");
-    c.className = "sidebar-section", c.innerHTML = `<h3>${o.t("category")}</h3>`, this.categoryFilter = new X({
+    c.className = "sidebar-section", c.innerHTML = `<h3>${s.t("category")}</h3>`, this.categoryFilter = new X({
       categories: this.promptManager.categories,
       prompts: this.promptManager.prompts,
       activeCategoryId: "all",
@@ -7916,14 +7942,14 @@ class Ce {
         onDelete: (y) => this.deleteCategory(y)
       }
     });
-    const s = this.categoryFilter.element, d = document.createElement("button");
-    d.className = "btn-add-category btn-secondary inline-flex items-center gap-1 rounded-md px-3 py-1.5 border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-850 hover:bg-gray-100 dark:hover:bg-gray-800", d.dataset.action = "addNewCategory", d.textContent = o.t("add_category"), c.append(s, d), i.append(c);
+    const l = this.categoryFilter.element, d = document.createElement("button");
+    d.className = "btn-add-category btn-secondary inline-flex items-center gap-1 rounded-md px-3 py-1.5 border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-850 hover:bg-gray-100 dark:hover:bg-gray-800", d.dataset.action = "addNewCategory", d.textContent = s.t("add_category"), c.append(l, d), i.append(c);
     const p = document.createElement("div");
     p.className = "panel-main flex-1 flex flex-col overflow-hidden min-w-0";
     const u = new Y({
       containerClass: "main-toolbar flex-shrink-0",
       inputClass: "main-search",
-      placeholder: o.t("search_prompts_placeholder"),
+      placeholder: s.t("search_prompts_placeholder"),
       oninput: (y) => this.filterPrompts(y.target.value)
     }).element, m = document.createElement("div");
     m.className = "flex-1 overflow-y-auto p-4 flex flex-col gap-3 min-h-0", m.id = "prompt-list-container", m.style.overscrollBehavior = "contain", m.style.paddingBottom = "32px", p.append(u, m), n.append(i, p);
@@ -7947,7 +7973,7 @@ class Ce {
     });
   }
   toggle() {
-    if (o.sync(), this.promptManager.refreshCategories(), this.state.lastRenderedLang && this.state.lastRenderedLang !== o.lang) {
+    if (s.sync(), this.promptManager.refreshCategories(), this.state.lastRenderedLang && this.state.lastRenderedLang !== s.lang) {
       const t = document.getElementById("quick-insert-panel");
       t && (t.remove(), this.state.quickPanelCreated = !1);
       const a = document.getElementById("prompt-management-panel");
@@ -7955,7 +7981,7 @@ class Ce {
       const r = document.getElementById("prompt-enhancement-system");
       r && r.remove();
     }
-    this.state.lastRenderedLang = o.lang;
+    this.state.lastRenderedLang = s.lang;
     let e = document.getElementById("prompt-management-panel");
     if (this.state.activePanel === "management") {
       this.close();
@@ -7998,7 +8024,7 @@ class Ce {
       if (!n) return;
       const i = n.dataset.action;
       a.stopPropagation();
-      const c = n.closest(".prompt-item--detailed"), s = n.dataset.promptId || (c == null ? void 0 : c.dataset.promptId), d = n.dataset.categoryId;
+      const c = n.closest(".prompt-item--detailed"), l = n.dataset.promptId || (c == null ? void 0 : c.dataset.promptId), d = n.dataset.categoryId;
       switch (i) {
         case "prevPage":
         case "nextPage":
@@ -8010,7 +8036,7 @@ class Ce {
           break;
         case "updatePromptCategory":
           const p = a.target, u = p.value === "null" ? null : p.value;
-          s && this.updatePromptCategory(s, u);
+          l && this.updatePromptCategory(l, u);
           break;
         case "createNewPromptViaQuickPanel":
           this.navigateTo(), this.manager.createNewPrompt();
@@ -8022,13 +8048,13 @@ class Ce {
           this.manager.closeQuickInsertPanel();
           break;
         case "editPrompt":
-          s && this.manager.editPrompt(s);
+          l && this.manager.editPrompt(l);
           break;
         case "deletePrompt":
-          s && this.deletePrompt(s);
+          l && this.deletePrompt(l);
           break;
         case "toggleFavorite":
-          s && this.manager.toggleFavorite(s);
+          l && this.manager.toggleFavorite(l);
           break;
         case "filterByCategory":
           d && this.filterByCategory(d);
@@ -8085,7 +8111,7 @@ class Ce {
           this.manager.editorPanel.goToStep(2);
           break;
         default:
-          typeof this.manager[i] == "function" ? this.manager[i]() : l.warn(`Unknown action: ${i}`);
+          typeof this.manager[i] == "function" ? this.manager[i]() : o.warn(`Unknown action: ${i}`);
           break;
       }
     };
@@ -8117,7 +8143,7 @@ class Ce {
     }
     const r = getComputedStyle(e), n = parseFloat(r.paddingTop) || 0;
     parseFloat(r.paddingBottom);
-    const i = t.getBoundingClientRect(), c = e.getBoundingClientRect(), s = a && a.getBoundingClientRect().height || 48, d = i.bottom - c.top - s - n - 8, p = e.querySelectorAll(".prompt-item--detailed");
+    const i = t.getBoundingClientRect(), c = e.getBoundingClientRect(), l = a && a.getBoundingClientRect().height || 48, d = i.bottom - c.top - l - n - 8, p = e.querySelectorAll(".prompt-item--detailed");
     let u = 0, m = 12;
     if (p.length > 0 && (u = p[0].offsetHeight, p.length >= 2)) {
       const _ = p[0].getBoundingClientRect();
@@ -8128,7 +8154,7 @@ class Ce {
     let h = Math.floor((d + m + 2) / g);
     (d + m + 2) % g > g - 15 && h++;
     const b = d > 400 ? 5 : 3;
-    h = Math.max(b, h), this.state.pagination && this.state.pagination.management && this.state.pagination.management.itemsPerPage !== h && (this.state.pagination.management.itemsPerPage = h, l.debug(`[Management] Dynamic page size: ${h} items (available: ${d.toFixed(0)}px, item: ${u.toFixed(0)}px, gap: ${m.toFixed(0)}px, total: ${g.toFixed(0)}px)`));
+    h = Math.max(b, h), this.state.pagination && this.state.pagination.management && this.state.pagination.management.itemsPerPage !== h && (this.state.pagination.management.itemsPerPage = h, o.debug(`[Management] Dynamic page size: ${h} items (available: ${d.toFixed(0)}px, item: ${u.toFixed(0)}px, gap: ${m.toFixed(0)}px, total: ${g.toFixed(0)}px)`));
   }
   updateCategoryList() {
     document.getElementById("category-list") && this.categoryFilter && this.categoryFilter.update({
@@ -8159,7 +8185,7 @@ class Ce {
     i.totalItems = r.length;
     const c = Math.ceil(i.totalItems / i.itemsPerPage) || 1;
     i.currentPage = Math.max(1, Math.min(i.currentPage, c));
-    const s = (i.currentPage - 1) * i.itemsPerPage, d = s + i.itemsPerPage, p = r.slice(s, d);
+    const l = (i.currentPage - 1) * i.itemsPerPage, d = l + i.itemsPerPage, p = r.slice(l, d);
     this._renderPrompts(a, p, "detailed"), this.pagination && this.pagination.render(this.state.pagination.management.currentPage, c);
   }
   filterPrompts(e) {
@@ -8188,8 +8214,8 @@ class Ce {
       if (e.innerHTML = "", t.length === 0) {
         const r = document.createElement("div");
         r.className = "prompt-item empty-state", r.innerHTML = `
-                <div class="prompt-title">${o.t("no_prompts")}</div>
-                <div class="prompt-preview">${o.t("no_prompts_hint")}</div>
+                <div class="prompt-title">${s.t("no_prompts")}</div>
+                <div class="prompt-preview">${s.t("no_prompts_hint")}</div>
             `, e.appendChild(r);
         return;
       }
@@ -8217,16 +8243,16 @@ class Ce {
     if (!this.promptManager) return;
     const t = this.promptManager.getPromptById(e);
     if (!t) {
-      this.domUtils.showAlert(o.t("prompt_not_found"));
+      this.domUtils.showAlert(s.t("prompt_not_found"));
       return;
     }
-    if (await this.domUtils.showConfirm(o.t("confirm_delete_prompt_message").replace("{title}", t.title)))
+    if (await this.domUtils.showConfirm(s.t("confirm_delete_prompt_message").replace("{title}", t.title)))
       try {
         await this.promptManager.deletePrompt(t.id), this.manager.rebuildSearchIndex && this.manager.rebuildSearchIndex();
         const r = document.querySelector("#prompt-management-panel .main-search"), n = r ? r.value : "";
-        this.updatePromptList(this.promptManager.prompts, n), this.updateCategoryList(), this.manager.quickInsertPanel && this.manager.quickInsertPanel.updateList(), this.domUtils.showToast(o.t("prompt_deleted"), "success");
+        this.updatePromptList(this.promptManager.prompts, n), this.updateCategoryList(), this.manager.quickInsertPanel && this.manager.quickInsertPanel.updateList(), this.domUtils.showToast(s.t("prompt_deleted"), "success");
       } catch (r) {
-        l.error("Delete prompt failed:", r), this.domUtils.showAlert(`${o.t("delete_failed")}${r.message}`);
+        o.error("Delete prompt failed:", r), this.domUtils.showAlert(`${s.t("delete_failed")}${r.message}`);
       }
   }
   async updatePromptCategory(e, t) {
@@ -8237,7 +8263,7 @@ class Ce {
         const r = { ...a, category: t };
         await this.promptManager.updatePrompt(e, r), this.updateCategoryList();
       } catch (a) {
-        l.error("Quick update category failed:", a), this.domUtils.showAlert(`${o.t("update_category_failed")}${a.message}`), this.updatePromptList();
+        o.error("Quick update category failed:", a), this.domUtils.showAlert(`${s.t("update_category_failed")}${a.message}`), this.updatePromptList();
       }
   }
   // Import/Export
@@ -8262,14 +8288,14 @@ class Ce {
           const i = JSON.parse(n.target.result);
           if (i.prompts && Array.isArray(i.prompts)) {
             const c = i.prompts.length;
-            if (confirm(o.t("found_prompts_import_confirm").replace("{count}", c))) {
-              const s = await this.promptManager.importPrompts(i);
-              this.updatePromptList(), this.updateCategoryList(), this.domUtils.showAlert(o.t("import_success_message").replace("{imported}", s.importedCount).replace("{skipped}", s.skippedCount));
+            if (confirm(s.t("found_prompts_import_confirm").replace("{count}", c))) {
+              const l = await this.promptManager.importPrompts(i);
+              this.updatePromptList(), this.updateCategoryList(), this.domUtils.showAlert(s.t("import_success_message").replace("{imported}", l.importedCount).replace("{skipped}", l.skippedCount));
             }
           } else
-            this.domUtils.showAlert(o.t("invalid_file_format"));
+            this.domUtils.showAlert(s.t("invalid_file_format"));
         } catch (i) {
-          this.domUtils.showAlert(`${o.t("file_parse_failed")}${i.message}`);
+          this.domUtils.showAlert(`${s.t("file_parse_failed")}${i.message}`);
         }
       }, r.readAsText(a);
     }, e.click();
@@ -8294,7 +8320,7 @@ class Ce {
   async saveCategory(e) {
     const t = e.id, a = e.name, r = e.icon;
     if (!a) {
-      this.domUtils.showAlert(o.t("category_name_required"));
+      this.domUtils.showAlert(s.t("category_name_required"));
       return;
     }
     let n;
@@ -8319,7 +8345,7 @@ class Ce {
   }
   // editCategory removed as it is replaced by inline editing
   async deleteCategory(e) {
-    await this.domUtils.showConfirm(o.t("confirm_delete_category")) && (this.promptManager.prompts.forEach((t) => {
+    await this.domUtils.showConfirm(s.t("confirm_delete_category")) && (this.promptManager.prompts.forEach((t) => {
       t.category === e && (t.category = null);
     }), this.promptManager.saveData(), await this.promptManager.deleteCategory(e), this.updateCategoryList(), this.manager.quickInsertPanel && this.manager.quickInsertPanel.updateCategories(), this.updatePromptList());
   }
@@ -8448,8 +8474,8 @@ class Ae {
       r.className = "fixed inset-0 bg-black/50 z-[9999] flex items-center justify-center", r.onclick = (m) => {
         m.target === r && m.stopPropagation();
       };
-      const n = document.documentElement.classList.contains("dark"), i = n ? "#171717" : "#fff", c = n ? "#e5e7eb" : "#4b5563", s = document.createElement("div");
-      s.className = "prompt-modal-content modal-sm", s.style.cssText = `
+      const n = document.documentElement.classList.contains("dark"), i = n ? "#171717" : "#fff", c = n ? "#e5e7eb" : "#4b5563", l = document.createElement("div");
+      l.className = "prompt-modal-content modal-sm", l.style.cssText = `
                 width: 400px; 
                 max-width: 90vw; 
                 background: ${i}; 
@@ -8462,8 +8488,8 @@ class Ae {
                 transform: scale(1);
                 transition: transform 0.2s;
             `;
-      const d = t || o.t("info") || "Info";
-      s.innerHTML = `
+      const d = t || s.t("info") || "Info";
+      l.innerHTML = `
                 <!-- Purple-blue gradient header -->
                 <div class="modal-header" style="display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; flex-shrink: 0;">
                     <h3 style="font-size: 1rem; font-weight: 600; margin: 0; color: #fff;">${d}</h3>
@@ -8477,17 +8503,17 @@ class Ae {
 
                 <!-- Actions -->
                 <div class="form-actions" style="display: flex; justify-content: flex-end; padding: 0 20px 20px 20px;">
-                    <button class="btn-confirm" style="padding: 8px 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer;">${o.t("confirm") || "OK"}</button>
+                    <button class="btn-confirm" style="padding: 8px 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer;">${s.t("confirm") || "OK"}</button>
                 </div>
             `;
       const p = document.body, u = () => {
         p.removeChild(r);
       };
-      s.querySelector(".btn-close").onclick = (m) => {
+      l.querySelector(".btn-close").onclick = (m) => {
         m.stopPropagation(), u(), a();
-      }, s.querySelector(".btn-confirm").onclick = (m) => {
+      }, l.querySelector(".btn-confirm").onclick = (m) => {
         m.stopPropagation(), u(), a();
-      }, r.style.zIndex = "2147483647", r.appendChild(s), p.appendChild(r);
+      }, r.style.zIndex = "2147483647", r.appendChild(l), p.appendChild(r);
     });
   }
   /**
@@ -8502,7 +8528,7 @@ class Ae {
       r.className = "pes-confirm-overlay fixed inset-0 bg-black/50 z-[9999] flex items-center justify-center", r.onclick = (v) => {
         v.target === r && v.stopPropagation();
       };
-      const n = document.documentElement.classList.contains("dark"), i = n ? "#171717" : "#fff", c = n ? "#e5e7eb" : "#4b5563", s = n ? "#374151" : "#f3f4f6", d = n ? "#e5e7eb" : "#374151", p = n ? "#4b5563" : "#d1d5db", u = document.createElement("div");
+      const n = document.documentElement.classList.contains("dark"), i = n ? "#171717" : "#fff", c = n ? "#e5e7eb" : "#4b5563", l = n ? "#374151" : "#f3f4f6", d = n ? "#e5e7eb" : "#374151", p = n ? "#4b5563" : "#d1d5db", u = document.createElement("div");
       u.className = "prompt-modal-content modal-sm", u.style.cssText = `
                 width: 400px; 
                 max-width: 90vw; 
@@ -8516,7 +8542,7 @@ class Ae {
                 transform: scale(1);
                 transition: transform 0.2s;
             `;
-      const m = t || o.t("confirm_delete_title") || "Confirm";
+      const m = t || s.t("confirm_delete_title") || "Confirm";
       u.innerHTML = `
                 <!-- Purple-blue gradient header -->
                 <div class="modal-header" style="display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; flex-shrink: 0;">
@@ -8531,8 +8557,8 @@ class Ae {
 
                 <!-- Actions -->
                 <div class="form-actions" style="display: flex; gap: 10px; padding: 0 20px 20px 20px;">
-                    <button class="btn-cancel" style="flex: 1; padding: 10px 16px; background: ${s}; color: ${d}; border: 1px solid ${p}; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer;">${o.t("cancel") || "Cancel"}</button>
-                    <button class="btn-confirm" style="flex: 1; padding: 10px 16px; background: #dc2626; color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer;">${o.t("delete") || "Delete"}</button>
+                    <button class="btn-cancel" style="flex: 1; padding: 10px 16px; background: ${l}; color: ${d}; border: 1px solid ${p}; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer;">${s.t("cancel") || "Cancel"}</button>
+                    <button class="btn-confirm" style="flex: 1; padding: 10px 16px; background: #dc2626; color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer;">${s.t("delete") || "Delete"}</button>
                 </div>
             `;
       const g = document.body, h = () => {
@@ -8564,8 +8590,8 @@ class Ae {
     const n = document.createElement("div");
     n.className = "pes-modal-box";
     const i = e.replace(/^[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]\s*/u, "");
-    let c = o.t("info");
-    t === "error" && (c = o.t("error")), t === "info" && (c = o.t("info")), n.innerHTML = `
+    let c = s.t("info");
+    t === "error" && (c = s.t("error")), t === "info" && (c = s.t("info")), n.innerHTML = `
             <div class="pes-modal-header">
                 <div class="pes-modal-title">${c}</div>
                 <button class="pes-modal-close">✕</button>
@@ -8574,32 +8600,32 @@ class Ae {
                 ${i}
             </div>
             <div class="pes-modal-footer">
-                <button class="pes-modal-btn">${o.t("confirm")}</button>
+                <button class="pes-modal-btn">${s.t("confirm")}</button>
             </div>
         `;
-    const s = () => {
+    const l = () => {
       r.style.transition = "opacity 0.2s ease-out", r.style.opacity = "0", setTimeout(() => r.remove(), 200);
     };
-    n.querySelector(".pes-modal-close").onclick = s, n.querySelector(".pes-modal-btn").onclick = s, r.appendChild(n), document.body.appendChild(r), setTimeout(() => {
+    n.querySelector(".pes-modal-close").onclick = l, n.querySelector(".pes-modal-btn").onclick = l, r.appendChild(n), document.body.appendChild(r), setTimeout(() => {
       const d = n.querySelector(".pes-modal-btn");
       d && d.focus();
     }, 100);
   }
 }
-l.debug("--- PanelManager v1.2.0 --- Loading...");
+o.debug("--- PanelManager v1.2.0 --- Loading...");
 class W {
   constructor(e, t, a) {
-    l.debug("[PanelManager] Constructor called"), this.promptManager = e, this.promptInserter = t, this.domManipulator = a, this.rootContainer = null, this.state = new Se(), this.scrollUtils = new Ee(), this.domUtils = new Ae(), this.aiValidator = new Z(), this.aiRetryManager = new ve(e.api), this.aiGenerationPanel = new we(this), this.editorPanel = new xe(this), this.quickInsertPanel = new Ie(this), this.managementPanel = new Ce(this), this.setupGlobalEventListeners(), this.simpleSearch = null, this.useSimpleSearch = !0, this.initializeTransparencyControl(), window.addEventListener("pes:show-toast", (r) => {
+    o.debug("[PanelManager] Constructor called"), this.promptManager = e, this.promptInserter = t, this.domManipulator = a, this.rootContainer = null, this.state = new Se(), this.scrollUtils = new Ee(), this.domUtils = new Ae(), this.aiValidator = new Z(), this.aiRetryManager = new ve(e.api), this.aiGenerationPanel = new we(this), this.editorPanel = new xe(this), this.quickInsertPanel = new Ie(this), this.managementPanel = new Ce(this), this.setupGlobalEventListeners(), this.simpleSearch = null, this.useSimpleSearch = !0, this.initializeTransparencyControl(), window.addEventListener("pes:show-toast", (r) => {
       const { message: n, type: i } = r.detail;
       this.domUtils.showToast(n, i);
     });
   }
   // Delegate methods for backward compatibility and cleaner API
   toggleQuickInsertPanel() {
-    o.sync(), this.quickInsertPanel.toggle();
+    s.sync(), this.quickInsertPanel.toggle();
   }
   toggleManagementPanel() {
-    o.sync(), this.managementPanel.toggle();
+    s.sync(), this.managementPanel.toggle();
   }
   closeQuickInsertPanel() {
     this.quickInsertPanel.close();
@@ -8612,7 +8638,7 @@ class W {
   }
   // Initialize search features (delegated)
   initializeSearchFeatures() {
-    this.useSimpleSearch && !this.simpleSearch && (this.simpleSearch = new K(this.promptManager.prompts), l.debug("Simple search initialized"));
+    this.useSimpleSearch && !this.simpleSearch && (this.simpleSearch = new K(this.promptManager.prompts), o.debug("Simple search initialized"));
   }
   // Update lists (delegated)
   updatePromptList() {
@@ -8627,7 +8653,7 @@ class W {
   // Cycle through categories (for keyboard navigation)
   // Cycle through categories (for keyboard navigation)
   cycleCategory(e, t) {
-    l.debug(`[CycleCategory] Direction: ${e}, Panel: ${t}`), t === "quick" && this.quickInsertPanel ? this.quickInsertPanel.cycleCategory(e) : t === "management" && this.managementPanel && this.managementPanel.cycleCategory(e);
+    o.debug(`[CycleCategory] Direction: ${e}, Panel: ${t}`), t === "quick" && this.quickInsertPanel ? this.quickInsertPanel.cycleCategory(e) : t === "management" && this.managementPanel && this.managementPanel.cycleCategory(e);
   }
   updateQuickPanelCategories() {
     this.quickInsertPanel && this.quickInsertPanel.updateCategories();
@@ -8674,26 +8700,26 @@ class W {
     }
     const t = document.getElementById("quick-insert-panel"), a = document.getElementById("prompt-management-panel"), r = document.getElementById("prompt-manager-integrated-btn"), n = document.getElementById("prompt-edit-modal"), i = document.getElementById("shortcut-help-modal");
     if (i && i.classList.contains("is-visible")) {
-      const s = i.querySelector(".prompt-modal-content"), d = e.target.closest && (e.target.closest('[data-action="toggleShortcutHelp"]') || e.target.closest("#pes-show-help-btn"));
-      s && !s.contains(e.target) && !d && this.closeShortcutHelpModal();
+      const l = i.querySelector(".prompt-modal-content"), d = e.target.closest && (e.target.closest('[data-action="toggleShortcutHelp"]') || e.target.closest("#pes-show-help-btn"));
+      l && !l.contains(e.target) && !d && this.closeShortcutHelpModal();
       return;
     }
     if (!(r && r.contains(e.target)) && e.target.isConnected && !(e.target.closest(".pes-modal-overlay") || e.target.closest(".pes-message-overlay") || e.target.closest(".pes-confirm-overlay"))) {
       if (t && t.style.display !== "none" && (t.contains(e.target) || this.quickInsertPanel.close()), a && a.style.display !== "none") {
-        const s = document.getElementById("prompt-edit-modal"), d = document.getElementById("category-edit-modal"), p = s && s.classList.contains("is-visible") && s.contains(e.target), u = d && d.classList.contains("is-visible") && d.contains(e.target);
+        const l = document.getElementById("prompt-edit-modal"), d = document.getElementById("category-edit-modal"), p = l && l.classList.contains("is-visible") && l.contains(e.target), u = d && d.classList.contains("is-visible") && d.contains(e.target);
         if (p || u)
           return;
         a.contains(e.target) || this.managementPanel.close();
       }
       if (n && n.classList.contains("is-visible")) {
-        const s = n.querySelector(".prompt-modal-content"), d = e.target.closest('[data-action="editPrompt"]') || e.target.closest('[data-action="createNewPrompt"]');
-        s && !s.contains(e.target) && !d && this.closePromptModal();
+        const l = n.querySelector(".prompt-modal-content"), d = e.target.closest('[data-action="editPrompt"]') || e.target.closest('[data-action="createNewPrompt"]');
+        l && !l.contains(e.target) && !d && this.closePromptModal();
       }
     }
   }
   // Close all panels
   closeAllPanels() {
-    l.debug("[PanelManager] closeAllPanels called."), this.quickInsertPanel && this.quickInsertPanel.close(), this.managementPanel && this.managementPanel.close(), this.closePromptModal(), this.state.activePanel = null;
+    o.debug("[PanelManager] closeAllPanels called."), this.quickInsertPanel && this.quickInsertPanel.close(), this.managementPanel && this.managementPanel.close(), this.closePromptModal(), this.state.activePanel = null;
   }
   // Adjust panel positions (on window resize)
   adjustPanelPositions() {
@@ -8724,19 +8750,19 @@ class W {
   initializeSearchFeatures() {
     if (this.promptManager)
       try {
-        this.simpleSearch = new K(), this.simpleSearch.buildIndex(this.promptManager.prompts), l.debug("Simple search initialized");
+        this.simpleSearch = new K(), this.simpleSearch.buildIndex(this.promptManager.prompts), o.debug("Simple search initialized");
       } catch (e) {
-        l.error("Simple search initialization failed:", e), this.simpleSearch = null;
+        o.error("Simple search initialization failed:", e), this.simpleSearch = null;
       }
   }
   // Rebuild search index (async optimized version)
   async rebuildSearchIndex() {
-    if (l.debug("🔄 Rebuilding search index..."), !this.promptManager) {
-      l.warn("PromptManager unavailable, skipping index rebuild");
+    if (o.debug("🔄 Rebuilding search index..."), !this.promptManager) {
+      o.warn("PromptManager unavailable, skipping index rebuild");
       return;
     }
     const e = this.promptManager.prompts.length;
-    return e > 100 ? (l.debug(`📊 Large dataset detected (${e} prompts), using async rebuild...`), this.rebuildSearchIndexAsync()) : this.rebuildSearchIndexSync();
+    return e > 100 ? (o.debug(`📊 Large dataset detected (${e} prompts), using async rebuild...`), this.rebuildSearchIndexAsync()) : this.rebuildSearchIndexSync();
   }
   // Sync rebuild search index (small dataset)
   rebuildSearchIndexSync() {
@@ -8744,18 +8770,18 @@ class W {
   }
   // Async rebuild search index (large dataset)
   async rebuildSearchIndexAsync() {
-    l.debug("🔄 Starting async search index rebuild..."), this.showSearchRebuildIndicator();
+    o.debug("🔄 Starting async search index rebuild..."), this.showSearchRebuildIndicator();
     try {
       await new Promise((e) => {
         const t = () => {
           try {
             this.rebuildSearchIndexSync(), e();
           } catch (a) {
-            l.error("Async index rebuild failed:", a), e();
+            o.error("Async index rebuild failed:", a), e();
           }
         };
         "requestIdleCallback" in window ? requestIdleCallback(t, { timeout: 2e3 }) : setTimeout(t, 10);
-      }), l.debug("✅ Async search index rebuild completed");
+      }), o.debug("✅ Async search index rebuild completed");
     } finally {
       this.hideSearchRebuildIndicator();
     }
@@ -8783,11 +8809,11 @@ class W {
   }
   // Initialize simple search feature
   initializeSimpleSearch() {
-    l.debug("Initializing simple search feature"), this.simpleSearchIndex = /* @__PURE__ */ new Map(), this.promptManager.prompts.forEach((e) => {
+    o.debug("Initializing simple search feature"), this.simpleSearchIndex = /* @__PURE__ */ new Map(), this.promptManager.prompts.forEach((e) => {
       this.tokenizeText(e.title + " " + e.content).forEach((a) => {
         this.simpleSearchIndex.has(a) || this.simpleSearchIndex.set(a, []), this.simpleSearchIndex.get(a).push(e.id);
       });
-    }), l.debug(`Simple search index built, total ${this.simpleSearchIndex.size} terms`);
+    }), o.debug(`Simple search index built, total ${this.simpleSearchIndex.size} terms`);
   }
   // Simple text tokenization
   tokenizeText(e) {
@@ -8799,14 +8825,14 @@ class W {
     const t = this.tokenizeText(e), a = /* @__PURE__ */ new Map();
     return t.forEach((n) => {
       (this.simpleSearchIndex.get(n) || []).forEach((c) => {
-        const s = a.get(c) || 0;
-        a.set(c, s + 1);
+        const l = a.get(c) || 0;
+        a.set(c, l + 1);
       });
     }), Array.from(a.entries()).map(([n, i]) => {
-      const c = this.promptManager.prompts.find((s) => s.id === n);
+      const c = this.promptManager.prompts.find((l) => l.id === n);
       if (c) {
-        const s = { ...c };
-        return s._searchScore = i / t.length, s;
+        const l = { ...c };
+        return l._searchScore = i / t.length, l;
       }
       return null;
     }).filter(Boolean).sort((n, i) => i._searchScore - n._searchScore);
@@ -8822,12 +8848,12 @@ class W {
   // Prompt operations
   async toggleFavorite(e) {
     if (this.promptManager) {
-      l.debug("toggleFavorite called with promptId:", e);
+      o.debug("toggleFavorite called with promptId:", e);
       try {
         const t = await this.promptManager.toggleFavorite(e);
-        return l.debug("toggleFavorite result:", t), this.managementPanel.updatePromptList(), this.quickInsertPanel.updateCategories(), t;
+        return o.debug("toggleFavorite result:", t), this.managementPanel.updatePromptList(), this.quickInsertPanel.updateCategories(), t;
       } catch (t) {
-        l.error("Toggle favorite failed:", t), this.domUtils.showAlert(`${o.t("operation_failed")}${t.message}`);
+        o.error("Toggle favorite failed:", t), this.domUtils.showAlert(`${s.t("operation_failed")}${t.message}`);
       }
     }
   }
@@ -8874,13 +8900,13 @@ class W {
   saveCategory(e) {
     const t = e.id, a = e.name, r = e.icon, n = e.color;
     if (!a) {
-      this.domUtils.showAlert(o.t("category_name_required"));
+      this.domUtils.showAlert(s.t("category_name_required"));
       return;
     }
     if (t) {
-      const i = this.promptManager.metadata.categories.find((s) => s.id === t);
+      const i = this.promptManager.metadata.categories.find((l) => l.id === t);
       i && (i.name = a, i.icon = r || "📝", i.color = n || "#a0aec0");
-      const c = this.promptManager.categories.find((s) => s.id === t);
+      const c = this.promptManager.categories.find((l) => l.id === t);
       c && (c.name = a, c.icon = r || "📝", c.color = n || "#a0aec0");
     } else {
       const i = {
@@ -8921,7 +8947,7 @@ class W {
   // Update AI target category selector
   updateAITargetCategories() {
     const e = document.getElementById("ai-target-category");
-    !e || !this.promptManager || (e.innerHTML = `<option value="">${o.t("category_name_placeholder")}</option>`, this.promptManager.categories.forEach((t) => {
+    !e || !this.promptManager || (e.innerHTML = `<option value="">${s.t("category_name_placeholder")}</option>`, this.promptManager.categories.forEach((t) => {
       const a = document.createElement("option");
       a.value = t.id, a.textContent = `${t.icon} ${t.name}`, e.appendChild(a);
     }));
@@ -8957,16 +8983,16 @@ class W {
   }
   // Internal core logic for executing AI generation
   async _executeAIGeneration(e) {
-    l.debug("[PanelManager] Executing AI generation with input:", e), this.resetAIPanelState(), this.showAIProgress(!0), this.updateProgressStep("generating", "active");
+    o.debug("[PanelManager] Executing AI generation with input:", e), this.resetAIPanelState(), this.showAIProgress(!0), this.updateProgressStep("generating", "active");
     try {
-      l.debug("[PanelManager] Calling aiRetryManager.generateWithRetry...");
+      o.debug("[PanelManager] Calling aiRetryManager.generateWithRetry...");
       const t = await this.aiRetryManager.generateWithRetry(
         e,
         (a) => this.handleAIProgress(a)
       );
-      l.debug("[PanelManager] Received result from aiRetryManager:", t), t.success ? (this.displayAIResult(t.content, t.validation), this.state.currentAIGeneration = t.content) : t.content && t.canManualEdit ? (this.displayAIResult(t.content, t.validation, !0), this.state.currentAIGeneration = t.content) : this.showAIError(t.error || o.t("generation_failed_retry"));
+      o.debug("[PanelManager] Received result from aiRetryManager:", t), t.success ? (this.displayAIResult(t.content, t.validation), this.state.currentAIGeneration = t.content) : t.content && t.canManualEdit ? (this.displayAIResult(t.content, t.validation, !0), this.state.currentAIGeneration = t.content) : this.showAIError(t.error || s.t("generation_failed_retry"));
     } catch (t) {
-      l.error("[PanelManager] AI Generation Exception:", t), this.showAIError(`${o.t("generation_error")}${t.message}`);
+      o.error("[PanelManager] AI Generation Exception:", t), this.showAIError(`${s.t("generation_error")}${t.message}`);
     } finally {
       this.setGenerateButtonState(!1);
     }
@@ -8975,8 +9001,8 @@ class W {
   handleAIProgress(e) {
     const { stage: t, attempt: a, message: r, errors: n, warnings: i, score: c } = e;
     this.updateProgressStep(t, "active");
-    const s = document.getElementById("progress-message");
-    s && (s.textContent = r);
+    const l = document.getElementById("progress-message");
+    l && (l.textContent = r);
     const d = document.getElementById("progress-details");
     if (d) {
       let p = "";
@@ -9005,60 +9031,60 @@ Score: ${Math.round(c * 100)}%`), d.textContent = p.trim();
   }
   // Display AI Result
   displayAIResult(e, t, a = !1) {
-    l.debug("[PanelManager] displayAIResult: Starting UI update.", { content: e, validation: t }), this.showAIProgress(!1);
+    o.debug("[PanelManager] displayAIResult: Starting UI update.", { content: e, validation: t }), this.showAIProgress(!1);
     const r = document.getElementById("ai-assistant-panel");
     if (!r) {
-      l.error("[PanelManager] displayAIResult: AI assistant panel not found!");
+      o.error("[PanelManager] displayAIResult: AI assistant panel not found!");
       return;
     }
     const n = document.getElementById("validation-result");
-    n && (l.debug("[PanelManager] displayAIResult: Removing old result panel."), n.remove());
+    n && (o.debug("[PanelManager] displayAIResult: Removing old result panel."), n.remove());
     const i = document.createElement("div");
-    i.id = "validation-result", i.className = "validation-result", l.debug("[PanelManager] displayAIResult: Created new result panel element.");
+    i.id = "validation-result", i.className = "validation-result", o.debug("[PanelManager] displayAIResult: Created new result panel element.");
     const c = document.createElement("div");
     c.className = "ai-generated-preview";
-    const s = this.sanitizeHTML(e.title || o.t("untitled")), d = this.sanitizeHTML(e.content || o.t("no_content")).replace(/\n/g, "<br>"), p = this.sanitizeHTML(e.category || ""), u = this.sanitizeHTML(e.command || "");
+    const l = this.sanitizeHTML(e.title || s.t("untitled")), d = this.sanitizeHTML(e.content || s.t("no_content")).replace(/\n/g, "<br>"), p = this.sanitizeHTML(e.category || ""), u = this.sanitizeHTML(e.command || "");
     c.innerHTML = `
-            <h5>${o.t("generated_preview_title")}</h5>
+            <h5>${s.t("generated_preview_title")}</h5>
             <div class="preview-title">
-                <strong>${o.t("title_label")}</strong>${s}
+                <strong>${s.t("title_label")}</strong>${l}
             </div>
             <div class="preview-content">
-                <div class="content-label"><strong>${o.t("content_label")}</strong></div>
+                <div class="content-label"><strong>${s.t("content_label")}</strong></div>
                 <div class="content-text">${d}</div>
             </div>
-            ${p ? `<div class="preview-category"><strong>${o.t("category_label")}</strong>${p}</div>` : ""}
-            ${u ? `<div class="preview-command"><strong>${o.t("command_label")}</strong>/${u}</div>` : ""}
+            ${p ? `<div class="preview-category"><strong>${s.t("category_label")}</strong>${p}</div>` : ""}
+            ${u ? `<div class="preview-command"><strong>${s.t("command_label")}</strong>/${u}</div>` : ""}
         `, i.appendChild(c);
     const m = document.createElement("div");
     m.className = "validation-score";
     const g = Math.round(t.score * 100);
     m.innerHTML = `
-            <span class="score-label">${o.t("quality_score_label")}</span>
+            <span class="score-label">${s.t("quality_score_label")}</span>
             <span class="score-value ${g >= 80 ? "excellent" : g >= 60 ? "good" : "poor"}">${g}%</span>
         `, i.appendChild(m);
     const h = document.createElement("div");
     h.className = "validation-details";
     let v = "";
-    t.errors && t.errors.length > 0 && (v += `${o.t("errors_label")} (${t.errors.length}):
+    t.errors && t.errors.length > 0 && (v += `${s.t("errors_label")} (${t.errors.length}):
 ${t.errors.slice(0, 3).join(`
 `)}
 
-`), t.warnings && t.warnings.length > 0 && (v += `${o.t("warnings_label")} (${t.warnings.length}):
+`), t.warnings && t.warnings.length > 0 && (v += `${s.t("warnings_label")} (${t.warnings.length}):
 ${t.warnings.slice(0, 3).join(`
 `)}
 
-`), t.suggestions && t.suggestions.length > 0 && (v += `${o.t("suggestions_label")} (${t.suggestions.length}):
+`), t.suggestions && t.suggestions.length > 0 && (v += `${s.t("suggestions_label")} (${t.suggestions.length}):
 ${t.suggestions.slice(0, 3).join(`
-`)}`), h.textContent = v.trim() || o.t("content_meets_requirements"), i.appendChild(h);
+`)}`), h.textContent = v.trim() || s.t("content_meets_requirements"), i.appendChild(h);
     const b = document.createElement("div");
     b.className = "validation-actions", b.innerHTML = `
-            <button type="button" class="btn-success" data-action="acceptAIResult">${o.t("accept_result")}</button>
-            <button type="button" class="btn-warning" data-action="retryGeneration">${o.t("regenerate")}</button>
-            <button type="button" class="btn-info" data-action="manualEdit">${o.t("manual_edit")}</button>
+            <button type="button" class="btn-success" data-action="acceptAIResult">${s.t("accept_result")}</button>
+            <button type="button" class="btn-warning" data-action="retryGeneration">${s.t("regenerate")}</button>
+            <button type="button" class="btn-info" data-action="manualEdit">${s.t("manual_edit")}</button>
         `, i.appendChild(b);
     const _ = document.createElement("div");
-    _.className = "validation-hint", _.textContent = o.t("synced_to_form_hint"), i.appendChild(_), r.appendChild(i), l.debug("[PanelManager] displayAIResult: Appended new result panel to AI assistant panel."), this.scrollUtils.attachWheelScrollLock(i), this.rebindValidationActions(i), this.scrollToAIResult(), this.prefillManualForm(e), l.debug("[PanelManager] displayAIResult: UI update process finished.");
+    _.className = "validation-hint", _.textContent = s.t("synced_to_form_hint"), i.appendChild(_), r.appendChild(i), o.debug("[PanelManager] displayAIResult: Appended new result panel to AI assistant panel."), this.scrollUtils.attachWheelScrollLock(i), this.rebindValidationActions(i), this.scrollToAIResult(), this.prefillManualForm(e), o.debug("[PanelManager] displayAIResult: UI update process finished.");
   }
   // Accept AI Result
   async acceptAIResult() {
@@ -9070,19 +9096,19 @@ ${t.suggestions.slice(0, 3).join(`
           category: t,
           access_control: null
         };
-        await this.promptManager.createPrompt(a), this.managementPanel.updatePromptList(), this.managementPanel.updateCategoryList(), this.closePromptModal(), alert(o.t("ai_prompt_saved"));
+        await this.promptManager.createPrompt(a), this.managementPanel.updatePromptList(), this.managementPanel.updateCategoryList(), this.closePromptModal(), alert(s.t("ai_prompt_saved"));
       } catch (e) {
-        l.error("Failed to save AI generated prompt:", e), alert(`${o.t("save_failed")}${e.message}`);
+        o.error("Failed to save AI generated prompt:", e), alert(`${s.t("save_failed")}${e.message}`);
       }
   }
   // Regenerate
   retryGeneration() {
-    if (l.debug("[PanelManager] retryGeneration called."), this.state.lastAIUserInput) {
-      l.debug("[PanelManager] Retrying with last input:", this.state.lastAIUserInput);
+    if (o.debug("[PanelManager] retryGeneration called."), this.state.lastAIUserInput) {
+      o.debug("[PanelManager] Retrying with last input:", this.state.lastAIUserInput);
       const e = JSON.parse(JSON.stringify(this.state.lastAIUserInput));
-      l.debug("[PanelManager] Created deep copy for retry:", e), this._executeAIGeneration(e);
+      o.debug("[PanelManager] Created deep copy for retry:", e), this._executeAIGeneration(e);
     } else
-      alert(o.t("no_retry_record")), l.error("[PanelManager] Retry failed: lastAIUserInput is null.");
+      alert(s.t("no_retry_record")), o.error("[PanelManager] Retry failed: lastAIUserInput is null.");
   }
   // Manual Edit
   manualEdit() {
@@ -9101,7 +9127,7 @@ ${t.suggestions.slice(0, 3).join(`
       }
       this.toggleAIMode();
     } catch (a) {
-      l.error("Failed to fetch template:", a), alert(`${o.t("get_template_failed")}${a.message}`);
+      o.error("Failed to fetch template:", a), alert(`${s.t("get_template_failed")}${a.message}`);
     }
   }
   // Show/Hide AI progress and manage button state
@@ -9138,23 +9164,23 @@ ${t.suggestions.slice(0, 3).join(`
   // ==================== Model Selection Feature ====================
   // Load available models (Using ModelSelect component)
   async loadAvailableModels() {
-    if (l.debug("[ModelSelect] 🚀 loadAvailableModels called"), this._modelLoading) {
-      l.debug("[ModelSelect] ⏳ Already loading, skipping"), l.debug("[ModelSelect] Already loading, skipping.");
+    if (o.debug("[ModelSelect] 🚀 loadAvailableModels called"), this._modelLoading) {
+      o.debug("[ModelSelect] ⏳ Already loading, skipping"), o.debug("[ModelSelect] Already loading, skipping.");
       return;
     }
     const e = document.getElementById("ai-model-select-container");
     if (!e) {
-      l.warn("[ModelSelect] AI model select container not found.");
+      o.warn("[ModelSelect] AI model select container not found.");
       return;
     }
-    if (this.modelSelect && this.modelSelect.container !== e && (l.debug("[ModelSelect] Container changed, resetting component."), this.modelSelect = null), this.modelSelect && this.modelSelect.models && this.modelSelect.models.length > 0) {
-      l.debug("[ModelSelect] Model data already loaded, skipping.");
+    if (this.modelSelect && this.modelSelect.container !== e && (o.debug("[ModelSelect] Container changed, resetting component."), this.modelSelect = null), this.modelSelect && this.modelSelect.models && this.modelSelect.models.length > 0) {
+      o.debug("[ModelSelect] Model data already loaded, skipping.");
       return;
     }
     this._modelLoading = !0;
     try {
       this.modelSelect || (this.modelSelect = new be(e, {
-        placeholder: o.t("search_select_model_placeholder"),
+        placeholder: s.t("search_select_model_placeholder"),
         onSelect: (t) => {
           this.handleModelChange(t.id);
         }
@@ -9167,49 +9193,49 @@ ${t.suggestions.slice(0, 3).join(`
   async _loadModelData() {
     var e;
     if (!this.modelSelect) {
-      l.warn("[ModelSelect] Component not initialized");
+      o.warn("[ModelSelect] Component not initialized");
       return;
     }
     try {
-      if (l.debug("[ModelSelect] Starting model load..."), this.modelSelect.setLoading(!0), !this.promptManager || !this.promptManager.api)
-        throw l.error("[ModelSelect] API unavailable", {
+      if (o.debug("[ModelSelect] Starting model load..."), this.modelSelect.setLoading(!0), !this.promptManager || !this.promptManager.api)
+        throw o.error("[ModelSelect] API unavailable", {
           promptManager: !!this.promptManager,
           api: !!((e = this.promptManager) != null && e.api)
-        }), new Error(o.t("ai_api_unavailable"));
-      l.debug("[ModelSelect] Calling getAvailableModels...");
+        }), new Error(s.t("ai_api_unavailable"));
+      o.debug("[ModelSelect] Calling getAvailableModels...");
       const t = await this.promptManager.api.getAvailableModels();
-      if (l.debug("[ModelSelect] Got models:", t == null ? void 0 : t.length), t && Array.isArray(t) && t.length > 0) {
+      if (o.debug("[ModelSelect] Got models:", t == null ? void 0 : t.length), t && Array.isArray(t) && t.length > 0) {
         this.modelSelect.setModels(t);
         try {
           const a = await this.promptManager.api.getCurrentModel();
-          l.debug("[ModelSelect] Current model:", a), a && this.modelSelect.setSelected(a);
+          o.debug("[ModelSelect] Current model:", a), a && this.modelSelect.setSelected(a);
         } catch (a) {
-          l.warn("[ModelSelect] Failed to get current model:", a);
+          o.warn("[ModelSelect] Failed to get current model:", a);
         }
-        l.debug(`[ModelSelect] ✅ Loaded ${t.length} available models`);
+        o.debug(`[ModelSelect] ✅ Loaded ${t.length} available models`);
       } else
-        l.warn("[ModelSelect] No available models found"), this.modelSelect.setError(o.t("no_models_available"));
+        o.warn("[ModelSelect] No available models found"), this.modelSelect.setError(s.t("no_models_available"));
     } catch (t) {
-      l.error("[ModelSelect] Load failed:", t), this.modelSelect.setError(o.t("load_failed_refresh"));
+      o.error("[ModelSelect] Load failed:", t), this.modelSelect.setError(s.t("load_failed_refresh"));
     } finally {
       this.modelSelect.setLoading(!1);
     }
   }
   // Format model display name
   formatModelDisplayName(e) {
-    const t = e.id || e.model || o.t("unknown_model");
+    const t = e.id || e.model || s.t("unknown_model");
     let r = e.name || t;
-    return e.owned_by && e.owned_by !== "system" && (r += ` (${e.owned_by})`), e.is_active === !1 && (r += ` [${o.t("offline")}]`), t.includes("gpt-4") ? r = "🤖 " + r : t.includes("gpt-3.5") ? r = "💬 " + r : t.includes("gemini") ? r = "✨ " + r : t.includes("claude") ? r = "🎭 " + r : t.includes("llama") ? r = "🦙 " + r : r = "🔧 " + r, r;
+    return e.owned_by && e.owned_by !== "system" && (r += ` (${e.owned_by})`), e.is_active === !1 && (r += ` [${s.t("offline")}]`), t.includes("gpt-4") ? r = "🤖 " + r : t.includes("gpt-3.5") ? r = "💬 " + r : t.includes("gemini") ? r = "✨ " + r : t.includes("claude") ? r = "🎭 " + r : t.includes("llama") ? r = "🦙 " + r : r = "🔧 " + r, r;
   }
   // Handle model selection change
   handleModelChange(e) {
     if (!(!e || e === "retry"))
       try {
-        l.debug(`[PanelManager] 💾 Save model selection: ${e}`), localStorage.setItem("selectedModel", e);
+        o.debug(`[PanelManager] 💾 Save model selection: ${e}`), localStorage.setItem("selectedModel", e);
         const t = localStorage.getItem("selectedModel");
-        l.debug(`[PanelManager] ✅ Verify localStorage: ${t}`), this.promptManager && this.promptManager.api && l.debug(`[PanelManager] Switched to model: ${e}`);
+        o.debug(`[PanelManager] ✅ Verify localStorage: ${t}`), this.promptManager && this.promptManager.api && o.debug(`[PanelManager] Switched to model: ${e}`);
       } catch (t) {
-        l.error("[PanelManager] Failed to switch model:", t), alert(`Failed to switch model: ${t.message}`);
+        o.error("[PanelManager] Failed to switch model:", t), alert(`Failed to switch model: ${t.message}`);
       }
   }
   // Show model switch success notification
@@ -9228,7 +9254,7 @@ ${t.suggestions.slice(0, 3).join(`
             z-index: 999999;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             animation: slideInRight 0.3s ease-out;
-        `, t.innerHTML = `✅ ${o.t("switched_to")}${this.getSimpleModelName(e)}`, document.body.appendChild(t), setTimeout(() => {
+        `, t.innerHTML = `✅ ${s.t("switched_to")}${this.getSimpleModelName(e)}`, document.body.appendChild(t), setTimeout(() => {
       t.parentNode && (t.style.animation = "slideOutRight 0.3s ease-out", setTimeout(() => {
         t.remove();
       }, 300));
@@ -9252,7 +9278,7 @@ ${t.suggestions.slice(0, 3).join(`
       a.addEventListener("click", (r) => {
         r.preventDefault(), r.stopPropagation();
         const n = a.dataset.action, i = this[n];
-        typeof i == "function" ? (l.debug(`Executing validation action: ${n}`), i.call(this)) : l.warn(`Handler not found for action: ${n}`);
+        typeof i == "function" ? (o.debug(`Executing validation action: ${n}`), i.call(this)) : o.warn(`Handler not found for action: ${n}`);
       });
     });
   }
@@ -9265,7 +9291,7 @@ ${t.suggestions.slice(0, 3).join(`
         t.scrollTo({
           top: Math.max(0, n),
           behavior: "smooth"
-        }), l.debug("Auto-scrolling to AI generation result");
+        }), o.debug("Auto-scrolling to AI generation result");
       } else {
         const a = document.getElementById("validation-result");
         a && a.scrollIntoView({
@@ -9316,7 +9342,7 @@ ${t.suggestions.slice(0, 3).join(`
 }
 class Me {
   constructor() {
-    this.version = "0.1.2", console.log(`%c 🚀 Open WebUI Prompt Plus v${this.version} %c https://github.com/fujie/open-webui-prompt-plus `, "background: #667eea; color: #fff; border-radius: 3px 0 0 3px; padding: 2px 5px; font-weight: bold;", "background: #764ba2; color: #fff; border-radius: 0 3px 3px 0; padding: 2px 5px;"), this.initialized = !1, this.buttonCreated = !1, this.domManipulator = new U(), this.promptManager = null, this.inputDetector = null, this.textInserter = null, this.promptInserter = null, this.panelManager = null, this.placeholderSet = !1, this.targetContainerCache = null, this.lastContainerCheck = 0, this.containerCheckInterval = 250, this.initializationQueue = [], this.isInitializing = !1;
+    this.version = "0.1.3", console.log(`%c 🚀 Open WebUI Prompt Plus v${this.version} %c https://github.com/fujie/open-webui-prompt-plus `, "background: #667eea; color: #fff; border-radius: 3px 0 0 3px; padding: 2px 5px; font-weight: bold;", "background: #764ba2; color: #fff; border-radius: 0 3px 3px 0; padding: 2px 5px;"), this.initialized = !1, this.buttonCreated = !1, this.domManipulator = new U(), this.promptManager = null, this.inputDetector = null, this.textInserter = null, this.promptInserter = null, this.panelManager = null, this.placeholderSet = !1, this.targetContainerCache = null, this.lastContainerCheck = 0, this.containerCheckInterval = 250, this.initializationQueue = [], this.isInitializing = !1;
   }
   // Fast Initialize - Create only necessary components (and provide immediately interactive lightweight instances)
   fastInitialize() {
@@ -9329,11 +9355,11 @@ class Me {
       try {
         this.inputDetector || (this.inputDetector = new j()), this.textInserter || (this.textInserter = new G()), this.promptManager || (this.promptManager = new O()), this.promptInserter || (this.promptInserter = new H(this.inputDetector, this.textInserter)), this.panelManager || (this.panelManager = new W(this.promptManager, this.promptInserter, this.domManipulator)), this.syncService || (this.syncService = new ye(this.promptManager));
         const e = (t) => {
-          l.debug("SWR Callback: Prompts updated, refreshing UI components..."), this.panelManager && (this.panelManager.initializeSearchFeatures(), this.panelManager.managementPanel && (this.panelManager.managementPanel.updatePromptList(), this.panelManager.managementPanel.updateCategoryList()), this.panelManager.quickInsertPanel && (this.panelManager.quickInsertPanel.updateList(), this.panelManager.quickInsertPanel.updateCategories()));
+          o.debug("SWR Callback: Prompts updated, refreshing UI components..."), this.panelManager && (this.panelManager.initializeSearchFeatures(), this.panelManager.managementPanel && (this.panelManager.managementPanel.updatePromptList(), this.panelManager.managementPanel.updateCategoryList()), this.panelManager.quickInsertPanel && (this.panelManager.quickInsertPanel.updateList(), this.panelManager.quickInsertPanel.updateCategories()));
         };
-        await this.promptManager.loadData(e), this.panelManager && this.panelManager.initializeSearchFeatures(), this.syncService.start(), window.promptManager = this.promptManager, window.panelManager = this.panelManager, window.loaderApp = this, this.initialized = !0, this.isInitializing = !1, l.debug("LoaderApp fully initialized"), this.processInitializationQueue();
+        await this.promptManager.loadData(e), this.panelManager && this.panelManager.initializeSearchFeatures(), this.syncService.start(), window.promptManager = this.promptManager, window.panelManager = this.panelManager, window.loaderApp = this, this.initialized = !0, this.isInitializing = !1, o.debug("LoaderApp fully initialized"), this.processInitializationQueue();
       } catch (e) {
-        l.error("LoaderApp full initialization failed:", e), this.isInitializing = !1;
+        o.error("LoaderApp full initialization failed:", e), this.isInitializing = !1;
       }
     }
   }
@@ -9343,7 +9369,7 @@ class Me {
     try {
       this.promptManager && await this.promptManager.loadData();
     } catch (e) {
-      l.warn("Async data load failed:", e);
+      o.warn("Async data load failed:", e);
     }
   }
   // Process initialization queue
@@ -9353,7 +9379,7 @@ class Me {
       try {
         e();
       } catch (t) {
-        l.warn("Failed to process initialization queue:", t);
+        o.warn("Failed to process initialization queue:", t);
       }
     }
   }
@@ -9411,9 +9437,9 @@ class Me {
   }
   // Handle keyboard events
   handleKeyboardEvents(e) {
-    var r, n, i, c, s;
+    var r, n, i, c, l;
     const a = navigator.platform.toUpperCase().indexOf("MAC") >= 0 ? e.metaKey : e.ctrlKey;
-    if (!this.initialized && !this.isInitializing && this.fullInitialize(), this.panelManager || this.fastInitialize(), a && e.shiftKey && (e.key === "p" || e.key === "P") && (e.preventDefault(), (r = this.panelManager) == null || r.toggleQuickInsertPanel()), a && e.shiftKey && (e.key === "l" || e.key === "L") && (e.preventDefault(), (n = this.panelManager) == null || n.toggleManagementPanel()), e.key === "Escape" && ((i = this.panelManager) == null || i.closeQuickInsertPanel(), (c = this.panelManager) == null || c.closeManagementPanel(), (s = this.panelManager) == null || s.closePromptModal()), e.key === "Tab") {
+    if (!this.initialized && !this.isInitializing && this.fullInitialize(), this.panelManager || this.fastInitialize(), a && e.shiftKey && (e.key === "p" || e.key === "P") && (e.preventDefault(), (r = this.panelManager) == null || r.toggleQuickInsertPanel()), a && e.shiftKey && (e.key === "l" || e.key === "L") && (e.preventDefault(), (n = this.panelManager) == null || n.toggleManagementPanel()), e.key === "Escape" && ((i = this.panelManager) == null || i.closeQuickInsertPanel(), (c = this.panelManager) == null || c.closeManagementPanel(), (l = this.panelManager) == null || l.closePromptModal()), e.key === "Tab") {
       const d = document.activeElement;
       if (this.handleCommandPanelTab(e))
         return;
@@ -9423,16 +9449,16 @@ class Me {
   // Handle Tab key trigger for command panel
   handleCommandPanelTab(e) {
     const t = document.querySelector(".selected-command-option-button");
-    return t ? (e.preventDefault(), e.stopPropagation(), t.click(), l.debug("Tab key triggered command:", t.textContent), !0) : !1;
+    return t ? (e.preventDefault(), e.stopPropagation(), t.click(), o.debug("Tab key triggered command:", t.textContent), !0) : !1;
   }
   // Run main loop
   run() {
     document.addEventListener("keydown", (t) => this.handleKeyboardEvents(t)), new MutationObserver(() => {
-      o.sync(), this.domManipulator.setRandomPlaceholder(), this.domManipulator.hideVersionInfo(), this.setupEnhancedPromptManager(), this.handleVariableModal();
+      s.sync(), this.domManipulator.setRandomPlaceholder(), this.domManipulator.hideVersionInfo(), this.setupEnhancedPromptManager(), this.handleVariableModal();
     }).observe(document.body, {
       childList: !0,
       subtree: !0
-    }), o.sync(), this.domManipulator.setRandomPlaceholder(), this.domManipulator.hideVersionInfo(), this.scheduleFullInitialization();
+    }), s.sync(), this.domManipulator.setRandomPlaceholder(), this.domManipulator.hideVersionInfo(), this.scheduleFullInitialization();
   }
   // Handle variable modal, remove required attributes
   handleVariableModal() {
@@ -9442,12 +9468,12 @@ class Me {
         var c;
         if (i.hasAttribute("required")) {
           i.removeAttribute("required");
-          const s = (c = i.closest(".form-group, .form-field")) == null ? void 0 : c.querySelector("label");
-          if (s) {
-            const d = Array.from(s.childNodes).find(
+          const l = (c = i.closest(".form-group, .form-field")) == null ? void 0 : c.querySelector("label");
+          if (l) {
+            const d = Array.from(l.childNodes).find(
               (p) => p.nodeType === Node.ELEMENT_NODE && p.textContent.includes("*required")
             );
-            d ? d.remove() : s.innerHTML.includes("*required") && (s.innerHTML = s.innerHTML.replace(/\s*\*required/g, ""));
+            d ? d.remove() : l.innerHTML.includes("*required") && (l.innerHTML = l.innerHTML.replace(/\s*\*required/g, ""));
           }
         }
       });

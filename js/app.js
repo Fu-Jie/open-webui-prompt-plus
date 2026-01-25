@@ -13,7 +13,7 @@ import { logger } from './core/logger.js';
 // Main Application Class
 class LoaderApp {
     constructor() {
-        this.version = '0.1.2';
+        this.version = '0.1.3';
         console.log(`%c 🚀 Open WebUI Prompt Plus v${this.version} %c https://github.com/fujie/open-webui-prompt-plus `, 'background: #667eea; color: #fff; border-radius: 3px 0 0 3px; padding: 2px 5px; font-weight: bold;', 'background: #764ba2; color: #fff; border-radius: 0 3px 3px 0; padding: 2px 5px;');
         this.initialized = false;
         this.buttonCreated = false;
