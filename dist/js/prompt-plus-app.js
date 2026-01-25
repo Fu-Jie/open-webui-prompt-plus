@@ -9316,7 +9316,7 @@ ${t.suggestions.slice(0, 3).join(`
 }
 class Me {
   constructor() {
-    this.version = "0.1.0", console.log(`%c 🚀 Open WebUI Prompt Plus v${this.version} %c https://github.com/fujie/open-webui-prompt-plus `, "background: #667eea; color: #fff; border-radius: 3px 0 0 3px; padding: 2px 5px; font-weight: bold;", "background: #764ba2; color: #fff; border-radius: 0 3px 3px 0; padding: 2px 5px;"), this.initialized = !1, this.buttonCreated = !1, this.domManipulator = new U(), this.promptManager = null, this.inputDetector = null, this.textInserter = null, this.promptInserter = null, this.panelManager = null, this.placeholderSet = !1, this.targetContainerCache = null, this.lastContainerCheck = 0, this.containerCheckInterval = 250, this.initializationQueue = [], this.isInitializing = !1;
+    this.version = "0.1.2", console.log(`%c 🚀 Open WebUI Prompt Plus v${this.version} %c https://github.com/fujie/open-webui-prompt-plus `, "background: #667eea; color: #fff; border-radius: 3px 0 0 3px; padding: 2px 5px; font-weight: bold;", "background: #764ba2; color: #fff; border-radius: 0 3px 3px 0; padding: 2px 5px;"), this.initialized = !1, this.buttonCreated = !1, this.domManipulator = new U(), this.promptManager = null, this.inputDetector = null, this.textInserter = null, this.promptInserter = null, this.panelManager = null, this.placeholderSet = !1, this.targetContainerCache = null, this.lastContainerCheck = 0, this.containerCheckInterval = 250, this.initializationQueue = [], this.isInitializing = !1;
   }
   // Fast Initialize - Create only necessary components (and provide immediately interactive lightweight instances)
   fastInitialize() {

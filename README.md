@@ -16,9 +16,11 @@
 
 ---
 
-## 🆕 What's New (v0.1.5)
+## 🆕 What's New (v0.1.2)
 
-- **Unified Filename**: Standardized the build output filename to `prompt-plus-app.js`. This simplifies Docker mount configurations, as users no longer need to manually rename the file during mounting. `loader.js` has been updated to load this file by default.
+- **Docker Deployment Enhancements**:
+    - **Unified Filename**: Standardized build output to `prompt-plus-app.js` for simpler mount configurations.
+    - **Smart Path Detection**: `loader.js` now features multi-level fallback strategies (supporting standard paths, root mounts, etc.) and improved troubleshooting logs, resolving 404 loading issues in Docker environments.
 
 
 ---
