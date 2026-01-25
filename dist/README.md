@@ -175,7 +175,7 @@ Contributions are welcome! Whether it's a bug report, a feature request, or a ne
 Check out my other Open WebUI projects:
 
 - **[Awesome Open WebUI](https://github.com/Fu-Jie/awesome-openwebui)**: A curated list of extensions, tools, and resources for Open WebUI.
-- **[Open WebUI Chat Client](https://github.com/Fu-Jie/openwebui-chat-client)**: A lightweight, standalone chat client for Open WebUI.
+- **[Open WebUI Chat Client](https://github.com/Fu-Jie/openwebui-chat-client)**: A Python client for programmatic chat interactions, fully visualized within the Open WebUI interface.
 
 ---
 

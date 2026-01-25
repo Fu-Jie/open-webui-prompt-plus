@@ -174,7 +174,7 @@ Prompt Plus 核心内置 i18n 支持。它会自动检测 Open WebUI 的语言�
 欢迎查看我的其他 Open WebUI 相关项目：
 
 - **[Awesome Open WebUI](https://github.com/Fu-Jie/awesome-openwebui)**: Open WebUI 扩展、工具和资源的精选列表。
-- **[Open WebUI Chat Client](https://github.com/Fu-Jie/openwebui-chat-client)**: 一个轻量级的 Open WebUI 独立聊天客户端。
+- **[Open WebUI Chat Client](https://github.com/Fu-Jie/openwebui-chat-client)**: 一个 Python 客户端，支持通过编程方式进行对话，并能在 Open WebUI 界面上实时可视化。
 
 ---
 
