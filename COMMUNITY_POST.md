@@ -4,7 +4,7 @@ I'm excited to share **Prompt Plus**, a powerful extension designed to elevate y
 
 ### 🌟 Why Prompt Plus?
 
-If you find yourself struggling to manage hundreds of prompts or want a faster way to insert them without leaving your keyboard, this is for you.
+If you find yourself struggling to manage hundreds of prompts or want a visual way to find and insert prompts without memorizing commands, this is for you.
 
 *   **🤖 AI-Powered Generation**: Just describe what you need (e.g., "Python code reviewer"), and it generates a structured, variable-rich prompt for you. It even handles auto-categorization and title suggestions!
 *   **⚡ Spotlight Quick Access**: Press `Cmd/Ctrl + Shift + P` anywhere to open a command palette. Fuzzy search your prompts by title, content, or tags instantly.

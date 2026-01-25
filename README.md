@@ -27,7 +27,7 @@ Stop struggling with prompt engineering.
 ### ⚡ Quick Insert Panel (Spotlight Style)
 - **Global Shortcut**: Press `Cmd/Ctrl + Shift + P` to instantly toggle the search panel.
 - **Fuzzy Search**: Find prompts by title, content, tags, or commands in milliseconds.
-- **Keyboard-First Design**: Optimized for power users—search, switch categories, and insert prompts without ever touching your mouse.
+- **Visual Search & Discovery**: Optimized for usability—instantly find prompts by keyword without memorizing slash commands.
 
 ### 📂 Advanced Category Management
 - **Dynamic Categories**: Create custom categories with personalized Emoji icons.
