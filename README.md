@@ -16,6 +16,12 @@
 
 ---
 
+## 🆕 What's New (v0.1.2)
+
+- **Docker Deployment Enhancement**: Fixed loading failures (404 Error) in production Docker environments caused by custom file mounting names (e.g., `prompt-plus-app.js`). The `loader.js` now implements an automatic fallback strategy to intelligently detect file paths.
+
+---
+
 ## 🌟 Key Features
 
 ### 🤖 AI-Powered Prompt Generator
