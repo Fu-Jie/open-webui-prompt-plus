@@ -19,7 +19,7 @@ You can install it easily via Docker volume mounting. No complex setup required!
 volumes:
   - ./dist/custom.css:/app/build/static/custom.css
   - ./dist/loader.js:/app/build/static/loader.js
-  - ./dist/js:/app/build/static/js/prompt-plus-js
+  - ./dist/js/prompt-plus-app.js:/app/build/static/js/prompt-plus-app.js
 ```
 
 *(Check the GitHub repo for the full `docker-compose.yml` example)*

@@ -19,7 +19,7 @@
 volumes:
   - ./dist/custom.css:/app/build/static/custom.css
   - ./dist/loader.js:/app/build/static/loader.js
-  - ./dist/js:/app/build/static/js/prompt-plus-js
+  - ./dist/js/prompt-plus-app.js:/app/build/static/js/prompt-plus-app.js
 ```
 
 *(查看 GitHub 仓库获取完整的 `docker-compose.yml` 示例)*
