@@ -7,12 +7,12 @@ export default defineConfig({
         lib: {
             entry: resolve(__dirname, 'js/app.js'),
             name: 'OpenWebUIPromptEnhancement',
-            fileName: 'app',
+            fileName: 'prompt-plus-app',
             formats: ['es']
         },
         rollupOptions: {
             output: {
-                entryFileNames: 'js/[name].js',
+                entryFileNames: 'js/prompt-plus-app.js',
                 chunkFileNames: 'js/[name]-[hash].js',
                 assetFileNames: '[name][extname]'
             }

@@ -16,9 +16,9 @@
 
 ---
 
-## 🆕 What's New (v0.1.4)
+## 🆕 What's New (v0.1.5)
 
-- **Troubleshooting Enhancement**: Improved `loader.js` logging. The console now displays detailed logs for each loading attempt (Standard Path -> Fallback 1 -> Fallback 2) and clearly marks the successful source, helping users quickly identify Docker mount or caching issues.
+- **Unified Filename**: Standardized the build output filename to `prompt-plus-app.js`. This simplifies Docker mount configurations, as users no longer need to manually rename the file during mounting. `loader.js` has been updated to load this file by default.
 
 
 ---
