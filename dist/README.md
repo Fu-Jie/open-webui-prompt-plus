@@ -16,11 +16,12 @@
 
 ---
 
-## 🆕 What's New (v0.1.2)
+## 🆕 What's New (v0.1.3)
 
-- **Docker Deployment Enhancements**:
-    - **Unified Filename**: Standardized build output to `prompt-plus-app.js` for simpler mount configurations.
-    - **Smart Path Detection**: `loader.js` now features multi-level fallback strategies (supporting standard paths, root mounts, etc.) and improved troubleshooting logs, resolving 404 loading issues in Docker environments.
+- **Bug Fix**: Fixed a critical issue where prompts with variables were inserted twice in ProseMirror editors.
+  - **Cause**: Conflicting `input` events triggered by both `execCommand` and manual dispatch, combined with ProseMirror's complex state management.
+  - **Fix**: Implemented a dedicated insertion strategy for ProseMirror that bypasses redundant event simulation, optimized key press simulation (Enter vs Tab), and added strict event deduplication logic.
+
 
 
 ---
