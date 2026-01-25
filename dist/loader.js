@@ -30,21 +30,31 @@ if (supportsModules) {
     document.head.appendChild(style);
 
     // Modern browsers: Load app modules
-    const VERSION = '0.1.3';
+    const VERSION = '0.1.4';
     console.log(`Loader: Loading Prompt Plus v${VERSION}...`);
 
     // Use relative path that works with the new directory structure
     // Try standard path first (Dev/Standard Prod), then fallback to flat path (Custom Prod)
     const loadApp = () => {
         const v = `?v=${VERSION}`;
-        return import(`./js/prompt-plus-js/app.js${v}`)
+
+        // Helper to log attempts
+        const tryLoad = (path, label) => {
+            console.log(`Loader: Trying to load from ${label}: ${path}`);
+            return import(path).then(module => {
+                console.log(`Loader: ✅ Successfully loaded from ${label}`);
+                return module;
+            });
+        };
+
+        return tryLoad(`./js/prompt-plus-js/app.js${v}`, 'Standard Path')
             .catch(() => {
-                console.log('Standard path failed, trying fallback path 1 (js/)...');
-                return import(`./js/prompt-plus-app.js${v}`);
+                console.warn('Loader: Standard path failed (expected 404), trying fallback 1...');
+                return tryLoad(`./js/prompt-plus-app.js${v}`, 'Fallback Path 1 (js/)');
             })
             .catch(() => {
-                console.log('Fallback path 1 failed, trying fallback path 2 (root)...');
-                return import(`./prompt-plus-app.js${v}`);
+                console.warn('Loader: Fallback 1 failed, trying fallback 2...');
+                return tryLoad(`./prompt-plus-app.js${v}`, 'Fallback Path 2 (root)');
             });
     };
 

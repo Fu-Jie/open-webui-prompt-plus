@@ -16,9 +16,9 @@
 
 ---
 
-## 🆕 What's New (v0.1.3)
+## 🆕 What's New (v0.1.4)
 
-- **Docker Deployment Enhancement**: Further improved `loader.js` path detection. In addition to standard paths and the `js/` subdirectory, it now supports loading `prompt-plus-app.js` from the root directory, accommodating a wider range of Docker mount configurations (e.g., mounting files directly to the `static/` root).
+- **Troubleshooting Enhancement**: Improved `loader.js` logging. The console now displays detailed logs for each loading attempt (Standard Path -> Fallback 1 -> Fallback 2) and clearly marks the successful source, helping users quickly identify Docker mount or caching issues.
 
 
 ---
