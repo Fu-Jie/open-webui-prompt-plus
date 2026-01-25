@@ -64,7 +64,7 @@
 </p>
 
 <p align="center">
-  <img src="./screenshots/08_ai_generation_demo.mp4" alt="AI 生成演示" width="90%">
+  <img src="./screenshots/08_ai_generation_demo.gif" alt="AI 生成演示" width="90%">
 </p>
 
 ---
@@ -177,7 +177,7 @@ Prompt Plus 核心内置 i18n 支持。它会自动检测 Open WebUI 的语言�
 ---
 
 <p align="center">
-  <b>GitHub</b>: <a href="https://github.com/fujie/open-webui-prompt-plus">fujie/open-webui-prompt-plus</a>
+  <b>GitHub</b>: <a href="https://github.com/Fu-Jie/open-webui-prompt-plus">Fu-Jie/open-webui-prompt-plus</a>
   <br />
   为 Open WebUI 社区用 ❤️ 打造
 </p>

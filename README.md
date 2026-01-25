@@ -64,7 +64,7 @@ Transform static templates into beautiful, interactive forms:
 </p>
 
 <p align="center">
-  <img src="./screenshots/08_ai_generation_demo.mp4" alt="AI Generation Demo" width="90%">
+  <img src="./screenshots/08_ai_generation_demo.gif" alt="AI Generation Demo" width="90%">
 </p>
 
 
@@ -178,7 +178,7 @@ Contributions are welcome! Whether it's a bug report, a feature request, or a ne
 ---
 
 <p align="center">
-  <b>GitHub</b>: <a href="https://github.com/fujie/open-webui-prompt-plus">fujie/open-webui-prompt-plus</a>
+  <b>GitHub</b>: <a href="https://github.com/Fu-Jie/open-webui-prompt-plus">Fu-Jie/open-webui-prompt-plus</a>
   <br />
   Made with ❤️ for the Open WebUI Community
 </p>
