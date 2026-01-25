@@ -132,18 +132,9 @@ This updates the `dist` directory, which is tracked by Git for easy deployment.
 
 ## 📖 Variable Syntax Guide
 
-Prompt Plus supports an enhanced Handlebars-style syntax that automatically renders as beautiful UI components. It is fully compatible with Open WebUI's native syntax but extends it with rich UI controls.
+Prompt Plus fully supports Open WebUI's native prompt variable syntax. For a complete guide on how to use variables, please refer to the official documentation:
 
-| Type | Syntax Example | Description |
-| :--- | :--- | :--- |
-| **Text** | `{{name | text:placeholder="Enter name"}}` | Standard single-line input |
-| **Textarea** | `{{code | textarea:placeholder="Paste code here"}}` | Multi-line input for long text or code |
-| **Select** | `{{tone | select:options=["Formal","Casual"]:default="Formal"}}` | Dropdown with predefined options |
-| **Range** | `{{temp | range:min=0:max=1:step=0.1:default=0.7}}` | Slider for precise numeric values |
-| **Checkbox** | `{{debug | checkbox:default=false}}` | Simple boolean toggle |
-| **Date/Time** | `{{deadline | date}}` or `{{meeting | datetime-local}}` | Native browser date/time pickers |
-| **Color** | `{{theme | color:default="#667eea"}}` | Visual color picker |
-| **Clipboard** | `{{CLIPBOARD}}` | Automatically injects current clipboard content |
+👉 **[Open WebUI Documentation - Prompt Variables](https://docs.openwebui.com/features/workspace/prompts/#prompt-variables)**
 
 ---
 
