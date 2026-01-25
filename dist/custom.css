@@ -1,0 +1,3199 @@
+/* ==========================================================================
+  /* Global Dark Mode Color Overrides - Fix Tailwind gray-850 inconsistency */
+/* Override Tailwind's dark:bg-gray-850 to use gray-800 for consistency */
+.dark .bg-gray-850,
+.dark [class*="dark:bg-gray-850"] {
+    background-color: #1f2937 !important;
+    /* gray-800 for consistency */
+}
+
+/* ==========================================================================
+  /* Editor Panel Layout & Collapsible Panel */
+.collapsible-panel {
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.collapsible-panel.collapsed {
+    margin-bottom: 0 !important;
+}
+
+.collapsible-panel.collapsed .card-body {
+    display: none;
+}
+
+.manual-edit-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.manual-edit-card .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.manual-edit-card .field-textarea {
+    flex: 1;
+    min-height: 250px;
+    resize: none;
+}
+
+.btn-toggle-ai:hover {
+    transform: scale(1.2);
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 4px;
+}
+
+/* ==========================================================================
+   1. Root Variables & Base Styles
+   ========================================================================== */
+
+#prompt-enhancement-system {
+    /* This container isolates all injected UI and styles. */
+    --pes-color-text: var(--color-gray-900, #1a202c);
+    --pes-color-text-dark: var(--color-gray-200, #e2e8f0);
+    --pes-color-border: var(--color-gray-100, #e2e8f0);
+    --pes-color-border-dark: var(--color-gray-800, #2d3748);
+
+    --pes-bg-muted: #f7fafc;
+    --pes-bg-muted-dark: var(--color-gray-850, #1f2937);
+    --pes-bg-hover: #edf2f7;
+    --pes-bg-hover-dark: #4a5568;
+    /* Darker gray for dark mode hover */
+    --pes-bg-active: #e2e8f0;
+    /* Slightly darker for active/secondary hover */
+    --pes-bg-active-dark: #4a5568;
+    /* Darker for active/secondary hover in dark mode */
+
+    --pes-color-primary: #4299e1;
+    /* Blue */
+    --pes-color-primary-dark: #3182ce;
+    /* Darker blue for dark mode */
+    --pes-color-primary-hover: #2b6cb0;
+    /* Darker blue for hover */
+    --pes-color-primary-hover-dark: #2c5282;
+    /* Even darker blue for dark mode hover */
+
+    --pes-color-secondary: #2d3748;
+    /* Dark gray for secondary text/elements */
+    --pes-color-secondary-dark: #e2e8f0;
+    /* Light gray for secondary text/elements in dark mode */
+
+    --pes-color-hint: #718096;
+    /* Gray for hint text */
+    --pes-color-hint-dark: #a0aec0;
+    /* Lighter gray for hint text in dark mode */
+
+    --pes-color-success: #48bb78;
+    /* Green for success */
+    --pes-color-error: #e53e3e;
+    /* Red for error */
+    --pes-color-warning: #b7791f;
+    /* Orange for warning */
+
+    --pes-shadow-panel: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --pes-shadow-panel-dark: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+
+    --pes-focus-ring: 0 0 0 2px rgba(66, 153, 225, 0.5);
+    --pes-focus-ring-dark: 0 0 0 2px rgba(49, 130, 206, 0.5);
+
+    --pes-mark-bg: #faf089;
+    --pes-mark-bg-dark: #b7791f;
+    --pes-mark-color-dark: #f7fafc;
+
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--pes-color-text);
+}
+
+#prompt-enhancement-system *,
+#prompt-enhancement-system *::before,
+#prompt-enhancement-system *::after {
+    box-sizing: border-box;
+}
+
+/* Dark mode base styles */
+.dark #prompt-enhancement-system {
+    color: var(--pes-color-text-dark);
+}
+
+
+/* ==========================================================================
+   2. Panel General Styles
+   ========================================================================== */
+
+#prompt-enhancement-system .unified-panel {
+    position: fixed;
+    z-index: 10000;
+    /* white background */
+    background-color: #ffffff !important;
+    border: none !important;
+    border-radius: 12px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* remove all blur effects */
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    filter: none !important;
+    transition: none !important;
+    will-change: auto !important;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    /* Unified panel dimensions */
+    width: min(1200px, 92vw) !important;
+    height: 78vh !important;
+    max-width: 92vw !important;
+    max-height: 85vh !important;
+}
+
+.dark #prompt-enhancement-system .unified-panel {
+    background-color: #111827 !important;
+    /* gray-900 */
+    border: 1px solid #374151 !important;
+    /* gray-700 */
+}
+
+/* Critical fix: When unified-panel is inside a modal, cancel fixed positioning and transform to avoid blur and conflicts */
+#prompt-enhancement-system .prompt-modal .unified-panel,
+#prompt-enhancement-system .prompt-modal-content {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    margin: auto !important;
+    /* Works with flex centering */
+    /* Unified panel dimensions - force override all other rules */
+    width: min(1200px, 92vw) !important;
+    height: 78vh !important;
+    max-width: 92vw !important;
+    max-height: 85vh !important;
+    /* Remove properties that might cause blur */
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    will-change: auto !important;
+    /* Ensure background is fully opaque */
+    background-color: #fff !important;
+    /* Ensure no blur caused by shadows */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+}
+
+.dark #prompt-enhancement-system .prompt-modal .unified-panel,
+.dark #prompt-enhancement-system .prompt-modal-content {
+    background-color: #111827 !important;
+    /* gray-900 */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* ========== Unified Purple-Blue Gradient Header Styles ========== */
+
+/* 1. Header container itself remains transparent, no gradient */
+#prompt-enhancement-system .panel-header-container {
+    background: transparent !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex-shrink: 0 !important;
+}
+
+/* 2. Only the first row title bar uses gradient (title row is the first div child of panel-header-container) */
+#prompt-enhancement-system .panel-header-container>div:first-child,
+#prompt-enhancement-system .editor-topbar {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: #fff !important;
+    padding: 16px 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    border-bottom: none !important;
+    min-height: 60px !important;
+    flex-shrink: 0 !important;
+    border-radius: 12px 12px 0 0 !important;
+}
+
+.dark #prompt-enhancement-system .panel-header-container>div:first-child,
+.dark #prompt-enhancement-system .editor-topbar {
+    /* Use same purple gradient as light mode for consistency */
+    background: linear-gradient(135deg, #5a6fd6 0%, #6b4190 100%) !important;
+    border-bottom: none !important;
+}
+
+/* Dark mode overrides for header buttons and other primary buttons */
+.dark #prompt-enhancement-system .panel-header-container>div:first-child .btn-primary,
+.dark #prompt-enhancement-system .btn-primary {
+    background: #4b5563 !important;
+    /* gray-600 */
+    color: #fff !important;
+    border-color: #4b5563 !important;
+}
+
+.dark #prompt-enhancement-system .btn-primary:hover {
+    background: #6b7280 !important;
+    /* gray-500 */
+}
+
+.dark #prompt-enhancement-system .panel-header-container>div:first-child .btn-icon-only,
+.dark #prompt-enhancement-system .editor-topbar .btn-icon-only {
+    background: transparent !important;
+    color: #9ca3af !important;
+    /* gray-400 */
+    border: 1px solid transparent !important;
+}
+
+.dark #prompt-enhancement-system .panel-header-container>div:first-child .btn-icon-only:hover,
+.dark #prompt-enhancement-system .editor-topbar .btn-icon-only:hover {
+    background: #4b5563 !important;
+    /* gray-600 */
+    color: #e5e7eb !important;
+    /* gray-200 */
+}
+
+
+
+/* Dark mode overrides for Modals (Category, Confirm, Alert) */
+.dark .prompt-modal-content .modal-header {
+    background: #374151 !important;
+    /* gray-700 */
+    border-bottom: 1px solid #4b5563 !important;
+    /* gray-600 */
+}
+
+.dark .prompt-modal-content .modal-header h3 {
+    color: #fff !important;
+}
+
+/* Override purple gradient buttons in modals (Save, OK) to Blue */
+/* This specific selector targets buttons with inline gradient styles */
+/* Override purple gradient buttons in modals (Save, OK) to Gray (consistent with theme) */
+/* This specific selector targets buttons with inline gradient styles */
+.dark .prompt-modal-content button[style*="linear-gradient"] {
+    background: #4b5563 !important;
+    /* gray-600 */
+    color: #fff !important;
+    border: none !important;
+}
+
+.dark .prompt-modal-content button[style*="linear-gradient"]:hover {
+    background: #6b7280 !important;
+    /* gray-500 */
+}
+
+/* 3. Search bar and category tags area remain white background */
+#prompt-enhancement-system .panel-fixed-header {
+    background: #fff !important;
+    padding: 12px 16px !important;
+    border-bottom: 1px solid #e5e7eb !important;
+}
+
+.dark #prompt-enhancement-system .panel-fixed-header {
+    background: #1f2937 !important;
+    /* gray-800 */
+    border-bottom: 1px solid #374151 !important;
+    /* gray-700 */
+}
+
+/* Title text white */
+#prompt-enhancement-system .panel-header-container>div:first-child h2,
+#prompt-enhancement-system .panel-header-container>div:first-child h3,
+#prompt-enhancement-system .editor-topbar h2,
+#prompt-enhancement-system .editor-topbar h3,
+#prompt-enhancement-system .panel-title {
+    color: #fff !important;
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+    margin: 0 !important;
+}
+
+/* Header button style - semi-transparent white */
+#prompt-enhancement-system .panel-header-container>div:first-child button,
+#prompt-enhancement-system .panel-header-container>div:first-child .btn,
+#prompt-enhancement-system .panel-header-container>div:first-child .btn-header,
+#prompt-enhancement-system .editor-topbar button {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+#prompt-enhancement-system .panel-header-container>div:first-child button:hover,
+#prompt-enhancement-system .panel-header-container>div:first-child .btn:hover,
+#prompt-enhancement-system .panel-header-container>div:first-child .btn-header:hover,
+#prompt-enhancement-system .editor-topbar button:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Primary button (white background, purple text) */
+#prompt-enhancement-system .panel-header-container>div:first-child .btn-primary {
+    background: #fff !important;
+    color: #667eea !important;
+    border-color: #fff !important;
+    font-weight: 600 !important;
+}
+
+/* Icon buttons */
+#prompt-enhancement-system .panel-header-container>div:first-child .btn-icon-only,
+#prompt-enhancement-system .editor-topbar .btn-icon-only {
+    color: rgba(255, 255, 255, 0.9) !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+#prompt-enhancement-system .panel-header-container>div:first-child .btn-icon-only:hover,
+#prompt-enhancement-system .editor-topbar .btn-icon-only:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
+    color: #fff !important;
+}
+
+/* Unified style for all buttons in the header */
+#prompt-enhancement-system .panel-header button,
+#prompt-enhancement-system .panel-header .btn {
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Primary action button (e.g., "New") - white background, purple text */
+#prompt-enhancement-system .panel-header .btn-primary,
+#prompt-enhancement-system .panel-header button[class*="primary"] {
+    background: #fff !important;
+    color: #667eea !important;
+    border-color: #fff !important;
+    font-weight: 600;
+}
+
+#prompt-enhancement-system .panel-header .btn-primary:hover,
+#prompt-enhancement-system .panel-header button[class*="primary"]:hover {
+    background: rgba(255, 255, 255, 0.9) !important;
+    transform: translateY(-1px);
+}
+
+/* Secondary action buttons (e.g., "Import", "Export") - transparent background, white border and text */
+#prompt-enhancement-system .panel-header .btn-secondary,
+#prompt-enhancement-system .panel-header .btn-outline,
+#prompt-enhancement-system .panel-header button:not(.btn-primary):not([class*="primary"]) {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+#prompt-enhancement-system .panel-header .btn-secondary:hover,
+#prompt-enhancement-system .panel-header .btn-outline:hover,
+#prompt-enhancement-system .panel-header button:not(.btn-primary):not([class*="primary"]):hover {
+    background: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Special style for close button */
+#prompt-enhancement-system .panel-header .btn-close,
+#prompt-enhancement-system .panel-header .close-btn {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #fff !important;
+}
+
+#prompt-enhancement-system .panel-header .btn-close:hover,
+#prompt-enhancement-system .panel-header .close-btn:hover {
+    background: rgba(239, 68, 68, 0.8) !important;
+}
+
+/* Shortcut reference panel - ensure it displays on top */
+#prompt-enhancement-system .shortcuts-panel {
+    z-index: 2147483647 !important;
+    /* Ensure help modal stays above panel (100001) and any overlay */
+}
+
+/* New editor layout + actions */
+#prompt-enhancement-system .modern-editor {
+    gap: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#prompt-enhancement-system .editor-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--pes-color-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: #fff;
+    flex-shrink: 0;
+}
+
+.dark #prompt-enhancement-system .editor-header {
+    background: var(--pes-bg-muted-dark);
+    border-bottom-color: var(--pes-color-border-dark);
+}
+
+#prompt-enhancement-system .header-titles h3 {
+    margin: 4px 0 2px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#prompt-enhancement-system .subtext {
+    margin: 0;
+    color: var(--pes-color-hint);
+    font-size: 12px;
+}
+
+#prompt-enhancement-system .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+/* Mode Toggle (Tabs) */
+#prompt-enhancement-system .modal-mode-toggle {
+    background: var(--pes-bg-muted);
+    border-radius: 8px;
+    padding: 4px;
+    display: inline-flex;
+    gap: 2px;
+}
+
+.dark #prompt-enhancement-system .modal-mode-toggle {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#prompt-enhancement-system .mode-btn {
+    padding: 6px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--pes-color-secondary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.dark #prompt-enhancement-system .mode-btn {
+    color: var(--pes-color-secondary-dark);
+}
+
+#prompt-enhancement-system .mode-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.dark #prompt-enhancement-system .mode-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+#prompt-enhancement-system .mode-btn.active {
+    background: #fff;
+    color: var(--pes-color-primary);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    font-weight: 600;
+}
+
+.dark #prompt-enhancement-system .mode-btn.active {
+    background: var(--pes-bg-active-dark);
+    color: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+#prompt-enhancement-system .action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 24px;
+    border-left: 1px solid var(--pes-color-border);
+}
+
+.dark #prompt-enhancement-system .action-buttons {
+    border-left-color: var(--pes-color-border-dark);
+}
+
+#prompt-enhancement-system .btn-ghost {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--pes-color-secondary);
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.dark #prompt-enhancement-system .btn-ghost {
+    color: var(--pes-color-secondary-dark);
+}
+
+#prompt-enhancement-system .btn-ghost:hover {
+    background: var(--pes-bg-hover);
+    color: var(--pes-color-text);
+}
+
+.dark #prompt-enhancement-system .btn-ghost:hover {
+    background: var(--pes-bg-hover-dark);
+    color: #fff;
+}
+
+#prompt-enhancement-system .btn-icon-only {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#prompt-enhancement-system .editor-main {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(380px, 1fr);
+    gap: 24px;
+    padding: 24px;
+    overflow-y: auto;
+    min-height: 0;
+    flex: 1;
+    background: var(--pes-bg-muted);
+}
+
+.dark #prompt-enhancement-system .editor-main {
+    background: #111827;
+    /* Darker background for main area */
+}
+
+#prompt-enhancement-system .left-pane {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 0;
+}
+
+/* Mode Switching Logic */
+#prompt-enhancement-system .modern-editor.ai-mode .manual-card {
+    display: none;
+}
+
+#prompt-enhancement-system .modern-editor.manual-mode .ai-card {
+    display: none;
+}
+
+#prompt-enhancement-system .card {
+    background: #fff;
+    border: 1px solid var(--pes-color-border);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.dark #prompt-enhancement-system .card {
+    background: var(--pes-bg-muted-dark);
+    border-color: var(--pes-color-border-dark);
+    box-shadow: none;
+}
+
+#prompt-enhancement-system .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--pes-color-border);
+}
+
+.dark #prompt-enhancement-system .card-head {
+    border-bottom-color: var(--pes-color-border-dark);
+}
+
+#prompt-enhancement-system .card-head h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#prompt-enhancement-system .pill {
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: #ebf8ff;
+    color: #3182ce;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.dark #prompt-enhancement-system .pill {
+    background: rgba(66, 153, 225, 0.15);
+    color: #63b3ed;
+}
+
+#prompt-enhancement-system .ai-input-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+#prompt-enhancement-system .ai-input-grid .span-2 {
+    grid-column: span 2;
+}
+
+#prompt-enhancement-system .ai-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+#prompt-enhancement-system .ai-hint {
+    font-size: 12px;
+    color: var(--pes-color-hint);
+}
+
+#prompt-enhancement-system .inline-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#prompt-enhancement-system .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+#prompt-enhancement-system .form-grid .span-2 {
+    grid-column: span 2;
+}
+
+#prompt-enhancement-system #prompt-edit-content {
+    min-height: 240px;
+    resize: vertical;
+}
+
+#prompt-enhancement-system .preview-pane {
+    min-height: 0;
+}
+
+#prompt-enhancement-system .preview-card {
+    position: sticky;
+    top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+}
+
+#prompt-enhancement-system .preview-header {
+    font-weight: 600;
+    color: var(--pes-color-secondary);
+}
+
+#prompt-enhancement-system .preview-body {
+    flex: 1;
+    min-height: 360px;
+    max-height: calc(92vh - 180px);
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid var(--pes-color-border);
+    border-radius: 10px;
+    padding: 12px;
+}
+
+#prompt-enhancement-system .eyebrow {
+    font-size: 12px;
+    color: var(--pes-color-hint);
+    letter-spacing: 0.3px;
+    margin: 0;
+}
+
+#prompt-enhancement-system .help-panel {
+    margin: 12px;
+    border-radius: 10px;
+}
+
+#prompt-enhancement-system .inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#prompt-enhancement-system .btn-close {
+    background-color: transparent;
+}
+
+#prompt-enhancement-system .btn-close:hover {
+    background-color: var(--pes-bg-hover);
+}
+
+.dark #prompt-enhancement-system .btn-close:hover {
+    background-color: var(--pes-bg-hover-dark);
+}
+
+/* Primary & Secondary buttons */
+#prompt-enhancement-system .btn-primary {
+    background-color: var(--pes-color-primary);
+    color: white;
+    padding: 8px 16px;
+    font-weight: 500;
+}
+
+#prompt-enhancement-system .btn-primary:hover {
+    background-color: var(--pes-color-primary-hover);
+}
+
+.dark #prompt-enhancement-system .btn-primary {
+    background-color: var(--pes-color-primary-dark);
+}
+
+.dark #prompt-enhancement-system .btn-primary:hover {
+    background-color: var(--pes-color-primary-hover-dark);
+}
+
+#prompt-enhancement-system .btn-secondary {
+    background-color: var(--pes-bg-hover);
+    border: 1px solid var(--pes-color-border);
+    color: var(--pes-color-secondary);
+    padding: 8px 16px;
+}
+
+#prompt-enhancement-system .btn-secondary:hover {
+    background-color: var(--pes-bg-active);
+}
+
+.dark #prompt-enhancement-system .btn-secondary {
+    background-color: var(--pes-bg-muted-dark);
+    border-color: var(--pes-color-border-dark);
+    color: #e2e8f0;
+}
+
+.dark #prompt-enhancement-system .btn-secondary:hover {
+    background-color: var(--pes-bg-hover-dark);
+}
+
+/* ==========================================================================
+   5a. 分类标签样式 (Category Tab Styles)
+   ========================================================================== */
+
+#prompt-enhancement-system .category-tab {
+    padding: 6px 12px;
+    border-radius: 9999px;
+    /* pill shape */
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid transparent;
+    /* Add border for layout consistency */
+}
+
+#prompt-enhancement-system .category-tab.active {
+    background-color: var(--pes-color-primary) !important;
+    color: white !important;
+    font-weight: 600;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    transform: translateY(-1px);
+    border-color: var(--pes-color-primary-dark) !important;
+}
+
+#prompt-enhancement-system .category-tab:not(.active) {
+    background-color: var(--pes-bg-muted);
+    color: var(--pes-color-secondary);
+    border-color: var(--pes-color-border);
+}
+
+.dark #prompt-enhancement-system .category-tab:not(.active) {
+    background-color: var(--pes-bg-muted-dark);
+    color: var(--pes-color-secondary-dark);
+    border-color: var(--pes-color-border-dark);
+}
+
+#prompt-enhancement-system .category-tab:not(.active):hover {
+    background-color: var(--pes-bg-hover);
+    transform: translateY(-1px);
+    border-color: var(--pes-color-border);
+}
+
+.dark #prompt-enhancement-system .category-tab:not(.active):hover {
+    background-color: var(--pes-bg-hover-dark);
+    border-color: var(--pes-color-border-dark);
+}
+
+
+/* ==========================================================================
+   6. Search Bar & Forms
+   ========================================================================== */
+
+#prompt-enhancement-system .form-input-base {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--pes-color-border);
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+.dark #prompt-enhancement-system .form-input-base,
+.dark #prompt-enhancement-system input[type="text"],
+.dark #prompt-enhancement-system input[type="search"],
+.dark #prompt-enhancement-system textarea,
+.dark #prompt-enhancement-system select {
+    background-color: #1f2937 !important;
+    /* gray-800 */
+    border-color: #374151 !important;
+    /* gray-700 */
+    color: #e5e7eb !important;
+    /* gray-200 */
+}
+
+.dark #prompt-enhancement-system input::placeholder,
+.dark #prompt-enhancement-system textarea::placeholder {
+    color: #9ca3af !important;
+    /* gray-400 */
+}
+
+/* ==========================================================================
+   7. Prompt List & Items
+   ========================================================================== */
+
+/* Base styles for prompt items, like hover and selection, are kept. */
+
+#prompt-enhancement-system .prompt-item:hover,
+#prompt-enhancement-system .prompt-item.hover {
+    background-color: var(--pes-bg-hover);
+}
+
+#prompt-enhancement-system .prompt-item.keyboard-selected {
+    background-color: var(--pes-bg-active);
+    color: var(--pes-color-text);
+    /* Add a subtle left border to highlight the selected item */
+    border-left: 3px solid var(--pes-color-primary);
+}
+
+/* Dark mode prompt list */
+.dark #prompt-enhancement-system .prompt-item:hover,
+.dark #prompt-enhancement-system .prompt-item.hover {
+    background-color: var(--pes-bg-hover-dark);
+}
+
+.dark #prompt-enhancement-system .prompt-item.keyboard-selected {
+    background-color: var(--pes-bg-active-dark);
+    color: var(--pes-color-text-dark);
+}
+
+/* Dark mode prompt item detailed view - override Tailwind classes for consistency */
+.dark #prompt-enhancement-system .prompt-item--detailed {
+    background-color: #1f2937 !important;
+    /* gray-800 */
+    border-color: #374151 !important;
+    /* gray-700 */
+}
+
+.dark #prompt-enhancement-system .prompt-item--detailed:hover {
+    background-color: #374151 !important;
+    /* gray-700 */
+}
+
+/* Dark mode prompt item compact view */
+.dark #prompt-enhancement-system .prompt-item--compact {
+    background-color: #1f2937 !important;
+    /* gray-800 - match detailed view */
+    border: 1px solid #374151 !important;
+    /* gray-700 */
+    margin-bottom: 8px !important;
+    /* Add spacing between cards */
+}
+
+.dark #prompt-enhancement-system .prompt-item--compact:hover {
+    background-color: #374151 !important;
+    /* gray-700 */
+}
+
+
+/* ==========================================================================
+   9. Modals & Overlays
+   ========================================================================== */
+
+#prompt-enhancement-system .panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    /* Fully transparent, does not block background */
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+#prompt-enhancement-system .panel-overlay.management {
+    /* Also fully transparent */
+    background-color: transparent !important;
+}
+
+#prompt-enhancement-system .prompt-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10002;
+    align-items: center;
+    justify-content: center;
+    /* Fully transparent outside panel, does not block background content */
+    background-color: transparent;
+}
+
+#prompt-enhancement-system .prompt-modal.is-visible {
+    display: flex;
+}
+
+#prompt-enhancement-system .prompt-modal-content {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: var(--pes-shadow-panel);
+    /* Unified panel dimensions, consistent with unified-panel */
+    width: min(1200px, 92vw) !important;
+    max-width: 92vw !important;
+    max-height: 85vh !important;
+    height: 78vh !important;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+#prompt-enhancement-system .prompt-modal-content.modal-sm {
+    max-width: 400px;
+}
+
+#prompt-enhancement-system .prompt-modal-content.modal-md {
+    max-width: 560px;
+}
+
+#prompt-enhancement-system .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: none;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    flex-shrink: 0;
+}
+
+#prompt-enhancement-system .modal-header h3 {
+    color: #fff !important;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+#prompt-enhancement-system #prompt-edit-form {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+#prompt-enhancement-system .modern-editor #prompt-edit-form {
+    padding: 0;
+    overflow: visible;
+}
+
+#prompt-enhancement-system .header-titles h3 {
+    margin: 2px 0 0;
+}
+
+#prompt-enhancement-system .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#prompt-enhancement-system .editor-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(360px, 0.8fr);
+    gap: 16px;
+    padding: 16px 20px;
+    overflow: auto;
+    min-height: 0;
+    flex: 1;
+}
+
+#prompt-enhancement-system .editor-left {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 0;
+    overflow: hidden;
+}
+
+#prompt-enhancement-system .card {
+    background: #fdfdfd;
+    border: 1px solid var(--pes-color-border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    box-shadow: 0 6px 18px -8px rgba(0, 0, 0, 0.08);
+}
+
+#prompt-enhancement-system .ai-card .card-head,
+#prompt-enhancement-system .manual-card .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    gap: 8px;
+}
+
+#prompt-enhancement-system .pill {
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #eef6ff;
+    color: var(--pes-color-primary);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#prompt-enhancement-system .ai-input-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+#prompt-enhancement-system .ai-input-grid .span-2 {
+    grid-column: span 2;
+}
+
+#prompt-enhancement-system .ai-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+#prompt-enhancement-system .ai-hint {
+    font-size: 12px;
+    color: var(--pes-color-hint);
+}
+
+#prompt-enhancement-system .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+#prompt-enhancement-system .form-grid .span-2 {
+    grid-column: span 2;
+}
+
+#prompt-enhancement-system #prompt-edit-content {
+    min-height: 240px;
+    resize: vertical;
+}
+
+#prompt-enhancement-system .editor-footer {
+    padding: 12px 20px;
+    border-top: 1px solid var(--pes-color-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #fff;
+}
+
+#prompt-enhancement-system .footer-hint {
+    font-size: 12px;
+    color: var(--pes-color-hint);
+}
+
+#prompt-enhancement-system .footer-actions {
+    display: flex;
+    gap: 8px;
+}
+
+#prompt-enhancement-system .editor-body .large-edit-right-pane {
+    background: #fbfbfb;
+    border: 1px solid var(--pes-color-border);
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+#prompt-enhancement-system .large-edit-live-preview {
+    flex: 1;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid var(--pes-color-border);
+    padding: 12px;
+}
+
+#prompt-enhancement-system .eyebrow {
+    font-size: 12px;
+    color: var(--pes-color-hint);
+    letter-spacing: 0.3px;
+    margin: 0;
+}
+
+#prompt-enhancement-system .help-panel {
+    margin: 12px;
+    border-radius: 10px;
+}
+
+#prompt-enhancement-system .inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Dark mode modals */
+.dark #prompt-enhancement-system .prompt-modal-content {
+    background-color: #111827 !important;
+    /* gray-900 - consistent with unified-panel */
+}
+
+.dark #prompt-enhancement-system .modal-header {
+    border-bottom-color: var(--pes-color-border-dark);
+}
+
+
+/* ==========================================================================
+   10. AI Assistant Panel Styles - Redesigned
+   ========================================================================== */
+
+/* AI panel main container - compact card layout */
+#prompt-enhancement-system #ai-assistant-panel,
+#prompt-enhancement-system .ai-panel {
+    padding: 0 !important;
+    gap: 10px !important;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Input area - compact layout */
+#prompt-enhancement-system #ai-assistant-panel .ai-input-section,
+#prompt-enhancement-system .ai-panel .ai-input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--pes-bg-muted);
+    padding: 12px;
+    border-radius: 8px;
+}
+
+/* Form rows - horizontal arrangement */
+#prompt-enhancement-system #ai-assistant-panel .form-row,
+#prompt-enhancement-system .ai-panel .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+/* Form groups - compact spacing */
+#prompt-enhancement-system #ai-assistant-panel .form-group,
+#prompt-enhancement-system .ai-panel .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+#prompt-enhancement-system #ai-assistant-panel .form-group label,
+#prompt-enhancement-system .ai-panel .form-group label {
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--pes-color-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+/* Form help text */
+#prompt-enhancement-system #ai-assistant-panel .form-help,
+#prompt-enhancement-system #ai-assistant-panel small,
+#prompt-enhancement-system .ai-panel .form-help,
+#prompt-enhancement-system .ai-panel small {
+    font-size: 11px;
+    color: var(--pes-color-hint);
+    margin-top: 2px;
+    line-height: 1.4;
+}
+
+/* Unified input field styles */
+#prompt-enhancement-system #ai-assistant-panel input[type="text"],
+#prompt-enhancement-system #ai-assistant-panel textarea,
+#prompt-enhancement-system #ai-assistant-panel select,
+#prompt-enhancement-system .ai-panel input[type="text"],
+#prompt-enhancement-system .ai-panel textarea,
+#prompt-enhancement-system .ai-panel select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--pes-color-border);
+    border-radius: 6px;
+    background-color: #fff;
+    font-size: 13px;
+    line-height: 1.4;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#prompt-enhancement-system #ai-assistant-panel input[type="text"]:focus,
+#prompt-enhancement-system #ai-assistant-panel textarea:focus,
+#prompt-enhancement-system #ai-assistant-panel select:focus,
+#prompt-enhancement-system .ai-panel input[type="text"]:focus,
+#prompt-enhancement-system .ai-panel textarea:focus,
+#prompt-enhancement-system .ai-panel select:focus {
+    outline: none;
+    border-color: var(--pes-color-primary);
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+/* Textarea styles */
+#prompt-enhancement-system #ai-assistant-panel textarea,
+#prompt-enhancement-system .ai-panel textarea {
+    resize: vertical;
+    min-height: 60px;
+    max-height: 120px;
+    font-family: inherit;
+}
+
+/* Select styles */
+#prompt-enhancement-system #ai-assistant-panel select,
+#prompt-enhancement-system .ai-panel select {
+    height: 34px;
+    cursor: pointer;
+}
+
+/* Checkbox styles */
+#prompt-enhancement-system #ai-assistant-panel .form-group label:has(input[type="checkbox"]),
+#prompt-enhancement-system .ai-panel .form-group label:has(input[type="checkbox"]) {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+#prompt-enhancement-system #ai-assistant-panel input[type="checkbox"],
+#prompt-enhancement-system .ai-panel input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    margin: 0;
+}
+
+/* Action buttons area - fixed at bottom */
+#prompt-enhancement-system #ai-assistant-panel .ai-actions,
+#prompt-enhancement-system .ai-panel .ai-actions {
+    display: flex;
+    gap: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--pes-color-border);
+    margin-top: auto;
+}
+
+/* Progress indicator - clean design */
+#prompt-enhancement-system .ai-progress {
+    background-color: var(--pes-bg-muted);
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 4px;
+}
+
+#prompt-enhancement-system .progress-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    gap: 4px;
+    position: relative;
+}
+
+/* Progress step connector lines */
+#prompt-enhancement-system .progress-steps::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 15%;
+    right: 15%;
+    height: 2px;
+    background: var(--pes-color-border);
+    z-index: 0;
+}
+
+#prompt-enhancement-system .step {
+    text-align: center;
+    opacity: 0.4;
+    flex: 1;
+    font-size: 11px;
+    position: relative;
+    z-index: 1;
+    transition: opacity 0.3s;
+}
+
+#prompt-enhancement-system .step-icon {
+    font-size: 24px;
+    margin-bottom: 4px;
+    background: white;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid var(--pes-color-border);
+}
+
+#prompt-enhancement-system .step-text {
+    font-size: 10px;
+    font-weight: 500;
+}
+
+#prompt-enhancement-system .step.active {
+    opacity: 1;
+}
+
+#prompt-enhancement-system .step.active .step-icon {
+    border-color: var(--pes-color-primary);
+    background: var(--pes-color-primary);
+    color: white;
+}
+
+#prompt-enhancement-system .step.completed {
+    opacity: 1;
+}
+
+#prompt-enhancement-system .step.completed .step-icon {
+    border-color: var(--pes-color-success);
+    background: var(--pes-color-success);
+    color: white;
+}
+
+#prompt-enhancement-system .step.completed .step-icon::before {
+    content: '✓';
+    font-weight: bold;
+}
+
+#prompt-enhancement-system .progress-message {
+    font-size: 12px;
+    margin-bottom: 6px;
+    color: var(--pes-color-secondary);
+    font-weight: 500;
+}
+
+#prompt-enhancement-system .progress-details {
+    font-size: 11px;
+    color: var(--pes-color-hint);
+    white-space: pre-line;
+    line-height: 1.5;
+}
+
+/* Validation result panel - card design */
+#prompt-enhancement-system .validation-result {
+    background-color: #fff;
+    border: 1px solid var(--pes-color-border);
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+/* AI generation preview - compact card */
+#prompt-enhancement-system .ai-generated-preview {
+    background-color: var(--pes-bg-muted);
+    border: 1px solid var(--pes-color-border);
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#prompt-enhancement-system .ai-generated-preview h5 {
+    margin: 0 0 8px 0;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--pes-color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#prompt-enhancement-system .preview-title,
+#prompt-enhancement-system .preview-category,
+#prompt-enhancement-system .preview-command {
+    margin-bottom: 6px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+#prompt-enhancement-system .preview-content {
+    margin-bottom: 6px;
+}
+
+#prompt-enhancement-system .content-label {
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 11px;
+    color: var(--pes-color-secondary);
+    text-transform: uppercase;
+}
+
+#prompt-enhancement-system .content-text {
+    font-size: 12px;
+    line-height: 1.6;
+    padding: 8px;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid var(--pes-color-border);
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+/* Score display */
+#prompt-enhancement-system .validation-score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding: 8px;
+    background: linear-gradient(135deg, var(--pes-bg-muted) 0%, #fff 100%);
+    border-radius: 6px;
+}
+
+#prompt-enhancement-system .score-label {
+    font-weight: 500;
+    font-size: 12px;
+}
+
+#prompt-enhancement-system .score-value {
+    font-weight: 700;
+    font-size: 24px;
+}
+
+#prompt-enhancement-system .score-value.excellent {
+    color: var(--pes-color-success);
+}
+
+#prompt-enhancement-system .score-value.good {
+    color: var(--pes-color-warning);
+}
+
+#prompt-enhancement-system .score-value.poor {
+    color: var(--pes-color-error);
+}
+
+/* Validation details */
+#prompt-enhancement-system .validation-details {
+    font-size: 11px;
+    white-space: pre-line;
+    margin-bottom: 10px;
+    padding: 8px;
+    background-color: var(--pes-bg-muted);
+    border-radius: 4px;
+    line-height: 1.6;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+/* Action button group */
+#prompt-enhancement-system .validation-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    position: sticky;
+    bottom: 0;
+    padding-top: 8px;
+    margin-top: auto;
+    border-top: 1px solid var(--pes-color-border);
+    background: #fff;
+}
+
+/* Button styles - unified design */
+#prompt-enhancement-system .btn-success,
+#prompt-enhancement-system .btn-warning,
+#prompt-enhancement-system .btn-info {
+    padding: 8px 14px;
+    font-weight: 500;
+    font-size: 12px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    flex: 1;
+    min-width: 90px;
+}
+
+#prompt-enhancement-system .btn-success {
+    background-color: var(--pes-color-success);
+    color: white;
+}
+
+#prompt-enhancement-system .btn-success:hover {
+    background-color: #38a169;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#prompt-enhancement-system .btn-warning {
+    background-color: var(--pes-color-warning);
+    color: white;
+}
+
+#prompt-enhancement-system .btn-warning:hover {
+    background-color: #975a16;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#prompt-enhancement-system .btn-info {
+    background-color: var(--pes-color-primary);
+    color: white;
+}
+
+#prompt-enhancement-system .btn-info:hover {
+    background-color: var(--pes-color-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode - AI panel */
+.dark #prompt-enhancement-system #ai-assistant-panel .ai-input-section,
+.dark #prompt-enhancement-system .ai-panel .ai-input-section {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.dark #prompt-enhancement-system #ai-assistant-panel .form-group label,
+.dark #prompt-enhancement-system .ai-panel .form-group label {
+    color: var(--pes-color-secondary-dark);
+}
+
+.dark #prompt-enhancement-system #ai-assistant-panel input[type="text"],
+.dark #prompt-enhancement-system #ai-assistant-panel textarea,
+.dark #prompt-enhancement-system #ai-assistant-panel select,
+.dark #prompt-enhancement-system .ai-panel input[type="text"],
+.dark #prompt-enhancement-system .ai-panel textarea,
+.dark #prompt-enhancement-system .ai-panel select {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--pes-color-border-dark);
+    color: var(--pes-color-text-dark);
+}
+
+.dark #prompt-enhancement-system #ai-assistant-panel .ai-actions,
+.dark #prompt-enhancement-system .ai-panel .ai-actions {
+    border-top-color: var(--pes-color-border-dark);
+}
+
+.dark #prompt-enhancement-system .ai-progress {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.dark #prompt-enhancement-system .step-icon {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--pes-color-border-dark);
+}
+
+.dark #prompt-enhancement-system .validation-result {
+    background-color: rgba(255, 255, 255, 0.02);
+    border-color: var(--pes-color-border-dark);
+}
+
+.dark #prompt-enhancement-system .ai-generated-preview {
+    background-color: rgba(255, 255, 255, 0.03);
+    border-color: var(--pes-color-border-dark);
+}
+
+.dark #prompt-enhancement-system .content-text,
+.dark #prompt-enhancement-system .validation-details {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--pes-color-border-dark);
+}
+
+.dark #prompt-enhancement-system .validation-score {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+}
+
+.dark #prompt-enhancement-system .progress-message {
+    color: var(--pes-color-secondary-dark);
+}
+
+
+/* ==========================================================================
+   11. Miscellaneous & Utilities
+   ========================================================================== */
+
+#prompt-enhancement-system .hint-inline {
+    font-size: 12px;
+    color: var(--pes-color-hint);
+    padding: 6px 12px;
+    margin: 6px 16px;
+    border-radius: 6px;
+    background: var(--pes-bg-muted);
+    flex-shrink: 0;
+    /* Prevent shrinking */
+}
+
+.dark #prompt-enhancement-system .hint-inline {
+    background: var(--pes-bg-muted-dark);
+    color: var(--pes-color-hint-dark);
+}
+
+#prompt-enhancement-system mark {
+    background-color: var(--pes-mark-bg);
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+.dark #prompt-enhancement-system mark {
+    background-color: var(--pes-mark-bg-dark);
+    color: var(--pes-mark-color-dark);
+}
+
+/* Prevent page scrolling during keyboard navigation, force scrolling inside panel/list */
+#prompt-enhancement-system .unified-panel,
+#prompt-enhancement-system .panel-content,
+#prompt-enhancement-system .panel-main,
+#prompt-enhancement-system .prompt-list-container,
+#prompt-enhancement-system #prompt-list-container,
+#prompt-enhancement-system #quick-prompt-list {
+    overscroll-behavior: contain;
+}
+
+/* Background scroll lock: Completely prevent page scrolling and bounce when panel is open (including iOS/Safari) */
+html.pes-no-scroll,
+body.pes-no-scroll {
+    overflow: hidden !important;
+    height: 100%;
+    touch-action: none;
+    overscroll-behavior: none;
+}
+
+/* Overlay prohibits touch scrolling/gestures to avoid passing scroll to background */
+#prompt-enhancement-system .panel-overlay {
+    touch-action: none;
+    overscroll-behavior: contain;
+}
+
+/* ==========================================================================
+   12. Prompt Editor V2 Styles
+   ========================================================================== */
+
+/* Editor main container - must use !important to override original .prompt-modal-content restrictions */
+#prompt-enhancement-system .prompt-modal-content.prompt-editor {
+    display: flex !important;
+    flex-direction: column !important;
+    width: min(1000px, 90vw) !important;
+    max-width: 90vw !important;
+    height: 85vh !important;
+    /* Fixed height to ensure consistent layout */
+    max-height: 85vh !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    background: #fff !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+    padding: 0 !important;
+}
+
+.dark #prompt-enhancement-system .prompt-modal-content.prompt-editor {
+    background: #111827 !important;
+    /* gray-900 - consistent with other panels */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Top action bar - ensure display */
+#prompt-enhancement-system .prompt-editor .editor-topbar {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    flex-shrink: 0;
+    position: relative;
+    min-height: 60px;
+}
+
+.dark #prompt-enhancement-system .editor-topbar {
+    background: linear-gradient(135deg, #4c51bf 0%, #553c9a 100%);
+}
+
+#prompt-enhancement-system .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#prompt-enhancement-system .editor-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    color: #fff;
+}
+
+#prompt-enhancement-system .editor-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+#prompt-enhancement-system .topbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#prompt-enhancement-system .mode-switcher {
+    display: flex;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    padding: 4px;
+    gap: 4px;
+}
+
+#prompt-enhancement-system .mode-tab {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#prompt-enhancement-system .mode-tab:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+#prompt-enhancement-system .mode-tab.active {
+    background: #fff;
+    color: #667eea;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.dark #prompt-enhancement-system .mode-tab.active {
+    background: rgba(255, 255, 255, 0.95);
+    color: #4c51bf;
+}
+
+#prompt-enhancement-system .mode-icon {
+    font-size: 14px;
+}
+
+#prompt-enhancement-system .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#prompt-enhancement-system .topbar-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background: transparent;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#prompt-enhancement-system .topbar-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+#prompt-enhancement-system .topbar-btn-primary {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+#prompt-enhancement-system .topbar-btn-primary:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+#prompt-enhancement-system .topbar-btn-close {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+/* Main workspace */
+#prompt-enhancement-system .editor-workspace {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+#prompt-enhancement-system .editor-panel {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.dark #prompt-enhancement-system .editor-panel {
+    background: #111827 !important;
+    /* gray-900 */
+}
+
+#prompt-enhancement-system .editor-panel-left {
+    padding: 24px;
+    overflow-y: auto;
+    background: #f7f8fc;
+    gap: 20px;
+}
+
+.dark #prompt-enhancement-system .editor-panel-left {
+    background: #111827;
+}
+
+#prompt-enhancement-system .editor-panel-right {
+    background: #fff;
+    border-left: 1px solid var(--pes-color-border);
+    display: flex;
+    flex-direction: column;
+}
+
+.dark #prompt-enhancement-system .editor-panel-right {
+    background: #1f2937;
+    border-left-color: var(--pes-color-border-dark);
+}
+
+/* Editor Card */
+#prompt-enhancement-system .editor-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.dark #prompt-enhancement-system .editor-card {
+    background: #1f2937 !important;
+    border-color: #374151 !important;
+}
+
+#prompt-enhancement-system .editor-card .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-bottom: 1px solid #e0f2fe;
+}
+
+.dark #prompt-enhancement-system .editor-card .card-header {
+    background: #374151 !important;
+    /* gray-700 - matches Management Panel style */
+    border-bottom-color: #4b5563 !important;
+    /* gray-600 */
+}
+
+#prompt-enhancement-system .card-title-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#prompt-enhancement-system .card-icon {
+    font-size: 24px;
+}
+
+#prompt-enhancement-system .card-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e40af;
+}
+
+.dark #prompt-enhancement-system .card-title {
+    color: #93c5fd;
+}
+
+#prompt-enhancement-system .card-subtitle {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.dark #prompt-enhancement-system .card-subtitle {
+    color: #94a3b8;
+}
+
+#prompt-enhancement-system .card-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: #dbeafe;
+    color: #1e40af;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.dark #prompt-enhancement-system .card-badge {
+    background: rgba(59, 130, 246, 0.2);
+    color: #93c5fd;
+}
+
+#prompt-enhancement-system {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#prompt-enhancement-system .editor-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    /* Important for nested flex scroll */
+}
+
+#prompt-enhancement-system .editor-card .card-body {
+    padding: 12px 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+#prompt-enhancement-system .ai-form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Compact styles for AI generation form to prevent scrolling */
+#prompt-enhancement-system .ai-form .form-row {
+    margin-bottom: 8px;
+}
+
+/* Make the row containing the textarea flex to fill space */
+#prompt-enhancement-system .ai-form .form-row:has(.field-textarea) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+#prompt-enhancement-system .ai-form .field-textarea {
+    min-height: 100px !important;
+    height: 100% !important;
+    /* Fill available space */
+    flex: 1 !important;
+    max-height: none !important;
+    resize: none !important;
+}
+
+#prompt-enhancement-system .ai-form .field-label {
+    margin-bottom: 4px;
+    font-size: 13px;
+}
+
+#prompt-enhancement-system .ai-form .field-hint {
+    margin-top: 4px;
+    font-size: 11px;
+}
+
+#prompt-enhancement-system .form-actions {
+    margin-top: 12px;
+    padding-top: 12px;
+}
+
+#prompt-enhancement-system .editor-card .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: #f8fafc;
+    border-top: 1px solid #e5e7eb;
+}
+
+.dark #prompt-enhancement-system .editor-card .card-footer {
+    background: #111827;
+    border-top-color: #374151;
+}
+
+#prompt-enhancement-system .footer-hint {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.dark #prompt-enhancement-system .footer-hint {
+    color: #94a3b8;
+}
+
+/* AI form styles */
+#prompt-enhancement-system .ai-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#prompt-enhancement-system .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#prompt-enhancement-system .form-row-inline {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+#prompt-enhancement-system .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#prompt-enhancement-system .field-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    letter-spacing: 0.3px;
+}
+
+.dark #prompt-enhancement-system .field-label {
+    color: #d1d5db;
+}
+
+#prompt-enhancement-system .field-label .required {
+    color: #ef4444;
+}
+
+#prompt-enhancement-system .field-input,
+#prompt-enhancement-system .field-select,
+#prompt-enhancement-system .field-textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 14px;
+    color: #1f2937;
+    transition: all 0.2s ease;
+}
+
+.dark #prompt-enhancement-system .field-input,
+.dark #prompt-enhancement-system .field-select,
+.dark #prompt-enhancement-system .field-textarea {
+    background: #374151 !important;
+    border-color: #4b5563 !important;
+    color: #f3f4f6 !important;
+}
+
+#prompt-enhancement-system .field-input:focus,
+#prompt-enhancement-system .field-select:focus,
+#prompt-enhancement-system .field-textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+#prompt-enhancement-system .field-textarea {
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.6;
+}
+
+#prompt-enhancement-system .field-textarea-lg {
+    min-height: 280px;
+}
+
+#prompt-enhancement-system .field-hint {
+    font-size: 12px;
+    color: #64748b;
+    margin: 0;
+}
+
+.dark #prompt-enhancement-system .field-hint {
+    color: #9ca3af;
+}
+
+#prompt-enhancement-system .field-note {
+    font-size: 12px;
+    color: #6b7280;
+    font-style: italic;
+}
+
+.dark #prompt-enhancement-system .field-note {
+    color: #9ca3af;
+}
+
+/* Checkbox styles */
+#prompt-enhancement-system .checkbox-field {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+#prompt-enhancement-system .field-checkbox {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #3b82f6;
+}
+
+#prompt-enhancement-system .checkbox-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+
+.dark #prompt-enhancement-system .checkbox-label {
+    color: #d1d5db;
+}
+
+/* Generate button */
+#prompt-enhancement-system .btn-generate {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+#prompt-enhancement-system .btn-generate:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+
+#prompt-enhancement-system .btn-generate:active {
+    transform: translateY(0);
+}
+
+/* Form grid */
+#prompt-enhancement-system .form-grid-2col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+#prompt-enhancement-system .form-field-full {
+    grid-column: span 2;
+}
+
+/* Toolbar */
+#prompt-enhancement-system .field-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed #e5e7eb;
+}
+
+.dark #prompt-enhancement-system .field-toolbar {
+    border-top-color: #374151;
+}
+
+#prompt-enhancement-system .toolbar-hint {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.dark #prompt-enhancement-system .toolbar-hint {
+    color: #9ca3af;
+}
+
+#prompt-enhancement-system .toolbar-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #fff;
+    color: #374151;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.dark #prompt-enhancement-system .toolbar-btn {
+    background: #374151;
+    border-color: #4b5563;
+    color: #d1d5db;
+}
+
+#prompt-enhancement-system .toolbar-btn:hover {
+    background: #f3f4f6;
+    border-color: #9ca3af;
+}
+
+.dark #prompt-enhancement-system .toolbar-btn:hover {
+    background: #4b5563;
+}
+
+/* Preview panel */
+#prompt-enhancement-system .preview-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#prompt-enhancement-system .preview-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 20px;
+    background: #f8fafc;
+    border-bottom: 1px solid #e5e7eb;
+    flex-shrink: 0;
+}
+
+.dark #prompt-enhancement-system .preview-header {
+    background: #111827;
+    border-bottom-color: #374151;
+}
+
+#prompt-enhancement-system .preview-icon {
+    font-size: 16px;
+}
+
+#prompt-enhancement-system .preview-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.dark #prompt-enhancement-system .preview-title {
+    color: #d1d5db;
+}
+
+#prompt-enhancement-system .preview-badge {
+    margin-left: auto;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.dark #prompt-enhancement-system .preview-badge {
+    background: rgba(251, 191, 36, 0.2);
+    color: #fbbf24;
+}
+
+#prompt-enhancement-system .preview-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #374151;
+    background: #fff;
+}
+
+.dark #prompt-enhancement-system .preview-content {
+    background: #1f2937;
+    color: #d1d5db;
+}
+
+/* Help drawer */
+#prompt-enhancement-system .help-drawer {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 360px;
+    background: #fff;
+    border-left: 1px solid #e5e7eb;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+}
+
+.dark #prompt-enhancement-system .help-drawer {
+    background: #1f2937;
+    border-left-color: #374151;
+}
+
+#prompt-enhancement-system .help-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: #f0f9ff;
+    border-bottom: 1px solid #e0f2fe;
+}
+
+.dark #prompt-enhancement-system .help-drawer-header {
+    background: #1e3a5f;
+    border-bottom-color: #374151;
+}
+
+#prompt-enhancement-system .help-drawer-header h4 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1e40af;
+}
+
+.dark #prompt-enhancement-system .help-drawer-header h4 {
+    color: #93c5fd;
+}
+
+#prompt-enhancement-system .help-close-btn {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: #64748b;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#prompt-enhancement-system .help-close-btn:hover {
+    background: #e0f2fe;
+    color: #1e40af;
+}
+
+.dark #prompt-enhancement-system .help-close-btn:hover {
+    background: #374151;
+    color: #93c5fd;
+}
+
+#prompt-enhancement-system .help-drawer-body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+#prompt-enhancement-system .help-section {
+    margin-bottom: 20px;
+}
+
+#prompt-enhancement-system .help-section-title {
+    margin: 0 0 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.dark #prompt-enhancement-system .help-section-title {
+    color: #d1d5db;
+}
+
+#prompt-enhancement-system .help-examples,
+#prompt-enhancement-system .help-code-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#prompt-enhancement-system .help-examples code,
+#prompt-enhancement-system .help-code-list code {
+    display: block;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: #f1f5f9;
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 12px;
+    color: #475569;
+    word-break: break-all;
+}
+
+.dark #prompt-enhancement-system .help-examples code,
+.dark #prompt-enhancement-system .help-code-list code {
+    background: #374151;
+    color: #d1d5db;
+}
+
+/* AI/Manual mode switch - use !important to ensure correct hiding */
+#prompt-enhancement-system .prompt-editor.ai-mode .manual-edit-card,
+#prompt-enhancement-system .prompt-modal-content.prompt-editor.ai-mode .manual-edit-card {
+    display: none !important;
+}
+
+#prompt-enhancement-system .prompt-editor.manual-mode .ai-assistant-card,
+#prompt-enhancement-system .prompt-modal-content.prompt-editor.manual-mode .ai-assistant-card {
+    display: none !important;
+}
+
+/* Hide the built-in voice input button without affecting other toolbar actions */
+#voice-input-button {
+    display: none !important;
+}
+
+/* AI progress and validation panel */
+#prompt-enhancement-system .ai-progress-panel,
+#prompt-enhancement-system .validation-panel {
+    margin: 16px 20px;
+    padding: 16px;
+    border-radius: 10px;
+    background: #f0f9ff;
+    border: 1px solid #bfdbfe;
+}
+
+.dark #prompt-enhancement-system .ai-progress-panel,
+.dark #prompt-enhancement-system .validation-panel {
+    background: #1e3a5f;
+    border-color: #3b82f6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    #prompt-enhancement-system .prompt-editor {
+        width: 98vw;
+        height: 95vh;
+    }
+
+    #prompt-enhancement-system .editor-workspace {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto;
+    }
+
+    #prompt-enhancement-system .editor-panel-right {
+        border-left: none;
+        border-top: 1px solid var(--pes-color-border);
+        max-height: 200px;
+    }
+
+    #prompt-enhancement-system .topbar-center {
+        position: static;
+        transform: none;
+    }
+
+    #prompt-enhancement-system .editor-topbar {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    #prompt-enhancement-system .form-grid-2col {
+        grid-template-columns: 1fr;
+    }
+
+    #prompt-enhancement-system .form-field-full {
+        grid-column: span 1;
+    }
+}
+
+/* ==========================================================================
+   Favorite button styles
+   ========================================================================== */
+
+/* Favorite button default state - gray heart */
+#prompt-enhancement-system button[data-action="toggleFavorite"] {
+    opacity: 0.5;
+    filter: grayscale(100%);
+    transition: all 0.2s ease;
+}
+
+/* Favorite button hover state */
+#prompt-enhancement-system button[data-action="toggleFavorite"]:hover {
+    opacity: 0.8;
+    filter: grayscale(50%);
+    transform: scale(1.1);
+}
+
+/* Favorited state - red heart */
+#prompt-enhancement-system button[data-action="toggleFavorite"].favorited,
+#prompt-enhancement-system button.favorited[data-action="toggleFavorite"] {
+    opacity: 1 !important;
+    filter: none !important;
+}
+
+/* Click animation */
+#prompt-enhancement-system button[data-action="toggleFavorite"]:active {
+    transform: scale(0.9);
+}
+
+/* ==========================================================================
+   可搜索模型选择组件 (Model Select Component)
+   ========================================================================== */
+
+#prompt-enhancement-system .model-select {
+    position: relative;
+    width: 100%;
+}
+
+#prompt-enhancement-system .model-select-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#prompt-enhancement-system .model-select-input {
+    width: 100%;
+    padding: 10px 32px 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 14px;
+    color: #1f2937;
+    transition: all 0.2s ease;
+}
+
+.dark #prompt-enhancement-system .model-select-input {
+    background: #374151;
+    border-color: #4b5563;
+    color: #f3f4f6;
+}
+
+#prompt-enhancement-system .model-select-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+#prompt-enhancement-system .model-select-input:disabled {
+    background: #f3f4f6;
+    cursor: wait;
+}
+
+.dark #prompt-enhancement-system .model-select-input:disabled {
+    background: #1f2937;
+}
+
+#prompt-enhancement-system .model-select-arrow {
+    position: absolute;
+    right: 12px;
+    font-size: 10px;
+    color: #6b7280;
+    pointer-events: none;
+    transition: transform 0.2s ease;
+}
+
+#prompt-enhancement-system .model-select.open .model-select-arrow {
+    transform: rotate(180deg);
+}
+
+#prompt-enhancement-system .model-select-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    max-height: 280px;
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.dark #prompt-enhancement-system .model-select-dropdown {
+    background: #374151;
+    border-color: #4b5563;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+#prompt-enhancement-system .model-select-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: background 0.1s ease;
+}
+
+#prompt-enhancement-system .model-select-item:hover,
+#prompt-enhancement-system .model-select-item.highlighted {
+    background: #f3f4f6;
+}
+
+.dark #prompt-enhancement-system .model-select-item:hover,
+.dark #prompt-enhancement-system .model-select-item.highlighted {
+    background: #4b5563;
+}
+
+#prompt-enhancement-system .model-select-item .model-name {
+    font-size: 14px;
+    color: #1f2937;
+    font-weight: 500;
+}
+
+.dark #prompt-enhancement-system .model-select-item .model-name {
+    color: #f3f4f6;
+}
+
+#prompt-enhancement-system .model-select-item .model-provider {
+    font-size: 11px;
+    color: #9ca3af;
+    padding: 2px 8px;
+    background: #f3f4f6;
+    border-radius: 4px;
+}
+
+.dark #prompt-enhancement-system .model-select-item .model-provider {
+    background: #1f2937;
+    color: #9ca3af;
+}
+
+#prompt-enhancement-system .model-select-empty,
+#prompt-enhancement-system .model-select-error {
+    padding: 16px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+#prompt-enhancement-system .model-select-error {
+    color: #ef4444;
+}
+
+/* =========================================
+   UI Refactoring: Panel Styles
+   ========================================= */
+
+/* Unified Panel Modal */
+.unified-panel-modal {
+    width: min(1200px, 92vw) !important;
+    height: 78vh !important;
+    max-height: 85vh !important;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.dark .unified-panel-modal {
+    background: #1f2937;
+    /* gray-800 */
+    border: 1px solid #374151;
+    /* gray-700 */
+}
+
+/* Gradient Header */
+.gradient-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    flex-shrink: 0;
+    position: relative;
+    min-height: 56px;
+}
+
+.dark .gradient-header {
+    background: #374151;
+    /* gray-700 */
+    border-bottom: 1px solid #4b5563;
+    /* gray-600 */
+}
+
+/* Wizard Steps */
+.wizard-steps-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.wizard-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+    opacity: 0.7;
+}
+
+.wizard-step.active {
+    background: rgba(255, 255, 255, 0.25);
+    opacity: 1;
+}
+
+.wizard-step-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.wizard-step.active .wizard-step-num {
+    background: #fff;
+    color: #667eea;
+}
+
+.dark .wizard-step.active .wizard-step-num {
+    color: #374151;
+    /* gray-700 */
+}
+
+.wizard-step-line {
+    width: 40px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Sidebar */
+.panel-sidebar {
+    width: 18rem;
+    /* w-72 */
+    border-right: 1px solid #e5e7eb;
+    /* gray-200 */
+    overflow-y: auto;
+    background-color: #f9fafb;
+    /* gray-50 */
+    flex-shrink: 0;
+    padding: 16px;
+    padding-bottom: 80px;
+}
+
+.dark .panel-sidebar {
+    background-color: #111827;
+    /* gray-900 */
+    border-right-color: #374151;
+    /* gray-700 */
+}
+
+/* Editor Workspace & Body */
+.editor-workspace {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.editor-panel-body {
+    padding: 24px;
+    overflow-y: auto;
+    background: #f7f8fc;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.dark .editor-panel-body {
+    background: #111827;
+    /* gray-900 */
+}
+
+/* Editor Card */
+.editor-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dark .editor-card {
+    background: #1f2937;
+    /* gray-800 */
+    border: 1px solid #374151;
+    /* gray-700 */
+}
+
+.card-header.compact-header {
+    padding: 12px 24px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dark .card-header.compact-header {
+    border-bottom-color: #374151;
+    /* gray-700 */
+}
+
+.card-title {
+    font-size: 16px;
+    margin: 0;
+    font-weight: 600;
+    color: #111827;
+}
+
+.dark .card-title {
+    color: #fff;
+}
+
+.card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+}
+
+/* Force hide preview pane if it appears */
+#prompt-enhancement-system .preview-card,
+#prompt-enhancement-system .preview-pane,
+#prompt-enhancement-system .preview-body {
+    display: none !important;
+}
+
+/* Fix Editor Workspace Layout - Override Grid */
+#prompt-enhancement-system .editor-workspace {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: none !important;
+}
+
+/* Ensure editor panel body takes full width */
+#prompt-enhancement-system .editor-panel-body {
+    width: 100% !important;
+    flex: 1 !important;
+}
+
+/* Nuclear Fix for Layout Cache Issues */
+#prompt-enhancement-system .editor-workspace {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    grid-template-columns: none !important;
+    width: 100% !important;
+}
+
+/* Additional Mobile Fixes for Prompt Items */
+@media (max-width: 768px) {
+    #prompt-enhancement-system .prompt-item--detailed {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+        height: auto !important;
+        /* Allow height to grow */
+    }
+
+    /* Title Area */
+    #prompt-enhancement-system .prompt-item--detailed .prompt-title-area {
+        width: 100% !important;
+        flex: none !important;
+    }
+
+    /* Allow title to wrap */
+    #prompt-enhancement-system .prompt-item--detailed h4 {
+        white-space: normal !important;
+        height: auto !important;
+        margin-bottom: 4px;
+    }
+
+    /* Category Dropdown Container */
+    #prompt-enhancement-system .prompt-item--detailed .prompt-category-selector-container {
+        width: 100% !important;
+        flex: none !important;
+    }
+
+    #prompt-enhancement-system .prompt-item--detailed .prompt-category-selector-container select {
+        width: 100% !important;
+        padding: 8px;
+    }
+
+    /* Action Buttons */
+    #prompt-enhancement-system .prompt-item--detailed>div:last-child {
+        width: 100%;
+        justify-content: flex-end;
+        padding-top: 8px;
+        border-top: 1px solid #e5e7eb;
+    }
+
+    .dark #prompt-enhancement-system .prompt-item--detailed>div:last-child {
+        border-top-color: #374151;
+    }
+}
+
+/* Mobile Responsiveness for Management Panel */
+@media (max-width: 768px) {
+
+    /* 1. Fullscreen Panel */
+    #prompt-enhancement-system .unified-panel,
+    #prompt-enhancement-system .prompt-modal .unified-panel {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        border-radius: 0 !important;
+        top: 0 !important;
+        left: 0 !important;
+        transform: none !important;
+        margin: 0 !important;
+    }
+
+    /* 2. Vertical Layout for Management Panel */
+    #prompt-enhancement-system .unified-panel--management .panel-content {
+        flex-direction: column !important;
+    }
+
+    /* 3. Sidebar as Top Horizontal Scroll */
+    #prompt-enhancement-system .unified-panel--management .panel-sidebar {
+        width: 100% !important;
+        height: auto !important;
+        max-height: none !important;
+        border-right: none !important;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 8px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        background: #fff;
+    }
+
+    .dark #prompt-enhancement-system .unified-panel--management .panel-sidebar {
+        border-bottom-color: #374151;
+        background: #111827;
+    }
+
+    /* Sidebar Section Container */
+    #prompt-enhancement-system .unified-panel--management .sidebar-section {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        gap: 8px;
+    }
+
+    /* Hide Category Title */
+    #prompt-enhancement-system .unified-panel--management .sidebar-section h3 {
+        display: none;
+    }
+
+    /* Horizontal Category List */
+    #prompt-enhancement-system #category-list {
+        flex-direction: row !important;
+        gap: 8px !important;
+        flex: 1;
+        overflow-x: auto;
+        padding-bottom: 0;
+        /* Hide scrollbar for cleaner look */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    #prompt-enhancement-system #category-list::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Category Item Styling */
+    #prompt-enhancement-system #category-list>div {
+        min-width: auto;
+        white-space: nowrap;
+        border: 1px solid #e5e7eb;
+        padding: 6px 10px;
+        background: #fff;
+        flex-shrink: 0;
+        border-radius: 20px;
+        /* Pill shape */
+    }
+
+    .dark #prompt-enhancement-system #category-list>div {
+        border-color: #374151;
+        background: #1f2937;
+    }
+
+    /* Active Category Styling */
+    #prompt-enhancement-system #category-list>div.active-category {
+        background: #eff6ff;
+        border-color: #3b82f6;
+    }
+
+    .dark #prompt-enhancement-system #category-list>div.active-category {
+        background: #1e3a8a;
+        border-color: #3b82f6;
+    }
+
+    /* Hide Action Buttons in Category Item to save space */
+    #prompt-enhancement-system #category-list>div>div:last-child {
+        display: none;
+    }
+
+    /* Add Category Button */
+    #prompt-enhancement-system .btn-add-category {
+        white-space: nowrap;
+        flex-shrink: 0;
+        border-radius: 20px;
+    }
+
+    /* Header Adjustments */
+    #prompt-enhancement-system .panel-header-container>div:first-child {
+        padding: 12px 16px !important;
+        min-height: 50px !important;
+    }
+
+    #prompt-enhancement-system .header-actions {
+        gap: 8px;
+    }
+
+    #prompt-enhancement-system .btn-header span.btn-text {
+        display: none;
+        /* Hide text on mobile, only icons */
+    }
+
+    /* Prompt List Adjustments */
+    #prompt-enhancement-system .prompt-item--detailed {
+        padding: 12px;
+    }
+
+    #prompt-enhancement-system .prompt-item--detailed .prompt-actions {
+        opacity: 1;
+        /* Always show actions on mobile since no hover */
+    }
+}
+
+/* Custom Modal Message */
+.pes-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2147483647;
+    backdrop-filter: blur(2px);
+}
+
+.pes-modal-box {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    width: 90%;
+    max-width: 400px;
+    overflow: hidden;
+    animation: modalPopIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.dark .pes-modal-box {
+    background-color: #1f2937;
+    border: 1px solid #374151;
+}
+
+.pes-modal-header {
+    background: linear-gradient(to right, #8b5cf6, #6366f1);
+    /* Purple to Indigo */
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.pes-modal-title {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.pes-modal-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.pes-modal-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.pes-modal-body {
+    padding: 24px;
+    color: #374151;
+    font-size: 15px;
+    line-height: 1.5;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.dark .pes-modal-body {
+    color: #d1d5db;
+}
+
+.pes-modal-footer {
+    padding: 0 24px 24px 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.pes-modal-btn {
+    background: #8b5cf6;
+    /* Purple-500 */
+    color: white;
+    border: none;
+    padding: 8px 32px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: 0 4px 6px -1px rgba(139, 92, 246, 0.3);
+}
+
+.pes-modal-btn:hover {
+    background: #7c3aed;
+    /* Purple-600 */
+}
+
+@keyframes modalPopIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

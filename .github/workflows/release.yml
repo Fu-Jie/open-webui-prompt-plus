@@ -1,0 +1,111 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Create Release Archive
+        run: |
+          cd dist
+          zip -r ../openwebui-prompt-plus-${{ github.ref_name }}.zip .
+          cd ..
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: openwebui-prompt-plus-${{ github.ref_name }}.zip
+          generate_release_notes: true
+          body: |
+            ## 🚀 v0.1.0 - Initial Release: The Ultimate Prompt Manager for Open WebUI
+
+            We are excited to introduce **Open WebUI Prompt Plus**, a powerful extension designed to elevate your prompt engineering workflow. It brings professional-grade management, AI-assisted generation, and a seamless spotlight-style interface to Open WebUI.
+
+            ---
+
+            ### ✨ Highlight Features
+
+            #### 🤖 AI-Powered Prompt Engineering
+            *   **Natural Language Generation**: Simply describe your intent (e.g., "Create a Python code reviewer"), and our built-in AI Agent will construct a structured, high-quality prompt for you.
+            *   **Smart Context Awareness**: Automatically suggests relevant titles, commands, and categories based on the generated content.
+            *   **Syntax Auto-Correction**: Ensures all Open WebUI variable syntax (e.g., `{{ input }}`) is correctly formatted and ready to use.
+
+            #### ⚡ Spotlight-Style Quick Access
+            *   **Instant Invocation**: Press `Cmd/Ctrl + Shift + P` anywhere to open the command palette.
+            *   **Fuzzy Search Engine**: Find prompts instantly by title, content keywords, tags, or slash commands.
+            *   **Keyboard-Centric Workflow**: Navigate, select, and insert prompts without ever lifting your hands from the keyboard.
+
+            #### 📝 Rich Interactive Variable Forms
+            Transform static placeholders into dynamic UI components:
+            *   **Text & Textarea**: For standard inputs and long-form content.
+            *   **Select Dropdowns**: Predefine options for consistent outputs.
+            *   **Date & Time Pickers**: Native browser pickers for precise scheduling.
+            *   **Sliders & Ranges**: Adjust numeric parameters with ease.
+            *   **Color Pickers**: Visual selection for design-related prompts.
+            *   **Live Preview**: Watch your final prompt assemble in real-time as you fill out the form.
+
+            #### 📂 Professional Management System
+            *   **Custom Categories**: Organize your library with user-defined categories and custom Emoji icons.
+            *   **Smart Organization**: "Favorites" and "Most Used" sections keep your top prompts at your fingertips.
+            *   **Import/Export**: Easily share your prompt library or back it up with JSON export/import.
+
+            #### 🌍 Global Ready
+            *   **i18n Support**: Fully localized interface in **10 languages**: English, Simplified Chinese, Traditional Chinese, Japanese, Korean, French, German, Spanish, Dutch, and Greek.
+            *   **Theme Adaptive**: Seamlessly integrates with Open WebUI's Light and Dark modes.
+
+            ---
+
+            ### 📦 Installation & Setup
+
+            The easiest way to install is by mounting the built assets into your Open WebUI container.
+
+            **Step 1: Download the Release Asset**
+            Download `openwebui-prompt-plus-v0.1.0.zip` from the assets below and unzip it.
+
+            **Step 2: Update `docker-compose.yml`**
+            Add the following volume mounts to your `open-webui` service:
+
+            ```yaml
+            services:
+              open-webui:
+                image: ghcr.io/open-webui/open-webui:main
+                volumes:
+                  - open-webui-data:/app/backend/data
+                  # --- Prompt Plus Extension ---
+                  - ./dist/custom.css:/app/build/static/custom.css
+                  - ./dist/loader.js:/app/build/static/loader.js
+                  - ./dist/js:/app/build/static/js/prompt-plus-js
+            ```
+
+            **Step 3: Restart**
+            Run `docker compose up -d` to apply changes.
+
+            ---
+
+            ### 🔗 Resources
+            *   [Full Documentation](https://github.com/fujie/open-webui-prompt-plus)
+            *   [Report Issues](https://github.com/fujie/open-webui-prompt-plus/issues)
+
+            *Made with ❤️ for the Open WebUI Community*

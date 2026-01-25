@@ -1,0 +1,26 @@
+{
+  "name": "openwebui-prompt-enhancement",
+  "version": "0.1.0",
+  "description": "Professional prompt management and AI generation extension for Open WebUI",
+  "author": "Fujie",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fujie/open-webui-prompt-plus.git"
+  },
+  "keywords": [
+    "open-webui",
+    "prompt-engineering",
+    "ai",
+    "extension"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "node node_modules/vite/bin/vite.js build && cp loader.js dist/ && cp custom.css dist/ && cp README.md dist/ && cp README_CN.md dist/",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}
