@@ -736,7 +736,7 @@ Command Name: `;
         }
 
         // Inject language into template
-        let basePrompt = AI_ASSISTANT_PROMPT.replace('{{INTERFACE_LANGUAGE}}', currentLangName);
+        let basePrompt = AI_ASSISTANT_PROMPT.replace(/{{INTERFACE_LANGUAGE}}/g, currentLangName);
 
         const finalPrompt = `
 ${basePrompt}

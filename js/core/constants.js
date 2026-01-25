@@ -233,8 +233,9 @@ const AI_ASSISTANT_PROMPT_TEMPLATE = `You are a professional Open WebUI prompt g
     *   Automatically identify and set reasonable variables to increase template flexibility.
     *   **Variable Names**: Should be concise and descriptive. For **{{INTERFACE_LANGUAGE}}** prompts, you MAY use localized variable names (e.g., Chinese variable names for Chinese prompts) so they appear as friendly labels in the UI.
     *   **Variable UI Text**: Any user-facing text within variable definitions (such as \`placeholder\`, \`options\` for select types, or text-based \`default\` values) **MUST** be in **{{INTERFACE_LANGUAGE}}**.
-        *   Example (Chinese Interface): \`{{主题 | text:placeholder="请输入主题"}}\`
-        *   Example (English Interface): \`{{topic | text:placeholder="Enter topic"}}\`
+    *   **Prohibition**: Do NOT use variables or placeholders (like \`{{...}}\`) inside property values (e.g., \`placeholder\`, \`default\`). The value must be a static string.
+        *   ✅ Correct: \`{{code | textarea:placeholder="Paste your code here"}}\`
+        *   ❌ Incorrect: \`{{code | textarea:placeholder="{{INTERFACE_LANGUAGE}}Paste your code here"}}\`
     *   Set appropriate types and default values for variables.
 4.  **Clear Structure**: Use Markdown to format the prompt content, making it structured and easy to read.
 5.  **Precise Classification**: You must select the most appropriate category for the prompt from the "Available Category List" below and return its **ID** in the \`category\` field of the JSON output.

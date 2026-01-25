@@ -30,7 +30,7 @@ if (supportsModules) {
     document.head.appendChild(style);
 
     // Modern browsers: Load app modules
-    const VERSION = '0.1.0';
+    const VERSION = '0.1.1';
     console.log(`Loader: Loading Prompt Plus v${VERSION}...`);
 
     // Use relative path that works with the new directory structure
