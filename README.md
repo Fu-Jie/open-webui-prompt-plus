@@ -16,9 +16,10 @@
 
 ---
 
-## 🆕 What's New (v0.1.2)
+## 🆕 What's New (v0.1.3)
 
-- **Docker Deployment Enhancement**: Fixed loading failures (404 Error) in production Docker environments caused by custom file mounting names (e.g., `prompt-plus-app.js`). The `loader.js` now implements an automatic fallback strategy to intelligently detect file paths.
+- **Docker Deployment Enhancement**: Further improved `loader.js` path detection. In addition to standard paths and the `js/` subdirectory, it now supports loading `prompt-plus-app.js` from the root directory, accommodating a wider range of Docker mount configurations (e.g., mounting files directly to the `static/` root).
+
 
 ---
 

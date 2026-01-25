@@ -30,7 +30,7 @@ if (supportsModules) {
     document.head.appendChild(style);
 
     // Modern browsers: Load app modules
-    const VERSION = '0.1.2';
+    const VERSION = '0.1.3';
     console.log(`Loader: Loading Prompt Plus v${VERSION}...`);
 
     // Use relative path that works with the new directory structure
@@ -39,8 +39,12 @@ if (supportsModules) {
         const v = `?v=${VERSION}`;
         return import(`./js/prompt-plus-js/app.js${v}`)
             .catch(() => {
-                console.log('Standard path failed, trying fallback path...');
+                console.log('Standard path failed, trying fallback path 1 (js/)...');
                 return import(`./js/prompt-plus-app.js${v}`);
+            })
+            .catch(() => {
+                console.log('Fallback path 1 failed, trying fallback path 2 (root)...');
+                return import(`./prompt-plus-app.js${v}`);
             });
     };
 
