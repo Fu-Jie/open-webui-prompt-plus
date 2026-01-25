@@ -1,4 +1,5 @@
 import { processVariables, showNotification, sanitizeCommand } from '../utils/helpers.js';
+import { logger } from './logger.js';
 
 // Multi-Strategy Text Inserter Class
 export class MultiStrategyInserter {
@@ -74,9 +75,24 @@ export class MultiStrategyInserter {
                     selection.removeAllRanges();
                     selection.addRange(range);
 
+                    // Trigger input event to notify editor of changes
+                    const inputEvent = new InputEvent('input', {
+                        bubbles: true,
+                        cancelable: true,
+                        inputType: 'insertText',
+                        data: text
+                    });
+                    element.dispatchEvent(inputEvent);
+
                     return true;
                 } catch (proseMirrorError) {
-                    console.warn('ProseMirror strategy failed:', proseMirrorError);
+                    console.warn('ProseMirror DOM strategy failed:', proseMirrorError);
+                    // If DOM manipulation failed, we should NOT fall through to execCommand 
+                    // immediately if we are unsure of the state. 
+                    // However, for robustness, we can try execCommand ONLY if we are sure 
+                    // the previous attempt didn't leave partial data.
+                    // For now, let's try to clear and fallback.
+                    element.innerHTML = '';
                 }
 
                 if (document.execCommand && document.execCommand('insertText', false, text)) {
@@ -238,22 +254,43 @@ export class EnhancedPromptInserter {
     constructor(detector, inserter) {
         this.detector = detector;
         this.inserter = inserter;
+        this.isInserting = false; // Add lock flag
     }
 
     async insertPrompt(prompt, insertMode = 'command') {
-        if (!prompt) {
-            this.showError('Prompt is empty');
+        logger.debug('insertPrompt called', { title: prompt?.title, mode: insertMode, isInserting: this.isInserting });
+
+        // Prevent concurrent insertions
+        if (this.isInserting) {
+            logger.debug('Insertion already in progress, skipping...');
             return false;
         }
 
-        if (insertMode === 'content') {
-            return await this.insertFullContent(prompt);
-        } else {
-            return await this.insertCommand(prompt);
+        this.isInserting = true;
+
+        try {
+            if (!prompt) {
+                this.showError('Prompt is empty');
+                return false;
+            }
+
+            if (insertMode === 'content') {
+                return await this.insertFullContent(prompt);
+            } else {
+                return await this.insertCommand(prompt);
+            }
+        } finally {
+            // Ensure lock is released even if error occurs
+            // Add a small delay to prevent accidental double-clicks
+            setTimeout(() => {
+                this.isInserting = false;
+                logger.debug('Insertion lock released');
+            }, 300);
         }
     }
 
     async insertFullContent(prompt) {
+        logger.debug('insertFullContent');
         if (!prompt?.content) {
             this.showError('Prompt content is empty');
             return false;
@@ -291,6 +328,7 @@ export class EnhancedPromptInserter {
     }
 
     async insertCommand(prompt) {
+        logger.debug('insertCommand');
         const inputElement = this.detector.detectActiveInput();
 
         if (!inputElement) {
@@ -349,32 +387,55 @@ export class EnhancedPromptInserter {
 
     // Simulate step-by-step command typing process (Optimized: Batch typing)
     async simulateTypingCommand(inputElement, commandName) {
+        console.log('[PromptPlus Debug] simulateTypingCommand', commandName);
         try {
             // Focus input field
             inputElement.focus();
             await new Promise(resolve => setTimeout(resolve, 50));
 
-            // Step 1: Type /
-            await this.typeCharacter(inputElement, '/');
+            // Check if it's ProseMirror
+            const isProseMirror = inputElement.classList.contains('ProseMirror');
+            logger.debug('isProseMirror:', isProseMirror);
 
-            // Wait for prompt panel to appear
-            const panelAppeared = await this.waitForSuggestionsPanel();
-            if (!panelAppeared) {
-                console.warn('Prompt panel did not appear, using fixed delay');
+            if (isProseMirror) {
+                // For ProseMirror, we try a more direct approach to avoid event duplication
+                // We insert the slash, wait, then insert the command name
+
+                // 1. Insert Slash
+                logger.debug('ProseMirror: Inserting slash');
+                document.execCommand('insertText', false, '/');
+
+                // Wait for panel
                 await new Promise(resolve => setTimeout(resolve, 300));
+
+                // 2. Insert Command Name
+                if (commandName.length > 0) {
+                    logger.debug('ProseMirror: Inserting command name');
+                    document.execCommand('insertText', false, commandName);
+                }
+
+                // Wait for filter
+                await new Promise(resolve => setTimeout(resolve, 300));
+
+                // 3. Trigger Enter (instead of Tab)
+                // We use Enter as it is the standard key for confirming a selection in the command menu
+                logger.debug('ProseMirror: Triggering Enter');
+                await this.simulateEnterKey(inputElement);
+
+                return true;
             }
 
-            // Step 2: Fast insert command name (Hybrid Strategy)
-            // Directly insert the rest of the command to speed up
+            // Standard fallback for other inputs
+            logger.debug('Standard: Inserting slash');
+            await this.typeCharacter(inputElement, '/');
+            await new Promise(resolve => setTimeout(resolve, 300));
             if (commandName.length > 0) {
+                logger.debug('Standard: Inserting command name');
                 await this.typeBatch(inputElement, commandName);
             }
-
-            // Wait for OpenWebUI command panel update
-            await new Promise(resolve => setTimeout(resolve, 150));
-
-            // Step 3: Simulate Tab key press
-            await this.simulateTabKey(inputElement);
+            await new Promise(resolve => setTimeout(resolve, 300));
+            logger.debug('Standard: Triggering Enter');
+            await this.simulateEnterKey(inputElement);
 
             return true;
         } catch (error) {
@@ -385,6 +446,7 @@ export class EnhancedPromptInserter {
 
     // Batch type multiple characters
     async typeBatch(element, text) {
+        logger.debug('typeBatch', text);
         // Focus element
         element.focus();
 
@@ -402,9 +464,12 @@ export class EnhancedPromptInserter {
         });
         element.dispatchEvent(keydownEvent);
 
+        let inserted = false;
+
         // Batch insert text
         if (!keydownEvent.defaultPrevented) {
-            const inserted = document.execCommand && document.execCommand('insertText', false, text);
+            inserted = document.execCommand && document.execCommand('insertText', false, text);
+            logger.debug('typeBatch execCommand result:', inserted);
 
             if (!inserted) {
                 // Fallback: Manually insert text
@@ -416,30 +481,38 @@ export class EnhancedPromptInserter {
                     const value = element.value || '';
                     element.value = value.substring(0, start) + text + value.substring(end);
                     element.selectionStart = element.selectionEnd = start + text.length;
+                    inserted = true; // Mark as manually inserted
                 } else if (element.hasAttribute('contenteditable')) {
                     const selection = window.getSelection();
-                    const range = selection.getRangeAt(0);
-                    range.deleteContents();
-                    const textNode = document.createTextNode(text);
-                    range.insertNode(textNode);
-                    range.setStartAfter(textNode);
-                    range.setEndAfter(textNode);
-                    selection.removeAllRanges();
-                    selection.addRange(range);
+                    if (selection.rangeCount > 0) {
+                        const range = selection.getRangeAt(0);
+                        range.deleteContents();
+                        const textNode = document.createTextNode(text);
+                        range.insertNode(textNode);
+                        range.setStartAfter(textNode);
+                        range.setEndAfter(textNode);
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                        inserted = true; // Mark as manually inserted
+                    }
                 }
             }
         }
 
         await new Promise(resolve => setTimeout(resolve, 10));
 
-        // Trigger input event (with batch text data)
-        const inputEvent = new InputEvent('input', {
-            bubbles: true,
-            cancelable: true,
-            inputType: 'insertText',
-            data: text
-        });
-        element.dispatchEvent(inputEvent);
+        // Trigger input event ONLY if NOT inserted via execCommand (which triggers it automatically)
+        // OR if we manually modified the value/DOM
+        if (!inserted || (inserted && !document.execCommand)) {
+            logger.debug('typeBatch dispatching manual input event');
+            const inputEvent = new InputEvent('input', {
+                bubbles: true,
+                cancelable: true,
+                inputType: 'insertText',
+                data: text
+            });
+            element.dispatchEvent(inputEvent);
+        }
 
         // Trigger keyup for last character
         const lastChar = text[text.length - 1];
@@ -469,7 +542,7 @@ export class EnhancedPromptInserter {
                 // Check if visible
                 const style = window.getComputedStyle(suggestionsContainer);
                 if (style.display !== 'none' && style.visibility !== 'hidden') {
-                    console.log('✅ Prompt panel appeared');
+                    logger.debug('✅ Prompt panel appeared');
                     return true;
                 }
             }
@@ -478,12 +551,13 @@ export class EnhancedPromptInserter {
             await new Promise(resolve => setTimeout(resolve, checkInterval));
         }
 
-        console.warn('⚠️ Wait for prompt panel timeout');
+        logger.warn('⚠️ Wait for prompt panel timeout');
         return false;
     }
 
     // Simulate key press for single character
     async typeCharacter(element, char) {
+        logger.debug('typeCharacter', char);
         // Focus element
         element.focus();
 
@@ -502,10 +576,13 @@ export class EnhancedPromptInserter {
         });
         element.dispatchEvent(keydownEvent);
 
+        let inserted = false;
+
         // If event is not prevented, actually insert character
         if (!keydownEvent.defaultPrevented) {
             // Use document.execCommand or directly modify value
-            const inserted = document.execCommand && document.execCommand('insertText', false, char);
+            inserted = document.execCommand && document.execCommand('insertText', false, char);
+            logger.debug('typeCharacter execCommand result:', inserted);
 
             if (!inserted) {
                 // Fallback: Manually insert character
@@ -517,16 +594,20 @@ export class EnhancedPromptInserter {
                     const value = element.value || '';
                     element.value = value.substring(0, start) + char + value.substring(end);
                     element.selectionStart = element.selectionEnd = start + 1;
+                    inserted = true;
                 } else if (element.hasAttribute('contenteditable')) {
                     const selection = window.getSelection();
-                    const range = selection.getRangeAt(0);
-                    range.deleteContents();
-                    const textNode = document.createTextNode(char);
-                    range.insertNode(textNode);
-                    range.setStartAfter(textNode);
-                    range.setEndAfter(textNode);
-                    selection.removeAllRanges();
-                    selection.addRange(range);
+                    if (selection.rangeCount > 0) {
+                        const range = selection.getRangeAt(0);
+                        range.deleteContents();
+                        const textNode = document.createTextNode(char);
+                        range.insertNode(textNode);
+                        range.setStartAfter(textNode);
+                        range.setEndAfter(textNode);
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                        inserted = true;
+                    }
                 }
             }
         }
@@ -547,13 +628,17 @@ export class EnhancedPromptInserter {
         element.dispatchEvent(keypressEvent);
 
         // 3. Trigger input event (with actual character data)
-        const inputEvent = new InputEvent('input', {
-            bubbles: true,
-            cancelable: true,
-            inputType: 'insertText',
-            data: char
-        });
-        element.dispatchEvent(inputEvent);
+        // Only if NOT inserted via execCommand (which triggers it automatically)
+        if (!inserted || (inserted && !document.execCommand)) {
+            logger.debug('typeCharacter dispatching manual input event');
+            const inputEvent = new InputEvent('input', {
+                bubbles: true,
+                cancelable: true,
+                inputType: 'insertText',
+                data: char
+            });
+            element.dispatchEvent(inputEvent);
+        }
 
         // 4. Trigger keyup event
         const keyupEvent = new KeyboardEvent('keyup', {
@@ -609,31 +694,31 @@ export class EnhancedPromptInserter {
         };
     }
 
-    // Simulate Tab key press
-    async simulateTabKey(element) {
+    // Simulate Enter key press
+    async simulateEnterKey(element) {
+        logger.debug('simulateEnterKey');
         // Simulate keydown event
         const keydownEvent = new KeyboardEvent('keydown', {
-            key: 'Tab',
-            code: 'Tab',
-            keyCode: 9,
-            which: 9,
+            key: 'Enter',
+            code: 'Enter',
+            keyCode: 13,
+            which: 13,
             bubbles: true,
             cancelable: true
         });
         element.dispatchEvent(keydownEvent);
 
-        await new Promise(resolve => setTimeout(resolve, 50));
+        // await new Promise(resolve => setTimeout(resolve, 50));
 
-        // Simulate keyup event
-        const keyupEvent = new KeyboardEvent('keyup', {
-            key: 'Tab',
-            code: 'Tab',
-            keyCode: 9,
-            which: 9,
-            bubbles: true,
-            cancelable: true
-        });
-        element.dispatchEvent(keyupEvent);
+        // const keyupEvent = new KeyboardEvent('keyup', {
+        //     key: 'Enter',
+        //     code: 'Enter',
+        //     keyCode: 13,
+        //     which: 13,
+        //     bubbles: true,
+        //     cancelable: true
+        // });
+        // element.dispatchEvent(keyupEvent);
     }
 
     async updateUsageStats(prompt) {
@@ -655,14 +740,14 @@ export class EnhancedPromptInserter {
         if (!element) return;
 
         try {
-            console.log('[Clear] Start clearing input field:', element.id, element.tagName);
+            logger.debug('[Clear] Start clearing input field:', element.id, element.tagName);
 
             element.focus();
             await new Promise(resolve => setTimeout(resolve, 50));
 
             // Strategy 1: Special handling for TipTap/ProseMirror editor
             if (element.classList.contains('ProseMirror')) {
-                console.log('[Clear] ProseMirror editor detected');
+                logger.debug('[Clear] ProseMirror editor detected');
 
                 // Thoroughly clear all content
                 element.innerHTML = '';
@@ -680,7 +765,7 @@ export class EnhancedPromptInserter {
                 });
                 element.dispatchEvent(inputEvent);
 
-                console.log('[Clear] ProseMirror cleared');
+                logger.debug('[Clear] ProseMirror cleared');
                 return;
             }
 
@@ -693,26 +778,26 @@ export class EnhancedPromptInserter {
                     // Delete selected content
                     const deleted = document.execCommand('delete', false, null);
                     if (deleted) {
-                        console.log('[Clear] execCommand clear success');
+                        logger.debug('[Clear] execCommand clear success');
                         this.inserter.triggerInputEvents(element);
                         return;
                     }
                 }
             } catch (cmdError) {
-                console.warn('[Clear] execCommand failed:', cmdError);
+                logger.warn('[Clear] execCommand failed:', cmdError);
             }
 
             // Strategy 3: Manually select all content and delete
             const tagName = element.tagName.toLowerCase();
 
             if (tagName === 'textarea' || tagName === 'input') {
-                console.log('[Clear] Processing textarea/input');
+                logger.debug('[Clear] Processing textarea/input');
                 element.value = '';
                 element.selectionStart = 0;
                 element.selectionEnd = 0;
 
             } else if (element.hasAttribute('contenteditable')) {
-                console.log('[Clear] Processing contenteditable');
+                logger.debug('[Clear] Processing contenteditable');
 
                 // Completely clear
                 element.innerHTML = '';

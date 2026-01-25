@@ -4,7 +4,7 @@
   <img src="https://img.shields.io/badge/Open%20WebUI-扩展-blue?style=for-the-badge&logo=openai" alt="Open WebUI Extension">
   <img src="https://img.shields.io/badge/AI--Powered-智能驱动-purple?style=for-the-badge" alt="AI Powered">
   <img src="https://img.shields.io/badge/i18n-10+%20语言支持-green?style=for-the-badge" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.1.1-blue?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.1.3-blue?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License">
 </p>
 
@@ -16,11 +16,12 @@
 
 ---
 
-## 🆕 更新日志 (v0.1.2)
+## 🆕 更新日志 (v0.1.3)
 
-- **Docker 部署增强**: 
-    - **文件名统一**: 将构建输出文件名统一为 `prompt-plus-app.js`，简化了挂载配置。
-    - **智能路径识别**: `loader.js` 增加了多重路径降级策略（支持标准路径、根目录挂载等），并优化了故障排查日志，彻底解决了 Docker 环境下的 404 加载问题。
+- **Bug 修复**: 修复了在 ProseMirror 编辑器中带有变量的提示词会被重复插入的严重问题。
+  - **原因**: `execCommand` 和手动派发的 `input` 事件发生冲突，导致 ProseMirror 的状态管理出现混乱，从而触发了两次插入。
+  - **修复**: 为 ProseMirror 实现了专用的插入策略（绕过冗余的事件模拟），优化了按键模拟逻辑（使用 Enter 代替 Tab），并增加了严格的事件去重机制。
+
 
 
 ---

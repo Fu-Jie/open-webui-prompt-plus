@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Open%20WebUI-Extension-blue?style=for-the-badge&logo=openai" alt="Open WebUI Extension">
-  <img src="https://img.shields.io/badge/Version-0.1.1-blue?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.1.3-blue?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/AI-Powered-purple?style=for-the-badge" alt="AI Powered">
   <img src="https://img.shields.io/badge/i18n-10+%20Languages-green?style=for-the-badge" alt="Languages">
   <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License">
@@ -16,11 +16,12 @@
 
 ---
 
-## 🆕 What's New (v0.1.2)
+## 🆕 What's New (v0.1.3)
 
-- **Docker Deployment Enhancements**:
-    - **Unified Filename**: Standardized build output to `prompt-plus-app.js` for simpler mount configurations.
-    - **Smart Path Detection**: `loader.js` now features multi-level fallback strategies (supporting standard paths, root mounts, etc.) and improved troubleshooting logs, resolving 404 loading issues in Docker environments.
+- **Bug Fix**: Fixed a critical issue where prompts with variables were inserted twice in ProseMirror editors.
+  - **Cause**: Conflicting `input` events triggered by both `execCommand` and manual dispatch, combined with ProseMirror's complex state management.
+  - **Fix**: Implemented a dedicated insertion strategy for ProseMirror that bypasses redundant event simulation, optimized key press simulation (Enter vs Tab), and added strict event deduplication logic.
+
 
 
 ---
