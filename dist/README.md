@@ -34,11 +34,11 @@ Stop struggling with prompt engineering.
 - **Icon Search**: Built-in Emoji picker with keyword search support.
 - **Smart Organization**: Favorites and usage statistics keep your most-used prompts at your fingertips.
 
-### 📝 Interactive Variable Forms
-Transform static templates into beautiful, interactive forms:
-- **Rich Components**: Supports text inputs, textareas, dropdowns, sliders, date/time pickers, color pickers, and more.
-- **Live Preview**: See the final prompt result in real-time as you fill out the form.
-- **Smart Defaults**: Pre-fill common values to save time and reduce repetitive typing.
+### 📝 Native Variable Support & Visualization
+Fully leverage Open WebUI's powerful native variable syntax without the hassle of manual coding:
+- **AI-Generated Templates**: Let the AI write the complex variable syntax for you.
+- **Visual Form Rendering**: Instantly turns `{{variables}}` into user-friendly UI components (Dropdowns, Date Pickers, Sliders, etc.).
+- **No Slash Commands Needed**: Fill out variables in a clean modal interface instead of the command line.
 
 ---
 
