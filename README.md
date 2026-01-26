@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Open%20WebUI-Extension-blue?style=for-the-badge&logo=openai" alt="Open WebUI Extension">
-  <img src="https://img.shields.io/badge/Version-0.1.3-blue?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.1.4-blue?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/AI-Powered-purple?style=for-the-badge" alt="AI Powered">
   <img src="https://img.shields.io/badge/i18n-10+%20Languages-green?style=for-the-badge" alt="Languages">
   <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License">
@@ -16,36 +16,34 @@
 
 ---
 
-## 🆕 What's New (v0.1.3)
-
-- **Bug Fix**: Fixed a critical issue where prompts with variables were inserted twice in ProseMirror editors.
-  - **Cause**: Conflicting `input` events triggered by both `execCommand` and manual dispatch, combined with ProseMirror's complex state management.
-  - **Fix**: Implemented a dedicated insertion strategy for ProseMirror that bypasses redundant event simulation, optimized key press simulation (Enter vs Tab), and added strict event deduplication logic.
-
-
-
 ---
 
 ## 🌟 Key Features
 
 ### 🤖 AI-Powered Prompt Generator
+
 Stop struggling with prompt engineering.
+
 - **Natural Language to Prompt**: Simply describe your needs (e.g., "Write a prompt for code review"), and the built-in AI Agent will construct a structured, variable-rich prompt for you.
 - **Auto-Categorization**: AI automatically suggests titles, commands, and categories based on the content.
 - **Syntax Optimization**: Automatically applies Open WebUI variable syntax, making your prompts ready to use instantly.
 
 ### ⚡ Quick Insert Panel (Spotlight Style)
+
 - **Global Shortcut**: Press `Cmd/Ctrl + Shift + P` to instantly toggle the search panel.
 - **Fuzzy Search**: Find prompts by title, content, tags, or commands in milliseconds.
 - **Visual Search & Discovery**: Optimized for usability—instantly find prompts by keyword without memorizing slash commands.
 
 ### 📂 Advanced Category Management
+
 - **Dynamic Categories**: Create custom categories with personalized Emoji icons.
 - **Icon Search**: Built-in Emoji picker with keyword search support.
 - **Smart Organization**: Favorites and usage statistics keep your most-used prompts at your fingertips.
 
 ### 📝 Native Variable Support & Visualization
+
 Fully leverage Open WebUI's powerful native variable syntax without the hassle of manual coding:
+
 - **AI-Generated Templates**: Let the AI write the complex variable syntax for you.
 - **Visual Form Rendering**: Instantly turns `{{variables}}` into user-friendly UI components (Dropdowns, Date Pickers, Sliders, etc.).
 - **No Slash Commands Needed**: Fill out variables in a clean modal interface instead of the command line.
@@ -76,7 +74,6 @@ Fully leverage Open WebUI's powerful native variable syntax without the hassle o
 <p align="center">
   <img src="./screenshots/08_ai_generation_demo.gif" alt="AI Generation Demo" width="90%">
 </p>
-
 
 ---
 
@@ -125,14 +122,18 @@ services:
 Since this project is designed for containerized deployment, development is best done by mounting the source files directly into your Open WebUI container.
 
 ### How to Build
+
 To generate the optimized production version:
+
 ```bash
 npm install
 npm run build
 ```
+
 This updates the `dist` directory, which is tracked by Git for easy deployment.
 
 ### Development Workflow
+
 1. **Switch to Source**: In your `docker-compose.yml`, mount the root directory files (`custom.css`, `loader.js`, `js/`) to `/app/build/static/` (for CSS/Loader) and `/app/build/static/prompt-plus-js` (for the JS folder).
 2. **Modify & Refresh**: Edit files in `js/` or `custom.css`.
 3. **See Changes**: Simply refresh your browser. No build step is required for development as the loader handles ES6 modules.

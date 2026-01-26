@@ -33,30 +33,58 @@ if (supportsModules) {
     const VERSION = '0.1.3';
     console.log(`Loader: Loading Prompt Plus v${VERSION}...`);
 
-    // Use relative path that works with the new directory structure
-    // Try standard path first (Dev/Standard Prod), then fallback to flat path (Custom Prod)
+    // Use absolute path based on loader location to avoid SPA routing issues
     const loadApp = () => {
+        const VERSION = '0.1.3';
         const v = `?v=${VERSION}`;
+
+        // Determine base URL from the current script's location
+        let baseUrl = '';
+        try {
+            // For ES modules, import.meta.url is the standard way
+            // But since this might be loaded via script tag, we check document.currentScript
+            if (document.currentScript) {
+                baseUrl = document.currentScript.src.substring(0, document.currentScript.src.lastIndexOf('/') + 1);
+            } else {
+                // Fallback: assume loader.js is in /static/ or root of static assets
+                // We can try to find the script tag by src content if currentScript is null (e.g. in module)
+                const scripts = document.querySelectorAll('script');
+                for (let script of scripts) {
+                    if (script.src && script.src.includes('loader.js')) {
+                        baseUrl = script.src.substring(0, script.src.lastIndexOf('/') + 1);
+                        break;
+                    }
+                }
+            }
+        } catch (e) {
+            console.warn('Loader: Could not determine base URL, falling back to relative paths', e);
+        }
 
         // Helper to log attempts
         const tryLoad = (path, label) => {
-            console.log(`Loader: Trying to load from ${label}: ${path}`);
-            return import(path).then(module => {
+            // Construct absolute path if base URL is found and path is relative
+            let fullPath = path;
+            if (baseUrl && path.startsWith('./')) {
+                fullPath = new URL(path.substring(2), baseUrl).href;
+            }
+
+            console.log(`Loader: Trying to load from ${label}: ${fullPath}`);
+            return import(fullPath).then(module => {
                 console.log(`Loader: ✅ Successfully loaded from ${label}`);
                 return module;
             });
         };
 
-        // Standard Path: js/prompt-plus-app.js
+        // Standard Path: js/prompt-plus-app.js (relative to loader.js)
         return tryLoad(`./js/prompt-plus-app.js${v}`, 'Standard Path (js/)')
             .catch(() => {
                 console.warn('Loader: Standard path failed, trying fallback 1...');
-                // Fallback 1: prompt-plus-app.js (Root)
+                // Fallback 1: prompt-plus-app.js (Same dir as loader.js)
                 return tryLoad(`./prompt-plus-app.js${v}`, 'Fallback Path 1 (root)');
             })
             .catch(() => {
                 console.warn('Loader: Fallback 1 failed, trying legacy path...');
-                // Fallback 2: Legacy path (js/prompt-plus-js/app.js) - just in case
+                // Fallback 2: Legacy path (js/prompt-plus-js/app.js)
                 return tryLoad(`./js/prompt-plus-js/app.js${v}`, 'Legacy Path');
             });
     };

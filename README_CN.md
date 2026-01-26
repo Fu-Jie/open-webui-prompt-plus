@@ -4,7 +4,7 @@
   <img src="https://img.shields.io/badge/Open%20WebUI-扩展-blue?style=for-the-badge&logo=openai" alt="Open WebUI Extension">
   <img src="https://img.shields.io/badge/AI--Powered-智能驱动-purple?style=for-the-badge" alt="AI Powered">
   <img src="https://img.shields.io/badge/i18n-10+%20语言支持-green?style=for-the-badge" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.1.3-blue?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.1.4-blue?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License">
 </p>
 
@@ -16,36 +16,34 @@
 
 ---
 
-## 🆕 更新日志 (v0.1.3)
-
-- **Bug 修复**: 修复了在 ProseMirror 编辑器中带有变量的提示词会被重复插入的严重问题。
-  - **原因**: `execCommand` 和手动派发的 `input` 事件发生冲突，导致 ProseMirror 的状态管理出现混乱，从而触发了两次插入。
-  - **修复**: 为 ProseMirror 实现了专用的插入策略（绕过冗余的事件模拟），优化了按键模拟逻辑（使用 Enter 代替 Tab），并增加了严格的事件去重机制。
-
-
-
 ---
 
 ## 🌟 核心特性
 
 ### 🤖 AI 智能提示词生成器
+
 告别提示词工程的烦恼。
+
 - **自然语言转提示词**：只需描述你的需求（例如：“写一个代码审查的提示词”），内置的 AI Agent 将为你构建结构化、富含变量的提示词。
 - **自动分类与命名**：AI 会根据内容自动建议标题、斜杠命令和分类。
 - **语法优化**：自动应用 Open WebUI 变量语法，生成的提示词即刻可用。
 
 ### ⚡ 快速插入面板 (Spotlight 风格)
+
 - **全局快捷键**：按下 `Cmd/Ctrl + Shift + P` 立即唤起搜索面板。
 - **模糊搜索**：毫秒级搜索标题、内容、标签或命令。
 - **可视化搜索与发现**：专为易用性设计——通过关键词即时查找提示词，无需记忆斜杠命令。
 
 ### 📂 高级分类管理
+
 - **动态分类**：创建自定义分类，并配以个性化的 Emoji 图标。
 - **图标搜索**：内置 Emoji 选择器，支持关键词搜索。
 - **智能组织**：收藏夹和使用统计功能，让你最常用的提示词触手可及。
 
 ### 📝 原生变量支持与可视化
+
 充分利用 Open WebUI 强大的原生变量语法，告别手动编写代码的烦恼：
+
 - **AI 自动生成模板**：让 AI 为您编写复杂的变量语法。
 - **可视化表单渲染**：即时将 `{{variables}}` 转换为用户友好的 UI 组件（下拉菜单、日期选择器、滑块等）。
 - **无需斜杠命令**：在整洁的模态界面中填写变量，无需记忆复杂的命令行操作。
@@ -124,14 +122,18 @@ services:
 本项目专为容器化部署设计，推荐通过直接挂载源码目录的方式进行开发调试。
 
 ### 如何构建
+
 生成优化后的生产版本：
+
 ```bash
 npm install
 npm run build
 ```
+
 该命令会更新 `dist` 目录。`dist` 目录已包含在 Git 中，方便直接部署。
 
 ### 开发流程
+
 1. **切换到源码**：在 `docker-compose.yml` 中，将根目录文件（`custom.css`, `loader.js`, `js/`）分别挂载到 `/app/build/static/`（针对 CSS/Loader）和 `/app/build/static/prompt-plus-js`（针对 JS 目录）。
 2. **修改与刷新**：直接修改 `js/` 或 `custom.css` 中的文件。
 3. **查看效果**：刷新浏览器即可。开发阶段无需执行 build，加载器会自动处理 ES6 模块。

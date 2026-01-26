@@ -33,8 +33,14 @@ jobs:
           zip -r ../openwebui-prompt-plus-${{ github.ref_name }}.zip .
           cd ..
 
+      - name: Get Commit Message
+        id: get_commit_message
+        run: |
+          echo "COMMIT_MSG=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
           files: openwebui-prompt-plus-${{ github.ref_name }}.zip
           generate_release_notes: true
+          body: ${{ env.COMMIT_MSG }}
