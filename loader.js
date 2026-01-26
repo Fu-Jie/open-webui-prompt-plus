@@ -34,7 +34,7 @@ if (supportsModules) {
     console.log(`Loader: Loading Prompt Plus v${VERSION}...`);
 
     const loadApp = () => {
-        const VERSION = '0.1.4';
+        const VERSION = '0.1.3';
         const v = `?v=${VERSION}`;
 
         // Determine base URL from the current script's location
