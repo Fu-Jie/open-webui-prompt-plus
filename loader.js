@@ -30,11 +30,11 @@ if (supportsModules) {
     document.head.appendChild(style);
 
     // Modern browsers: Load app modules
-    const VERSION = '0.1.4';
+    const VERSION = '0.1.5';
     console.log(`Loader: Loading Prompt Plus v${VERSION}...`);
 
     const loadApp = () => {
-        const VERSION = '0.1.4';
+        const VERSION = '0.1.5';
         const v = `?v=${VERSION}`;
 
         // Determine base URL from the current script's location
@@ -57,6 +57,12 @@ if (supportsModules) {
             }
         } catch (e) {
             console.warn('Loader: Could not determine base URL, falling back to relative paths', e);
+        }
+
+        // FIX: Ensure protocol matches window.location (handles SSL termination/Cloudflare Tunnel issues)
+        if (baseUrl && window.location.protocol === 'https:' && baseUrl.startsWith('http:')) {
+            console.log('Loader: Upgrading base URL to HTTPS to match page protocol');
+            baseUrl = baseUrl.replace('http:', 'https:');
         }
 
         // Helper to log attempts
