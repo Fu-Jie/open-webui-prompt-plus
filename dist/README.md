@@ -105,7 +105,7 @@ services:
     volumes:
       - ./dist/custom.css:/app/build/static/custom.css
       - ./dist/loader.js:/app/build/static/loader.js
-      - ./dist/js/prompt-plus-app.js:/app/build/static/js/prompt-plus-app.js
+      - ./dist/js:/app/build/static/js
 ```
 
 ### Option 3: Manual Installation
