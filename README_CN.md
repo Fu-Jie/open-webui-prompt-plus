@@ -4,7 +4,7 @@
   <img src="https://img.shields.io/badge/Open%20WebUI-扩展-blue?style=for-the-badge&logo=openai" alt="Open WebUI Extension">
   <img src="https://img.shields.io/badge/AI--Powered-智能驱动-purple?style=for-the-badge" alt="AI Powered">
   <img src="https://img.shields.io/badge/i18n-10+%20语言支持-green?style=for-the-badge" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.1.4-blue?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.1.5-blue?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License">
 </p>
 
