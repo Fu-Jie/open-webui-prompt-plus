@@ -30,11 +30,11 @@ if (supportsModules) {
     document.head.appendChild(style);
 
     // Modern browsers: Load app modules
-    const VERSION = '0.1.6';
+    const VERSION = '0.1.7';
     console.log(`Loader: Loading Prompt Plus v${VERSION}...`);
 
     const loadApp = () => {
-        const VERSION = '0.1.6';
+        const VERSION = '0.1.7';
         const v = `?v=${VERSION}`;
 
         // Determine base URL from the current script's location
