@@ -194,6 +194,14 @@ export class OpenWebUIAPI {
             }
 
             const metadataPrompt = await response.json();
+
+            // Store the ID of the metadata prompt for future updates
+            if (metadataPrompt.id) {
+                this.metadataPromptId = metadataPrompt.id;
+                this.serverCapability.supportsIdApi = true;
+                logger.debug(`[API] Found metadata store ID: ${this.metadataPromptId}`);
+            }
+
             logger.debug('✅ Found existing _ command, parsing metadata...');
 
             // Parse JSON data in content
@@ -395,18 +403,29 @@ export class OpenWebUIAPI {
         const finalCommand = command.startsWith('/') ? command.slice(1) : command;
         const updateData = {
             ...promptData,
-            title: promptData.title || promptData.name, // Ensure compatibility
-            name: promptData.name || promptData.title,   // 0.8.0+ field
+            // 1. Cross-populate Title (Legacy) and Name (0.8.0+) to ensure data integrity across versions
+            title: promptData.title || promptData.name,
+            name: promptData.name || promptData.title,
+
+            // 2. Handle Command format strictness based on version, but ensure field exists
             command: this.serverCapability.isV080OrNewer
-                ? finalCommand  // 0.8.0 usually stores without slash
-                : `/${finalCommand}` // Older versions expect slash
+                ? finalCommand  // 0.8.0+ stores raw command string
+                : `/${finalCommand}`, // Legacy versions expect slash prefix
+
+            // 3. Ensure other fields are present or defaulted for compatibility
+            content: promptData.content || '',
+            access_control: promptData.access_control || null, // 0.8.0+ field
+            is_active: promptData.is_active !== undefined ? promptData.is_active : true // 0.8.0+ field
         };
 
         // Decision logic for endpoint: ID-based (0.8.0) vs Command-based (Legacy)
         let endpoint = `${this.apiURL}command/${finalCommand}/update`;
 
         // If we have an ID in the promptData, use the ID-based API
-        if (promptData.id && this.serverCapability.supportsIdApi) {
+        // Relaxed check: If we have an ID AND server supports it (flag set OR version 0.8.0+ detected), prioritize ID endpoint.
+        // This ensures backward compatibility: if user downgrades to <0.8.0, isV080OrNewer is false, so we fall back to command endpoint.
+        const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+        if (promptData.id && (this.serverCapability.supportsIdApi || (this.serverCapability.isV080OrNewer && uuidRegex.test(promptData.id)))) {
             endpoint = `${this.apiURL}id/${promptData.id}/update`;
             logger.debug(`[API] Using ID-based update for prompt: ${promptData.id}`);
         } else {
@@ -439,8 +458,9 @@ export class OpenWebUIAPI {
         const finalCommand = command.startsWith('/') ? command.slice(1) : command;
         let endpoint = `${this.apiURL}command/${finalCommand}/delete`;
 
-        // If we have an ID, use the ID-based API (fixes 0.8.0 compatibility)
-        if (id && this.serverCapability.supportsIdApi) {
+        // If we have an ID, use the ID-based API (fixes 0.8.0 compatibility) with downgrade safety
+        const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+        if (id && (this.serverCapability.supportsIdApi || (this.serverCapability.isV080OrNewer && uuidRegex.test(id)))) {
             endpoint = `${this.apiURL}id/${id}/delete`;
             logger.debug(`[API] Using ID-based deletion for prompt: ${id}`);
         } else {

@@ -3200,19 +3200,19 @@ class ne {
   }
   // Sync language from host app settings
   sync() {
-    const e = document.documentElement.lang, t = N(e);
+    const e = document.documentElement.lang, t = D(e);
     t && t !== this.lang && this.setLanguage(t);
   }
 }
-function N(f) {
+function D(f) {
   if (!f) return null;
   const e = f.toLowerCase();
   return e === "zh-tw" || e === "zh-hk" || e.includes("hant") ? "zh-TW" : e.startsWith("zh") ? "zh-CN" : e.startsWith("ko") ? "ko" : e.startsWith("fr") ? "fr" : e.startsWith("es") ? "es" : e.startsWith("nl") ? "nl" : e.startsWith("de") ? "de" : e.startsWith("el") ? "el" : e.startsWith("ja") ? "ja-JP" : e.startsWith("en") ? "en-US" : null;
 }
 function ie() {
-  const f = document.documentElement.lang, e = N(f);
+  const f = document.documentElement.lang, e = D(f);
   if (e) return e;
-  const t = navigator.language, a = N(t);
+  const t = navigator.language, a = D(t);
   return a || "en-US";
 }
 const l = new ne(ie()), T = {
@@ -3268,7 +3268,7 @@ const l = new ne(ie()), T = {
 l.t("var_text"), l.t("var_text_desc"), l.t("var_textarea"), l.t("var_textarea_desc"), l.t("var_select"), l.t("var_select_desc"), l.t("var_number"), l.t("var_number_desc"), l.t("var_checkbox"), l.t("var_checkbox_desc"), l.t("var_date"), l.t("var_date_desc"), l.t("var_datetime_local"), l.t("var_datetime_local_desc"), l.t("var_color"), l.t("var_color_desc"), l.t("var_email"), l.t("var_email_desc"), l.t("var_month"), l.t("var_month_desc"), l.t("var_range"), l.t("var_range_desc"), l.t("var_tel"), l.t("var_tel_desc"), l.t("var_time"), l.t("var_time_desc"), l.t("var_url"), l.t("var_url_desc"), l.t("var_map"), l.t("var_map_desc");
 l.t("sys_clipboard"), l.t("sys_clipboard_desc"), l.t("sys_clipboard_note");
 const ce = 'You are a professional Open WebUI prompt generation assistant. Your core task is to intelligently generate a high-quality, versatile prompt template containing reasonable variables based on the "functional description" provided by the user.\n\n## Generation Principles\n\n1.  **Focus on Core Needs**: Deeply understand the user\'s "functional description" and accurately extract their core intent.\n2.  **Design Versatile Templates**: The generated prompt content should be refined and versatile, applicable to various similar scenarios.\n3.  **Intelligent Variable Usage**:\n    *   Automatically identify and set reasonable variables to increase template flexibility.\n    *   **Variable Names**: Should be concise and descriptive. For **{{INTERFACE_LANGUAGE}}** prompts, you MAY use localized variable names (e.g., Chinese variable names for Chinese prompts) so they appear as friendly labels in the UI.\n    *   **Variable UI Text**: Any user-facing text within variable definitions (such as `placeholder`, `options` for select types, or text-based `default` values) **MUST** be in **{{INTERFACE_LANGUAGE}}**.\n    *   **Prohibition**: Do NOT use variables or placeholders (like `{{...}}`) inside property values (e.g., `placeholder`, `default`). The value must be a static string.\n        *   ✅ Correct: `{{code | textarea:placeholder="Paste your code here"}}`\n        *   ❌ Incorrect: `{{code | textarea:placeholder="{{INTERFACE_LANGUAGE}}Paste your code here"}}`\n    *   Set appropriate types and default values for variables.\n4.  **Clear Structure**: Use Markdown to format the prompt content, making it structured and easy to read.\n5.  **Precise Classification**: You must select the most appropriate category for the prompt from the "Available Category List" below and return its **ID** in the `category` field of the JSON output.\n6.  **Command Name Standard**:\n    *   The `command` field must be in **English**, using hyphens or underscores as separators (e.g., `weekly-report`, `code_reviewer`).\n    *   The command name should be closely related to the prompt function.\n7.  **Language Consistency**:\n    *   **CRITICAL**: If the user does not explicitly specify a language, you MUST generate the prompt title (`title`), content (`content`), and all variable UI text (placeholders, options) in **{{INTERFACE_LANGUAGE}}**.\n\n## Output Format\n\nPlease strictly return the result in the following JSON format, without adding any extra explanation or description.\n**IMPORTANT**: Ensure the output is valid JSON. For multi-line strings (like `content`), use `\\n` for line breaks. Do NOT use actual line breaks inside the JSON string values.\n\n```json\n{\n  "title": "Concise and clear title",\n  "content": "Prompt content carefully designed using Markdown and English variables...\\n\\nUse escaped newlines for multi-line content.",\n  "category": "Category ID selected from the available category list",\n  "command": "english-command-name"\n}\n```\n\nPlease immediately start analyzing the user\'s needs and generating the prompt.', de = ce;
-class U {
+class V {
   constructor() {
     this.placeholderSet = !1, l.subscribe(() => {
       this.placeholderSet = !1, this.setRandomPlaceholder();
@@ -3323,17 +3323,17 @@ class U {
   selectPlaceholder(e, t, a) {
     const r = document.createRange(), n = window.getSelection();
     let i = 0, c = null, s = 0, d = null, p = 0;
-    const u = document.createTreeWalker(
+    const m = document.createTreeWalker(
       e,
       NodeFilter.SHOW_TEXT,
       null,
       !1
     );
-    let m;
-    for (; m = u.nextNode(); ) {
-      const g = m.textContent.length;
-      if (!c && i + g > t && (c = m, s = t - i), !d && i + g >= t + a) {
-        d = m, p = t + a - i;
+    let u;
+    for (; u = m.nextNode(); ) {
+      const g = u.textContent.length;
+      if (!c && i + g > t && (c = u, s = t - i), !d && i + g >= t + a) {
+        d = u, p = t + a - i;
         break;
       }
       i += g;
@@ -3351,14 +3351,14 @@ class U {
     const c = window.getSelection();
     let s = 0;
     if (c.rangeCount > 0) {
-      const p = c.getRangeAt(0), u = p.cloneRange();
-      u.selectNodeContents(a), u.setEnd(p.startContainer, p.startOffset), s = u.toString().length;
+      const p = c.getRangeAt(0), m = p.cloneRange();
+      m.selectNodeContents(a), m.setEnd(p.startContainer, p.startOffset), s = m.toString().length;
     }
     let d = null;
     for (let p = 0; p < i.length; p++) {
-      const u = i[p];
-      if (u.index > s) {
-        d = u;
+      const m = i[p];
+      if (m.index > s) {
+        d = m;
         break;
       }
     }
@@ -3652,7 +3652,7 @@ class _e {
       if (!t.ok)
         return o.warn(`Failed to get metadata store HTTP ${t.status}: ${t.statusText}`), null;
       const a = await t.json();
-      o.debug("✅ Found existing _ command, parsing metadata...");
+      a.id && (this.metadataPromptId = a.id, this.serverCapability.supportsIdApi = !0, o.debug(`[API] Found metadata store ID: ${this.metadataPromptId}`)), o.debug("✅ Found existing _ command, parsing metadata...");
       try {
         const r = JSON.parse(a.content);
         return o.debug("📊 Metadata parsed successfully, version:", r.version), r;
@@ -3795,16 +3795,23 @@ class _e {
       throw new Error("Authentication token not found, please ensure you are logged in");
     const r = e.startsWith("/") ? e.slice(1) : e, n = {
       ...t,
+      // 1. Cross-populate Title (Legacy) and Name (0.8.0+) to ensure data integrity across versions
       title: t.title || t.name,
-      // Ensure compatibility
       name: t.name || t.title,
+      // 2. Handle Command format strictness based on version, but ensure field exists
+      command: this.serverCapability.isV080OrNewer ? r : `/${r}`,
+      // Legacy versions expect slash prefix
+      // 3. Ensure other fields are present or defaulted for compatibility
+      content: t.content || "",
+      access_control: t.access_control || null,
       // 0.8.0+ field
-      command: this.serverCapability.isV080OrNewer ? r : `/${r}`
-      // Older versions expect slash
+      is_active: t.is_active !== void 0 ? t.is_active : !0
+      // 0.8.0+ field
     };
     let i = `${this.apiURL}command/${r}/update`;
-    t.id && this.serverCapability.supportsIdApi ? (i = `${this.apiURL}id/${t.id}/update`, o.debug(`[API] Using ID-based update for prompt: ${t.id}`)) : o.debug(`[API] Using command-based update for prompt: ${r}`);
-    const c = await fetch(i, {
+    const c = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    t.id && (this.serverCapability.supportsIdApi || this.serverCapability.isV080OrNewer && c.test(t.id)) ? (i = `${this.apiURL}id/${t.id}/update`, o.debug(`[API] Using ID-based update for prompt: ${t.id}`)) : o.debug(`[API] Using command-based update for prompt: ${r}`);
+    const s = await fetch(i, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -3812,11 +3819,11 @@ class _e {
       },
       body: JSON.stringify(n)
     });
-    if (!c.ok) {
-      const s = await c.text();
-      throw new Error(`Update failed HTTP ${c.status}: ${s}`);
+    if (!s.ok) {
+      const d = await s.text();
+      throw new Error(`Update failed HTTP ${s.status}: ${d}`);
     }
-    return await c.json();
+    return await s.json();
   }
   async deletePrompt(e, t = null) {
     const a = await this.getAuthToken();
@@ -3824,18 +3831,19 @@ class _e {
       throw new Error("Authentication token not found, please ensure you are logged in");
     const r = e.startsWith("/") ? e.slice(1) : e;
     let n = `${this.apiURL}command/${r}/delete`;
-    t && this.serverCapability.supportsIdApi ? (n = `${this.apiURL}id/${t}/delete`, o.debug(`[API] Using ID-based deletion for prompt: ${t}`)) : o.debug(`[API] Using command-based deletion for prompt: ${r}`);
-    const i = await fetch(n, {
+    const i = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    t && (this.serverCapability.supportsIdApi || this.serverCapability.isV080OrNewer && i.test(t)) ? (n = `${this.apiURL}id/${t}/delete`, o.debug(`[API] Using ID-based deletion for prompt: ${t}`)) : o.debug(`[API] Using command-based deletion for prompt: ${r}`);
+    const c = await fetch(n, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${a}`
       }
     });
-    if (!i.ok) {
-      const c = await i.text();
-      throw new Error(`Deletion failed HTTP ${i.status}: ${c}`);
+    if (!c.ok) {
+      const s = await c.text();
+      throw new Error(`Deletion failed HTTP ${c.status}: ${s}`);
     }
-    return await i.json();
+    return await c.json();
   }
   // AI Tag Generation
   async getAITags(e, t, a = 3) {
@@ -3874,7 +3882,7 @@ Tags: `, c = {
           throw new Error(`HTTP ${d.status}: ${d.statusText}`);
         const p = await d.json();
         if (p.choices && p.choices.length > 0)
-          return p.choices[0].message.content.split(",").map((m) => m.trim()).filter(Boolean);
+          return p.choices[0].message.content.split(",").map((u) => u.trim()).filter(Boolean);
         throw new Error("Invalid response format");
       } catch (d) {
         if (o.warn(`AI tag generation failed (Attempt ${s}/${a}):`, d), s === a)
@@ -3933,9 +3941,9 @@ Content: ${d.content.substring(0, 150)}...`
         });
         if (!p.ok)
           throw new Error(`HTTP ${p.status}: ${p.statusText}`);
-        const u = await p.json();
-        if (u.choices && u.choices.length > 0) {
-          const g = u.choices[0].message.content.split(`
+        const m = await p.json();
+        if (m.choices && m.choices.length > 0) {
+          const g = m.choices[0].message.content.split(`
 `), h = new Array(e.length).fill("productivity"), v = [
             "writing",
             "productivity",
@@ -3956,11 +3964,11 @@ Content: ${d.content.substring(0, 150)}...`
         throw new Error("Invalid response format");
       } catch (p) {
         if (o.warn(`Batch classification failed (Attempt ${d}/${t}):`, p), d === t)
-          return o.warn("Batch classification failed, using keyword fallback"), e.map((u) => {
-            const m = (u.title + " " + u.content).toLowerCase();
-            return m.includes("code") || m.includes("programming") || m.includes("dev") ? "coding" : m.includes("data") || m.includes("analysis") ? "data" : m.includes("write") || m.includes("article") || m.includes("creative") ? "writing" : (m.includes("business") || m.includes("office") || m.includes("email"), "productivity");
+          return o.warn("Batch classification failed, using keyword fallback"), e.map((m) => {
+            const u = (m.title + " " + m.content).toLowerCase();
+            return u.includes("code") || u.includes("programming") || u.includes("dev") ? "coding" : u.includes("data") || u.includes("analysis") ? "data" : u.includes("write") || u.includes("article") || u.includes("creative") ? "writing" : (u.includes("business") || u.includes("office") || u.includes("email"), "productivity");
           });
-        await new Promise((u) => setTimeout(u, 1e3 * d));
+        await new Promise((m) => setTimeout(m, 1e3 * d));
       }
   }
   // Generate Smart Command
@@ -4004,8 +4012,8 @@ Command Name: `, c = {
           throw new Error(`HTTP ${d.status}: ${d.statusText}`);
         const p = await d.json();
         if (p.choices && p.choices.length > 0) {
-          const u = p.choices[0].message.content.trim(), m = u.match(/([a-z-]+)/);
-          return m ? m[1] : u.toLowerCase().replace(/[^a-z-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+          const m = p.choices[0].message.content.trim(), u = m.match(/([a-z-]+)/);
+          return u ? u[1] : m.toLowerCase().replace(/[^a-z-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
         }
         throw new Error("Invalid response format");
       } catch (d) {
@@ -4068,8 +4076,8 @@ Command Name: `, c = {
         if (o.debug("AI Raw Response Data:", p), !p)
           throw new Error("API returned empty/null response");
         if (p.choices && p.choices.length > 0) {
-          const u = p.choices[0].message.content;
-          return o.debug("AI Raw Response Content:", u), this.parseGeneratedContent(u);
+          const m = p.choices[0].message.content;
+          return o.debug("AI Raw Response Content:", m), this.parseGeneratedContent(m);
         }
         throw o.error("Invalid response structure:", p), new Error("Invalid response format: missing choices field");
       } catch (d) {
@@ -4094,38 +4102,38 @@ Command Name: `, c = {
     s && Array.isArray(s) && s.length > 0 && (p = `## Available Category List
 `, p += s.map((h) => `- ${h.id} (${h.name})`).join(`
 `));
-    let u = "English";
+    let m = "English";
     switch (l.lang) {
       case "zh-CN":
-        u = "Simplified Chinese";
+        m = "Simplified Chinese";
         break;
       case "zh-TW":
-        u = "Traditional Chinese";
+        m = "Traditional Chinese";
         break;
       case "ja-JP":
-        u = "Japanese";
+        m = "Japanese";
         break;
       case "ko-KR":
-        u = "Korean";
+        m = "Korean";
         break;
       case "de-DE":
-        u = "German";
+        m = "German";
         break;
       case "fr-FR":
-        u = "French";
+        m = "French";
         break;
       case "es-ES":
-        u = "Spanish";
+        m = "Spanish";
         break;
       case "el":
-        u = "Greek";
+        m = "Greek";
         break;
       default:
-        u = "English";
+        m = "English";
         break;
     }
     const g = `
-${de.replace(/{{INTERFACE_LANGUAGE}}/g, u)}
+${de.replace(/{{INTERFACE_LANGUAGE}}/g, m)}
 
 ${n || ""}
 
@@ -4469,9 +4477,9 @@ class O {
       const c = i.command, s = i.id;
       let d = c, p = this.metadata.prompts[d];
       if (!p && s && !s.startsWith("openwebui_")) {
-        for (const [u, m] of Object.entries(this.metadata.prompts))
-          if (m.uuid === s) {
-            o.debug(`🔄 Rename detected! Migrating metadata: "${u}" -> "${c}" (UUID: ${s})`), this.metadata.prompts[c] = { ...m }, delete this.metadata.prompts[u], d = c, p = this.metadata.prompts[d], t = !0;
+        for (const [m, u] of Object.entries(this.metadata.prompts))
+          if (u.uuid === s) {
+            o.debug(`🔄 Rename detected! Migrating metadata: "${m}" -> "${c}" (UUID: ${s})`), this.metadata.prompts[c] = { ...u }, delete this.metadata.prompts[m], d = c, p = this.metadata.prompts[d], t = !0;
             break;
           }
       }
@@ -4846,9 +4854,19 @@ class O {
   // Update prompt
   async updatePrompt(e, t) {
     try {
-      const a = this.prompts.findIndex((u) => u.id === e);
+      let a = this.prompts.findIndex((u) => u.id === e);
+      if (a === -1 && typeof e == "string" && e.startsWith("openwebui_")) {
+        const u = e.replace("openwebui_", "");
+        if (u) {
+          const g = u.replace(/^\//, "");
+          if (a = this.prompts.findIndex((h) => (h.command || "").replace(/^\//, "") === g), a !== -1) {
+            const h = this.prompts[a].id;
+            o.warn(`[PromptManager] Prompt ID mismatch in updatePrompt. Requested: ${e}, Found via command: ${h}. Using found prompt.`);
+          }
+        }
+      }
       if (a === -1)
-        throw new Error("Prompt does not exist");
+        throw o.error(`[PromptManager] Prompt not found. ID: ${e}. Available IDs: ${this.prompts.map((u) => u.id).slice(0, 5).join(", ")}...`), new Error("Prompt does not exist");
       const r = this.prompts[a], n = this.normalizeCategoryId(
         "category" in t ? t.category : r.category
       ), i = {
@@ -4856,25 +4874,35 @@ class O {
         ...t,
         category: n,
         updatedAt: (/* @__PURE__ */ new Date()).toISOString()
-      }, c = i.command || this.fallbackGenerateCommand(i.title), s = i.id && !i.id.startsWith("openwebui_") ? i.id : null, d = {
+      }, c = i.command || this.fallbackGenerateCommand(i.title), s = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      let d = null;
+      if (i.id && !i.id.startsWith("openwebui_") && s.test(i.id) ? d = i.id : i.openwebuiData && i.openwebuiData.id && s.test(i.openwebuiData.id) && (d = i.openwebuiData.id), !d && this.api.serverCapability.isV080OrNewer)
+        try {
+          o.warn(`[PromptManager] Missing UUID for prompt "${c}" on 0.8.0+, attempting to fetch from server...`);
+          const u = await this.api.getAllPrompts(), g = c.replace(/^\//, "").toLowerCase(), h = u.find((v) => v.command && v.command.replace(/^\//, "").toLowerCase() === g);
+          h && h.id && s.test(h.id) ? (d = h.id, i.id = d, o.info(`[PromptManager] ✅ Recovered UUID: ${d}`)) : o.error(`[PromptManager] ❌ Could not find UUID for prompt "${c}" on server.`);
+        } catch (u) {
+          o.error("[PromptManager] Failed to refresh prompts for UUID recovery:", u);
+        }
+      const p = {
         command: `/${c}`,
         title: i.title,
         content: i.content,
         access_control: null,
-        id: s,
+        id: d,
         // Pass ID to API layer
         name: i.title
         // Pass name to API layer (0.8.0+)
-      }, p = await this.api.updatePrompt(c, d);
-      if (p && p.id && (i.id = p.id), this.prompts[a] = i, this.metadata && this.metadata.prompts) {
-        const u = c, m = i.id && !i.id.startsWith("openwebui_") ? i.id : null;
+      }, m = await this.api.updatePrompt(c, p);
+      if (m && m.id && (i.id = m.id), this.prompts[a] = i, this.metadata && this.metadata.prompts) {
+        const u = c, g = i.id && !i.id.startsWith("openwebui_") ? i.id : null;
         this.metadata.prompts[u] ? (this.metadata.prompts[u] = {
           ...this.metadata.prompts[u],
           categoryId: n,
           lastModifiedBy: this.currentUser,
           updatedAt: (/* @__PURE__ */ new Date()).toISOString()
-        }, m && (this.metadata.prompts[u].uuid = m)) : this.metadata.prompts[u] = {
-          uuid: m,
+        }, g && (this.metadata.prompts[u].uuid = g)) : this.metadata.prompts[u] = {
+          uuid: g,
           categoryId: n,
           isFavorite: !1,
           usage: {
@@ -4895,7 +4923,14 @@ class O {
   // Delete Prompt
   async deletePrompt(e) {
     try {
-      const t = this.prompts.findIndex((n) => n.id === e);
+      let t = this.prompts.findIndex((n) => n.id === e);
+      if (t === -1 && typeof e == "string" && e.startsWith("openwebui_")) {
+        const n = e.replace("openwebui_", "");
+        if (n) {
+          const i = n.replace(/^\//, "");
+          t = this.prompts.findIndex((c) => (c.command || "").replace(/^\//, "") === i), t !== -1 && o.warn(`[PromptManager] Prompt ID mismatch in deletePrompt. Requested: ${e}, Found via command: ${this.prompts[t].id}. Using found prompt.`);
+        }
+      }
       if (t === -1)
         throw new Error("Prompt does not exist");
       const a = this.prompts[t];
@@ -4919,7 +4954,12 @@ class O {
   }
   // Get Prompt by ID
   getPromptById(e) {
-    return this.prompts.find((t) => t.id === e);
+    let t = this.prompts.find((a) => a.id === e);
+    if (!t && typeof e == "string" && e.startsWith("openwebui_")) {
+      const r = e.replace("openwebui_", "").replace(/^\//, "");
+      t = this.prompts.find((n) => (n.command || "").replace(/^\//, "") === r), t && o.debug(`[PromptManager] getPromptById matched via command fallback: ${e} -> ${t.id}`);
+    }
+    return t;
   }
   // Filter by Category
   getPromptsByCategory(e) {
@@ -4999,9 +5039,9 @@ class O {
       const s = c.match(/(".*?"|[^,]+)/g);
       if (!s) return null;
       const d = {};
-      return r.forEach((p, u) => {
-        let m = s[u];
-        m && m.startsWith('"') && m.endsWith('"') && (m = m.slice(1, -1).replace(/""/g, '"')), p === "tags" ? d[p] = m ? m.split(";") : [] : p === "usageCount" ? d[p] = parseInt(m, 10) || 0 : p === "isFavorite" ? d[p] = m === "true" : d[p] = m || "";
+      return r.forEach((p, m) => {
+        let u = s[m];
+        u && u.startsWith('"') && u.endsWith('"') && (u = u.slice(1, -1).replace(/""/g, '"')), p === "tags" ? d[p] = u ? u.split(";") : [] : p === "usageCount" ? d[p] = parseInt(u, 10) || 0 : p === "isFavorite" ? d[p] = u === "true" : d[p] = u || "";
       }), d.category = this.normalizeCategoryId(d.category || "productivity"), d;
     }).filter(Boolean);
     return t || o.debug("Loaded", i.length, "prompts from CSV format"), { prompts: i, categories: z };
@@ -5507,15 +5547,15 @@ class H {
     if (!n.defaultPrevented && (i = document.execCommand && document.execCommand("insertText", !1, t), o.debug("typeBatch execCommand result:", i), !i)) {
       const p = e.tagName.toLowerCase();
       if (p === "textarea" || p === "input") {
-        const u = e.selectionStart || 0, m = e.selectionEnd || 0, g = e.value || "";
-        e.value = g.substring(0, u) + t + g.substring(m), e.selectionStart = e.selectionEnd = u + t.length, i = !0;
+        const m = e.selectionStart || 0, u = e.selectionEnd || 0, g = e.value || "";
+        e.value = g.substring(0, m) + t + g.substring(u), e.selectionStart = e.selectionEnd = m + t.length, i = !0;
       } else if (e.hasAttribute("contenteditable")) {
-        const u = window.getSelection();
-        if (u.rangeCount > 0) {
-          const m = u.getRangeAt(0);
-          m.deleteContents();
+        const m = window.getSelection();
+        if (m.rangeCount > 0) {
+          const u = m.getRangeAt(0);
+          u.deleteContents();
           const g = document.createTextNode(t);
-          m.insertNode(g), m.setStartAfter(g), m.setEndAfter(g), u.removeAllRanges(), u.addRange(m), i = !0;
+          u.insertNode(g), u.setStartAfter(g), u.setEndAfter(g), m.removeAllRanges(), m.addRange(u), i = !0;
         }
       }
     }
@@ -5571,15 +5611,15 @@ class H {
     if (!r.defaultPrevented && (n = document.execCommand && document.execCommand("insertText", !1, t), o.debug("typeCharacter execCommand result:", n), !n)) {
       const s = e.tagName.toLowerCase();
       if (s === "textarea" || s === "input") {
-        const d = e.selectionStart || 0, p = e.selectionEnd || 0, u = e.value || "";
-        e.value = u.substring(0, d) + t + u.substring(p), e.selectionStart = e.selectionEnd = d + 1, n = !0;
+        const d = e.selectionStart || 0, p = e.selectionEnd || 0, m = e.value || "";
+        e.value = m.substring(0, d) + t + m.substring(p), e.selectionStart = e.selectionEnd = d + 1, n = !0;
       } else if (e.hasAttribute("contenteditable")) {
         const d = window.getSelection();
         if (d.rangeCount > 0) {
           const p = d.getRangeAt(0);
           p.deleteContents();
-          const u = document.createTextNode(t);
-          p.insertNode(u), p.setStartAfter(u), p.setEndAfter(u), d.removeAllRanges(), d.addRange(p), n = !0;
+          const m = document.createTextNode(t);
+          p.insertNode(m), p.setStartAfter(m), p.setEndAfter(m), d.removeAllRanges(), d.addRange(p), n = !0;
         }
       }
     }
@@ -5729,17 +5769,17 @@ class H {
   selectPlaceholder(e, t, a) {
     const r = document.createRange(), n = window.getSelection();
     let i = 0, c = null, s = 0, d = null, p = 0;
-    const u = document.createTreeWalker(
+    const m = document.createTreeWalker(
       e,
       NodeFilter.SHOW_TEXT,
       null,
       !1
     );
-    let m;
-    for (; m = u.nextNode(); ) {
-      const g = m.textContent.length;
-      if (!c && i + g > t && (c = m, s = t - i), !d && i + g >= t + a) {
-        d = m, p = t + a - i;
+    let u;
+    for (; u = m.nextNode(); ) {
+      const g = u.textContent.length;
+      if (!c && i + g > t && (c = u, s = t - i), !d && i + g >= t + a) {
+        d = u, p = t + a - i;
         break;
       }
       i += g;
@@ -5747,7 +5787,7 @@ class H {
     c && d && (r.setStart(c, s), r.setEnd(d, p), n.removeAllRanges(), n.addRange(r));
   }
 }
-class Z {
+class J {
   constructor() {
     this.validVariableTypes = [
       "text",
@@ -5976,7 +6016,7 @@ class Z {
 }
 class ve {
   constructor(e) {
-    this.api = e, this.validator = new Z(), this.maxRetries = 3, this.retryStrategies = [
+    this.api = e, this.validator = new J(), this.maxRetries = 3, this.retryStrategies = [
       "addMoreContext",
       // Add more context
       "enforceNamingRules"
@@ -6248,12 +6288,12 @@ class K {
     const t = e.toLowerCase().trim(), a = this.tokenizeText(t), r = /* @__PURE__ */ new Map(), n = /* @__PURE__ */ new Map();
     return a.forEach((c) => {
       (this.searchIndex.get(c) || []).forEach((d) => {
-        const p = r.get(d) || 0, u = n.get(d) || [];
+        const p = r.get(d) || 0, m = n.get(d) || [];
         r.set(d, p + 1);
-        const m = this.prompts.find((g) => g.id === d);
-        if (m) {
-          const g = this.findMatches(m, c);
-          n.set(d, [...u, ...g]);
+        const u = this.prompts.find((g) => g.id === d);
+        if (u) {
+          const g = this.findMatches(u, c);
+          n.set(d, [...m, ...g]);
         }
       });
     }), this.prompts.forEach((c) => {
@@ -6261,11 +6301,11 @@ class K {
       if (s.includes(t) || d.includes(t)) {
         const p = r.get(c.id) || 0;
         r.set(c.id, p + a.length + 1);
-        const u = n.get(c.id) || [], m = this.findMatches(c, t);
-        n.set(c.id, [...u, ...m]);
+        const m = n.get(c.id) || [], u = this.findMatches(c, t);
+        n.set(c.id, [...m, ...u]);
       }
     }), Array.from(r.entries()).map(([c, s]) => {
-      const d = this.prompts.find((u) => u.id === c);
+      const d = this.prompts.find((m) => m.id === c);
       if (!d) return null;
       const p = s / (a.length + 1);
       return {
@@ -6816,8 +6856,8 @@ class xe {
       return;
     }
     const i = e.value.trim(), c = t ? t.value : null, s = (d, p) => {
-      const u = document.getElementById(`step-${d}`);
-      u && (u.classList.remove("active", "completed", "error"), p && u.classList.add(p));
+      const m = document.getElementById(`step-${d}`);
+      m && (m.classList.remove("active", "completed", "error"), p && m.classList.add(p));
     };
     if (a) {
       const d = a.querySelector(".btn-text"), p = a.querySelector(".btn-loading");
@@ -6830,7 +6870,7 @@ class xe {
         availableCategoriesList: this.promptManager.categories,
         availableVariables: this._getVariableHelpMarkdown()
       }, p = await this.promptManager.api.generatePromptContent(d, c);
-      r && (s("generating", "completed"), s("validating", "active"), n && (n.textContent = l.t("step_validating"))), await new Promise((u) => setTimeout(u, 600)), r && (s("validating", "completed"), s("completed", "completed"), n && (n.textContent = l.t("step_completed"))), this.prefillForm(p), await new Promise((u) => setTimeout(u, 400)), this.goToStep(2);
+      r && (s("generating", "completed"), s("validating", "active"), n && (n.textContent = l.t("step_validating"))), await new Promise((m) => setTimeout(m, 600)), r && (s("validating", "completed"), s("completed", "completed"), n && (n.textContent = l.t("step_completed"))), this.prefillForm(p), await new Promise((m) => setTimeout(m, 400)), this.goToStep(2);
     } catch (d) {
       console.error("AI Generation failed:", d), r && (s("generating", "error"), s("validating", "error"), n && (n.textContent = l.t("generation_failed"))), this.panelManager.domUtils.showAlert(`${l.t("generation_failed") || "Generation failed"}: ${d.message}`);
     } finally {
@@ -6905,8 +6945,8 @@ class xe {
       o.debug("[EditorPanel] Creating prompt edit modal..."), t = this.createModal(), document.body.appendChild(t);
     else if (t.dataset.lang !== l.lang) {
       o.debug(`[EditorPanel] Language mismatch (Modal: ${t.dataset.lang}, Current: ${l.lang}), recreating prompt modal...`);
-      const m = this.createModal();
-      t.parentNode ? t.parentNode.replaceChild(m, t) : document.body.appendChild(m), t = m;
+      const u = this.createModal();
+      t.parentNode ? t.parentNode.replaceChild(u, t) : document.body.appendChild(u), t = u;
     }
     const a = document.getElementById("prompt-modal-title"), r = document.getElementById("prompt-edit-form");
     if (!t || !a || !r) {
@@ -6918,18 +6958,18 @@ class xe {
       if (n.innerHTML = "", i)
         for (; i.options.length > 1; )
           i.remove(1);
-      this.promptManager.categories.forEach((m) => {
+      this.promptManager.categories.forEach((u) => {
         const g = document.createElement("option");
-        if (g.value = m.id, g.textContent = m.name, n.appendChild(g), i) {
+        if (g.value = u.id, g.textContent = u.name, n.appendChild(g), i) {
           const h = document.createElement("option");
-          h.value = m.id, h.textContent = m.name, i.appendChild(h);
+          h.value = u.id, h.textContent = u.name, i.appendChild(h);
         }
       });
     }
-    r.querySelectorAll("[required]").forEach((m) => {
-      m.oninvalid = (g) => {
+    r.querySelectorAll("[required]").forEach((u) => {
+      u.oninvalid = (g) => {
         g.target.setCustomValidity(l.t("field_required") || "This field is required");
-      }, m.oninput = (g) => {
+      }, u.oninput = (g) => {
         g.target.setCustomValidity("");
       };
     }), this.state.currentAIGeneration = null;
@@ -6937,8 +6977,8 @@ class xe {
     s && (s.style.display = "none"), d && (d.style.display = "none"), e ? (a.textContent = l.t("edit_prompt_title"), document.getElementById("prompt-edit-id").value = e.id, document.getElementById("prompt-edit-title").value = e.title, document.getElementById("prompt-edit-content").value = e.content, document.getElementById("prompt-edit-category").value = e.category, this.goToStep(2)) : (a.textContent = l.t("new_prompt_title"), r.reset(), document.getElementById("prompt-edit-id").value = "", this.goToStep(1));
     const p = document.getElementById("prompt-management-panel");
     p && (p.style.display = "none"), t.style.display = "flex", t.style.zIndex = "99999";
-    const u = t.querySelector(".prompt-editor-panel");
-    u && (u.style.cssText = ""), t.classList.add("is-visible"), this.state.isModalOpen = !0, this.panelManager && typeof this.panelManager.loadAvailableModels == "function" && this.panelManager.loadAvailableModels();
+    const m = t.querySelector(".prompt-editor-panel");
+    m && (m.style.cssText = ""), t.classList.add("is-visible"), this.state.isModalOpen = !0, this.panelManager && typeof this.panelManager.loadAvailableModels == "function" && this.panelManager.loadAvailableModels();
   }
   // Navigate to specific step
   goToStep(e) {
@@ -6986,7 +7026,7 @@ ${r}
     t && (t.value = e.title || ""), a && (a.value = e.content || ""), n && (n.value = e.id || ""), r && e.category && (Array.from(r.options).some((c) => c.value === e.category) ? r.value = e.category : console.warn(`[EditorPanel] Category ${e.category} not found in select options.`)), this.goToStep(2);
   }
 }
-class J {
+class Z {
   constructor(e, t) {
     this.title = e, this.buttonsConfig = t, this.element = this._render();
   }
@@ -7074,9 +7114,9 @@ class X {
     const e = this.config.activeCategoryId || "all", t = (c) => {
       const s = c === e, d = "category-item group flex items-center justify-between px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors min-h-[36px]";
       return s ? `${d} active bg-gray-100 dark:bg-gray-800 font-medium` : d;
-    }, a = (c, s, d, p, u = !1) => {
-      const m = document.createElement("div");
-      m.className = t(c), m.dataset.action = "filterByCategory", m.dataset.categoryId = c;
+    }, a = (c, s, d, p, m = !1) => {
+      const u = document.createElement("div");
+      u.className = t(c), u.dataset.action = "filterByCategory", u.dataset.categoryId = c;
       const g = `
                 <div class="flex items-center gap-2.5 flex-1 min-w-0 overflow-hidden">
                     <span class="category-icon flex-shrink-0 text-gray-500 dark:text-gray-400 ${c === "favorites" ? "text-red-500" : ""}">
@@ -7086,7 +7126,7 @@ class X {
                 </div>
             `;
       let h = "";
-      if (u ? h = `
+      if (m ? h = `
                     <span class="text-xs text-gray-400 font-mono ml-2">${p}</span>
                 ` : h = `
                     <div class="flex items-center justify-end ml-2 min-w-[48px]">
@@ -7103,15 +7143,15 @@ class X {
                             </button>
                         </div>
                     </div>
-                `, m.innerHTML = g + h, m.onclick = () => this.config.callbacks.onFilter && this.config.callbacks.onFilter(c), !u) {
-        const v = m.querySelector(".action-btn-edit"), b = m.querySelector(".action-btn-delete");
+                `, u.innerHTML = g + h, u.onclick = () => this.config.callbacks.onFilter && this.config.callbacks.onFilter(c), !m) {
+        const v = u.querySelector(".action-btn-edit"), b = u.querySelector(".action-btn-delete");
         v && (v.onclick = (_) => {
           _.stopPropagation(), this._editingCategoryId = c, this.update();
         }), b && (b.onclick = (_) => {
           _.stopPropagation(), this.config.callbacks.onDelete && this.config.callbacks.onDelete(c);
         });
       }
-      return m;
+      return u;
     }, r = this.config.prompts.length;
     this.element.appendChild(a(
       "all",
@@ -7142,11 +7182,11 @@ class X {
         const d = document.createElement("input");
         d.type = "text", d.value = c.name, d.className = "flex-1 min-w-0 px-2 py-1 text-sm bg-transparent border-none focus:ring-0 p-0";
         const p = () => {
-          const u = d.value.trim();
-          u && u !== c.name && this.config.callbacks.onUpdate && this.config.callbacks.onUpdate(c.id, u), this._editingCategoryId = null, this.update();
+          const m = d.value.trim();
+          m && m !== c.name && this.config.callbacks.onUpdate && this.config.callbacks.onUpdate(c.id, m), this._editingCategoryId = null, this.update();
         };
-        d.onkeydown = (u) => {
-          u.key === "Enter" ? p() : u.key === "Escape" && (this._editingCategoryId = null, this.update()), u.stopPropagation();
+        d.onkeydown = (m) => {
+          m.key === "Enter" ? p() : m.key === "Escape" && (this._editingCategoryId = null, this.update()), m.stopPropagation();
         }, d.onblur = () => setTimeout(p, 100), s.appendChild(d), this.element.appendChild(s), setTimeout(() => d.focus(), 0);
       } else {
         const s = this.config.prompts.filter((p) => p.category === c.id).length, d = this._getCategoryIcon(c.id, c);
@@ -7162,7 +7202,7 @@ class X {
     });
   }
 }
-class D {
+class N {
   constructor(e, t = {}) {
     this.container = e, this.callbacks = t;
   }
@@ -7229,22 +7269,22 @@ class ee {
     const d = () => e.querySelector(t), p = () => {
       const _ = d();
       s = _ ? Array.from(_.querySelectorAll(a)) : [];
-    }, u = () => {
+    }, m = () => {
       s.forEach((_) => _.classList.remove("keyboard-selected")), c = -1;
-    }, m = (_, y) => {
+    }, u = (_, y) => {
       if (!_ || !y || _.id === "quick-prompt-list")
         return;
       const x = (ae, re) => {
-        let V = 0, $ = ae;
+        let U = 0, $ = ae;
         for (; $ && $ !== re; )
-          V += $.offsetTop, $ = $.offsetParent;
-        return V;
+          U += $.offsetTop, $ = $.offsetParent;
+        return U;
       }, w = 4, k = _.clientHeight, E = _.scrollTop, C = x(y, _), A = C + y.offsetHeight, q = E, M = E + k;
       C < q + w ? _.scrollTop = Math.max(0, C - w) : A > M - w && (_.scrollTop = A - k + w);
     }, g = (_) => {
-      if (u(), s.forEach((y) => y.classList.remove("hover")), _ >= 0 && _ < s.length) {
+      if (m(), s.forEach((y) => y.classList.remove("hover")), _ >= 0 && _ < s.length) {
         const y = s[_];
-        y.classList.add("keyboard-selected"), c = _, m(d(), y);
+        y.classList.add("keyboard-selected"), c = _, u(d(), y);
       }
     }, h = () => {
       const _ = d();
@@ -7312,7 +7352,7 @@ class ee {
           _.preventDefault(), p(), c >= 0 && c < s.length ? r(s[c], c) : E && s.length > 0 && (g(0), r(s[0], 0));
           break;
         case "Escape":
-          _.preventDefault(), c !== -1 ? u() : n();
+          _.preventDefault(), c !== -1 ? m() : n();
           break;
         default:
           const A = _.target.tagName.toLowerCase(), q = ["input", "textarea", "select"].includes(A);
@@ -7330,7 +7370,7 @@ class ee {
     const b = e.querySelector(".quick-search, .main-search");
     return b && (b.addEventListener("input", () => {
       setTimeout(() => {
-        p(), s.length > 0 ? g(0) : u();
+        p(), s.length > 0 ? g(0) : m();
       }, 50);
     }), b.addEventListener("keydown", (_) => {
       if (_.key === "ArrowDown" || _.key === "ArrowUp")
@@ -7355,7 +7395,7 @@ class ee {
     }, 0), h(), {
       getSelectedIndex: () => c,
       setSelection: g,
-      clearSelection: u,
+      clearSelection: m,
       updateItems: p,
       handleKeyDown: v,
       getItems: () => s
@@ -7486,7 +7526,7 @@ class Ie {
     t.id = "quick-insert-panel", t.className = "unified-panel unified-panel-modal unified-panel--quick-insert", t.style.visibility = "hidden";
     const a = document.createElement("div");
     a.className = "panel-header-container";
-    const r = new J(l.t("quick_insert"), [{
+    const r = new Z(l.t("quick_insert"), [{
       title: l.t("new_prompt"),
       icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>',
       action: "createNewPromptViaQuickPanel",
@@ -7525,17 +7565,17 @@ class Ie {
     const d = document.createElement("div");
     d.className = "flex-1 p-2 min-h-0 overflow-y-auto", d.id = "quick-prompt-list";
     const p = document.createElement("div");
-    p.id = "quick-panel-footer", p.className = "flex-shrink-0 border-t border-gray-100 dark:border-gray-800 flex items-center justify-center", p.style.cssText = "display: flex; align-items: center; justify-content: center; min-height: 40px;", t.append(a, d, p), e.appendChild(t), this.pagination || (this.pagination = new D(p, {
+    p.id = "quick-panel-footer", p.className = "flex-shrink-0 border-t border-gray-100 dark:border-gray-800 flex items-center justify-center", p.style.cssText = "display: flex; align-items: center; justify-content: center; min-height: 40px;", t.append(a, d, p), e.appendChild(t), this.pagination || (this.pagination = new N(p, {
       onPageChange: (h) => this.changePage(h)
     })), this._calculatePageSize(), this.updateList(), this.setupKeyboard(t), this.setupSelection(t), this.setupActions(t);
-    const u = t.querySelector("#pes-quick-close-btn");
-    u && (u.onclick = (h) => {
+    const m = t.querySelector("#pes-quick-close-btn");
+    m && (m.onclick = (h) => {
       h.preventDefault(), h.stopPropagation(), o.debug("Direct .onclick for close button fired."), this.manager.closeAllPanels();
     });
-    const m = t.querySelector("#pes-show-help-btn");
-    m && (m.removeAttribute("data-action"), m.addEventListener("pointerdown", (h) => {
+    const u = t.querySelector("#pes-show-help-btn");
+    u && (u.removeAttribute("data-action"), u.addEventListener("pointerdown", (h) => {
       h.preventDefault(), h.stopPropagation(), h.stopImmediatePropagation(), this.manager._suppressGlobalCloseOnce = !0;
-    }, !0), m.onclick = (h) => {
+    }, !0), u.onclick = (h) => {
       h.preventDefault(), h.stopPropagation(), h.stopImmediatePropagation(), o.debug("Direct .onclick for help button fired."), this.manager._suppressGlobalCloseOnce = !0, this.manager.toggleShortcutHelp();
     });
     const g = t.querySelector('.hint-inline [data-action="toggleShortcutHelp"]');
@@ -7618,7 +7658,7 @@ class Ie {
       const a = e.querySelector("#quick-prompt-list");
       a && (a.className = "flex-1 p-2 min-h-0");
       let r = document.getElementById("quick-panel-footer") || e.querySelector("#quick-panel-footer");
-      r || (r = document.createElement("div"), r.id = "quick-panel-footer", r.className = "flex-shrink-0 border-t border-gray-100 dark:border-gray-800", r.style.display = "block", e.appendChild(r)), this.pagination || (this.pagination = new D(r, {
+      r || (r = document.createElement("div"), r.id = "quick-panel-footer", r.className = "flex-shrink-0 border-t border-gray-100 dark:border-gray-800", r.style.display = "block", e.appendChild(r)), this.pagination || (this.pagination = new N(r, {
         onPageChange: (n) => this.changePage(n)
       })), this.domUtils.createOverlay("quick"), e.style.position = "fixed", e.style.display = "flex", e.style.flexDirection = "column", e.style.zIndex = "2147483000", e.style.opacity = "1", e.style.visibility = "visible", this.manager._panelViewportGap = this.manager._panelViewportGap || 48, e.style.maxHeight = `calc(100vh - ${this.manager._panelViewportGap}px)`, e.style.overflow = "hidden", this.scrollUtils.lockBackgroundScroll(), this.state.activePanel = "quick", this.adjustPosition(e, t), this.updateList(), (typeof e.tabIndex != "number" || e.tabIndex < 0) && (e.tabIndex = 0);
       try {
@@ -7650,8 +7690,8 @@ class Ie {
     if (!a) return;
     let r = e;
     if (r === null) {
-      const u = this.state.currentQuickCategoryId || "all";
-      u === "all" ? r = this.promptManager.prompts : u === "favorites" ? r = this.promptManager.prompts.filter((m) => m.isFavorite) : r = this.promptManager.prompts.filter((m) => m.category === u), r = [...r].sort((m, g) => m.isFavorite && !g.isFavorite ? -1 : !m.isFavorite && g.isFavorite ? 1 : m.usageCount !== g.usageCount ? g.usageCount - m.usageCount : (g.createdAt || 0) - (m.createdAt || 0));
+      const m = this.state.currentQuickCategoryId || "all";
+      m === "all" ? r = this.promptManager.prompts : m === "favorites" ? r = this.promptManager.prompts.filter((u) => u.isFavorite) : r = this.promptManager.prompts.filter((u) => u.category === m), r = [...r].sort((u, g) => u.isFavorite && !g.isFavorite ? -1 : !u.isFavorite && g.isFavorite ? 1 : u.usageCount !== g.usageCount ? g.usageCount - u.usageCount : (g.createdAt || 0) - (u.createdAt || 0));
     }
     const n = this.state.pagination.quick;
     n.totalItems = r.length;
@@ -7661,25 +7701,25 @@ class Ie {
     this._renderPrompts(a, d, "compact"), this.pagination && this.pagination.render(this.state.pagination.quick.currentPage, i), this.updateCategories(), this.manager._ensureQuickPageFits && this.manager._ensureQuickPageFits(r, t);
     const p = document.getElementById("quick-insert-panel");
     if (p && p._quickSelection) {
-      const u = p._quickSelection;
-      u.updateItems();
-      let m = 0;
+      const m = p._quickSelection;
+      m.updateItems();
+      let u = 0;
       if (this.state.justOpenedQuickPanel) {
         if (Array.isArray(r) && r.length > 0) {
           let g = -1 / 0;
           r.forEach((h, v) => {
             const b = typeof h.usageCount == "number" ? h.usageCount : 0;
-            b > g && (g = b, m = v);
+            b > g && (g = b, u = v);
           });
         }
         this.state.justOpenedQuickPanel = !1;
       } else
-        m = t;
-      if (m === "last") {
-        const g = u.getItems();
-        m = g.length > 0 ? g.length - 1 : 0;
+        u = t;
+      if (u === "last") {
+        const g = m.getItems();
+        u = g.length > 0 ? g.length - 1 : 0;
       }
-      u.setSelection(m);
+      m.setSelection(u);
     }
   }
   filter(e, t = 0) {
@@ -7732,22 +7772,22 @@ class Ie {
       const a = e.querySelector(".quick-search"), r = document.getElementById("quick-panel-categories"), n = r ? r.querySelector(".category-tab") : null, i = document.getElementById("quick-prompt-list"), c = i ? i.querySelector(".prompt-item--compact") : null, s = [];
       if (a && s.push(a), n && s.push(n), c && s.push(c), s.length === 0) return;
       const d = document.activeElement;
-      let p = s.findIndex((m) => m === d || m.contains && m.contains(d));
+      let p = s.findIndex((u) => u === d || u.contains && u.contains(d));
       t.shiftKey ? (p === -1 && (p = 0), p = (p - 1 + s.length) % s.length) : p = (p + 1) % s.length;
-      const u = s[p];
-      if (u) {
-        if (typeof u.tabIndex == "number" && u.tabIndex < 0) {
-          u.tabIndex = 0;
-          const m = () => {
+      const m = s[p];
+      if (m) {
+        if (typeof m.tabIndex == "number" && m.tabIndex < 0) {
+          m.tabIndex = 0;
+          const u = () => {
             try {
-              u.removeAttribute("tabindex");
+              m.removeAttribute("tabindex");
             } catch {
             }
-            u.removeEventListener("blur", m);
+            m.removeEventListener("blur", u);
           };
-          u.addEventListener("blur", m);
+          m.addEventListener("blur", u);
         }
-        u.focus(), typeof u.scrollIntoView == "function" && u.scrollIntoView({ block: "nearest", behavior: "smooth" });
+        m.focus(), typeof m.scrollIntoView == "function" && m.scrollIntoView({ block: "nearest", behavior: "smooth" });
       }
     }, !0), typeof e.tabIndex == "number" && e.tabIndex < 0 && (e.tabIndex = 0));
   }
@@ -7809,15 +7849,15 @@ class Ie {
       this.state.pagination && this.state.pagination.quick && (this.state.pagination.quick.itemsPerPage = 5);
       return;
     }
-    const r = getComputedStyle(e), n = parseFloat(r.paddingTop) || 0, i = parseFloat(r.paddingBottom) || 0, c = t.getBoundingClientRect(), s = e.getBoundingClientRect(), d = a && a.getBoundingClientRect().height || 40, p = c.bottom - s.top - d - n - i - 4, u = e.querySelectorAll(".prompt-item--compact");
-    let m = 0, g = 8;
-    if (u.length >= 2) {
-      const b = u[0].getBoundingClientRect(), _ = u[1].getBoundingClientRect();
-      m = b.height, g = _.top - b.bottom;
-    } else u.length === 1 ? m = u[0].getBoundingClientRect().height : m = 56;
-    const h = m + g;
+    const r = getComputedStyle(e), n = parseFloat(r.paddingTop) || 0, i = parseFloat(r.paddingBottom) || 0, c = t.getBoundingClientRect(), s = e.getBoundingClientRect(), d = a && a.getBoundingClientRect().height || 40, p = c.bottom - s.top - d - n - i - 4, m = e.querySelectorAll(".prompt-item--compact");
+    let u = 0, g = 8;
+    if (m.length >= 2) {
+      const b = m[0].getBoundingClientRect(), _ = m[1].getBoundingClientRect();
+      u = b.height, g = _.top - b.bottom;
+    } else m.length === 1 ? u = m[0].getBoundingClientRect().height : u = 56;
+    const h = u + g;
     let v = Math.floor((p + g + 4) / h);
-    v = Math.max(4, v), this.state.pagination && this.state.pagination.quick && this.state.pagination.quick.itemsPerPage !== v && (this.state.pagination.quick.itemsPerPage = v, o.debug(`[QuickInsert] Dynamic page size: ${v} items (available: ${p.toFixed(0)}px, item: ${m.toFixed(0)}px, gap: ${g.toFixed(0)}px, total: ${h.toFixed(0)}px)`));
+    v = Math.max(4, v), this.state.pagination && this.state.pagination.quick && this.state.pagination.quick.itemsPerPage !== v && (this.state.pagination.quick.itemsPerPage = v, o.debug(`[QuickInsert] Dynamic page size: ${v} items (available: ${p.toFixed(0)}px, item: ${u.toFixed(0)}px, gap: ${g.toFixed(0)}px, total: ${h.toFixed(0)}px)`));
   }
 }
 const ke = [
@@ -7968,7 +8008,7 @@ class Ce {
     t.id = "prompt-management-panel", t.className = "unified-panel unified-panel-modal unified-panel--management", t.style.display = "none";
     const a = document.createElement("div");
     a.className = "panel-header-container flex-shrink-0";
-    const r = new J(l.t("prompt_management"), [{
+    const r = new Z(l.t("prompt_management"), [{
       title: l.t("new_prompt"),
       icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>',
       text: l.t("create"),
@@ -8020,15 +8060,15 @@ class Ce {
     d.className = "btn-add-category btn-secondary inline-flex items-center gap-1 rounded-md px-3 py-1.5 border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-850 hover:bg-gray-100 dark:hover:bg-gray-800", d.dataset.action = "addNewCategory", d.textContent = l.t("add_category"), c.append(s, d), i.append(c);
     const p = document.createElement("div");
     p.className = "panel-main flex-1 flex flex-col overflow-hidden min-w-0";
-    const u = new Y({
+    const m = new Y({
       containerClass: "main-toolbar flex-shrink-0",
       inputClass: "main-search",
       placeholder: l.t("search_prompts_placeholder"),
       oninput: (y) => this.filterPrompts(y.target.value)
-    }).element, m = document.createElement("div");
-    m.className = "flex-1 overflow-y-auto p-4 flex flex-col gap-3 min-h-0", m.id = "prompt-list-container", m.style.overscrollBehavior = "contain", m.style.paddingBottom = "32px", p.append(u, m), n.append(i, p);
+    }).element, u = document.createElement("div");
+    u.className = "flex-1 overflow-y-auto p-4 flex flex-col gap-3 min-h-0", u.id = "prompt-list-container", u.style.overscrollBehavior = "contain", u.style.paddingBottom = "32px", p.append(m, u), n.append(i, p);
     const g = document.createElement("div");
-    g.id = "management-panel-footer", g.className = "flex-shrink-0 border-t border-gray-100 dark:border-gray-800 flex items-center justify-center", g.style.cssText = "height: 48px; min-height: 48px; display: flex; align-items: center; justify-content: center; background: inherit; margin-top: auto;", this.pagination || (this.pagination = new D(g, {
+    g.id = "management-panel-footer", g.className = "flex-shrink-0 border-t border-gray-100 dark:border-gray-800 flex items-center justify-center", g.style.cssText = "height: 48px; min-height: 48px; display: flex; align-items: center; justify-content: center; background: inherit; margin-top: auto;", this.pagination || (this.pagination = new N(g, {
       onPageChange: (y) => this.changePage(y === "prev" ? "prev" : "next")
     })), t.append(a, n, g), e.appendChild(t);
     let h = document.querySelector('div[data-pes-modal-container="true"]');
@@ -8109,8 +8149,8 @@ class Ce {
           this.changePage(i.includes("Prev") ? "prev" : "next");
           break;
         case "updatePromptCategory":
-          const p = a.target, u = p.value === "null" ? null : p.value;
-          s && this.updatePromptCategory(s, u);
+          const p = a.target, m = p.value === "null" ? null : p.value;
+          s && this.updatePromptCategory(s, m);
           break;
         case "createNewPromptViaQuickPanel":
           this.navigateTo(), this.manager.createNewPrompt();
@@ -8218,17 +8258,17 @@ class Ce {
     const r = getComputedStyle(e), n = parseFloat(r.paddingTop) || 0;
     parseFloat(r.paddingBottom);
     const i = t.getBoundingClientRect(), c = e.getBoundingClientRect(), s = a && a.getBoundingClientRect().height || 48, d = i.bottom - c.top - s - n - 8, p = e.querySelectorAll(".prompt-item--detailed");
-    let u = 0, m = 12;
-    if (p.length > 0 && (u = p[0].offsetHeight, p.length >= 2)) {
+    let m = 0, u = 12;
+    if (p.length > 0 && (m = p[0].offsetHeight, p.length >= 2)) {
       const _ = p[0].getBoundingClientRect();
-      m = p[1].getBoundingClientRect().top - _.bottom;
+      u = p[1].getBoundingClientRect().top - _.bottom;
     }
-    u === 0 && (u = 90, m = 12);
-    const g = u + m;
-    let h = Math.floor((d + m + 2) / g);
-    (d + m + 2) % g > g - 15 && h++;
+    m === 0 && (m = 90, u = 12);
+    const g = m + u;
+    let h = Math.floor((d + u + 2) / g);
+    (d + u + 2) % g > g - 15 && h++;
     const b = d > 400 ? 5 : 3;
-    h = Math.max(b, h), this.state.pagination && this.state.pagination.management && this.state.pagination.management.itemsPerPage !== h && (this.state.pagination.management.itemsPerPage = h, o.debug(`[Management] Dynamic page size: ${h} items (available: ${d.toFixed(0)}px, item: ${u.toFixed(0)}px, gap: ${m.toFixed(0)}px, total: ${g.toFixed(0)}px)`));
+    h = Math.max(b, h), this.state.pagination && this.state.pagination.management && this.state.pagination.management.itemsPerPage !== h && (this.state.pagination.management.itemsPerPage = h, o.debug(`[Management] Dynamic page size: ${h} items (available: ${d.toFixed(0)}px, item: ${m.toFixed(0)}px, gap: ${u.toFixed(0)}px, total: ${g.toFixed(0)}px)`));
   }
   updateCategoryList() {
     document.getElementById("category-list") && this.categoryFilter && this.categoryFilter.update({
@@ -8241,18 +8281,18 @@ class Ce {
     if (!a) return;
     let r = e;
     if (r === null) {
-      const u = this.state.currentManagementCategoryId || "all";
-      u === "all" ? r = this.promptManager.prompts : u === "uncategorized" ? r = this.promptManager.prompts.filter((m) => !m.category || m.category === "null") : r = this.promptManager.prompts.filter((m) => m.category === u);
+      const m = this.state.currentManagementCategoryId || "all";
+      m === "all" ? r = this.promptManager.prompts : m === "uncategorized" ? r = this.promptManager.prompts.filter((u) => !u.category || u.category === "null") : r = this.promptManager.prompts.filter((u) => u.category === m);
     }
     let n = t;
     if (n === null) {
-      const u = document.querySelector("#prompt-management-panel .main-search");
-      n = u ? u.value : "";
+      const m = document.querySelector("#prompt-management-panel .main-search");
+      n = m ? m.value : "";
     }
     if (n) {
-      const u = n.toLowerCase();
+      const m = n.toLowerCase();
       r = r.filter(
-        (m) => m.title.toLowerCase().includes(u) || m.content.toLowerCase().includes(u)
+        (u) => u.title.toLowerCase().includes(m) || u.content.toLowerCase().includes(m)
       );
     }
     const i = this.state.pagination.management;
@@ -8545,8 +8585,8 @@ class Ae {
   showAlert(e, t = null) {
     return new Promise((a) => {
       const r = document.createElement("div");
-      r.className = "fixed inset-0 bg-black/50 z-[9999] flex items-center justify-center", r.onclick = (m) => {
-        m.target === r && m.stopPropagation();
+      r.className = "fixed inset-0 bg-black/50 z-[9999] flex items-center justify-center", r.onclick = (u) => {
+        u.target === r && u.stopPropagation();
       };
       const n = document.documentElement.classList.contains("dark"), i = n ? "#171717" : "#fff", c = n ? "#e5e7eb" : "#4b5563", s = document.createElement("div");
       s.className = "prompt-modal-content modal-sm", s.style.cssText = `
@@ -8580,13 +8620,13 @@ class Ae {
                     <button class="btn-confirm" style="padding: 8px 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer;">${l.t("confirm") || "OK"}</button>
                 </div>
             `;
-      const p = document.body, u = () => {
+      const p = document.body, m = () => {
         p.removeChild(r);
       };
-      s.querySelector(".btn-close").onclick = (m) => {
-        m.stopPropagation(), u(), a();
-      }, s.querySelector(".btn-confirm").onclick = (m) => {
-        m.stopPropagation(), u(), a();
+      s.querySelector(".btn-close").onclick = (u) => {
+        u.stopPropagation(), m(), a();
+      }, s.querySelector(".btn-confirm").onclick = (u) => {
+        u.stopPropagation(), m(), a();
       }, r.style.zIndex = "2147483647", r.appendChild(s), p.appendChild(r);
     });
   }
@@ -8602,8 +8642,8 @@ class Ae {
       r.className = "pes-confirm-overlay fixed inset-0 bg-black/50 z-[9999] flex items-center justify-center", r.onclick = (v) => {
         v.target === r && v.stopPropagation();
       };
-      const n = document.documentElement.classList.contains("dark"), i = n ? "#171717" : "#fff", c = n ? "#e5e7eb" : "#4b5563", s = n ? "#374151" : "#f3f4f6", d = n ? "#e5e7eb" : "#374151", p = n ? "#4b5563" : "#d1d5db", u = document.createElement("div");
-      u.className = "prompt-modal-content modal-sm", u.style.cssText = `
+      const n = document.documentElement.classList.contains("dark"), i = n ? "#171717" : "#fff", c = n ? "#e5e7eb" : "#4b5563", s = n ? "#374151" : "#f3f4f6", d = n ? "#e5e7eb" : "#374151", p = n ? "#4b5563" : "#d1d5db", m = document.createElement("div");
+      m.className = "prompt-modal-content modal-sm", m.style.cssText = `
                 width: 400px; 
                 max-width: 90vw; 
                 background: ${i}; 
@@ -8616,11 +8656,11 @@ class Ae {
                 transform: scale(1);
                 transition: transform 0.2s;
             `;
-      const m = t || l.t("confirm_delete_title") || "Confirm";
-      u.innerHTML = `
+      const u = t || l.t("confirm_delete_title") || "Confirm";
+      m.innerHTML = `
                 <!-- Purple-blue gradient header -->
                 <div class="modal-header" style="display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; flex-shrink: 0;">
-                    <h3 style="font-size: 1rem; font-weight: 600; margin: 0; color: #fff;">${m}</h3>
+                    <h3 style="font-size: 1rem; font-weight: 600; margin: 0; color: #fff;">${u}</h3>
                     <button type="button" class="btn-close" style="width: 28px; height: 28px; padding: 0; display: flex; align-items: center; justify-content: center; border: none; border-radius: 6px; background: rgba(255, 255, 255, 0.2); color: #fff; cursor: pointer; font-size: 18px; transition: background 0.2s;">×</button>
                 </div>
                 
@@ -8638,15 +8678,15 @@ class Ae {
       const g = document.body, h = () => {
         g.removeChild(r);
       };
-      u.querySelector(".btn-close").onclick = (v) => {
+      m.querySelector(".btn-close").onclick = (v) => {
         v.preventDefault(), v.stopPropagation(), h(), a(!1);
-      }, u.querySelector(".btn-cancel").onclick = (v) => {
+      }, m.querySelector(".btn-cancel").onclick = (v) => {
         v.preventDefault(), v.stopPropagation(), h(), a(!1);
-      }, u.querySelector(".btn-confirm").onclick = (v) => {
+      }, m.querySelector(".btn-confirm").onclick = (v) => {
         v.preventDefault(), v.stopPropagation(), setTimeout(() => {
           h(), a(!0);
         }, 50);
-      }, r.style.zIndex = "2147483647", r.appendChild(u), g.appendChild(r);
+      }, r.style.zIndex = "2147483647", r.appendChild(m), g.appendChild(r);
     });
   }
   /**
@@ -8689,7 +8729,7 @@ class Ae {
 o.debug("--- PanelManager v1.2.0 --- Loading...");
 class W {
   constructor(e, t, a) {
-    o.debug("[PanelManager] Constructor called"), this.promptManager = e, this.promptInserter = t, this.domManipulator = a, this.rootContainer = null, this.state = new Se(), this.scrollUtils = new Ee(), this.domUtils = new Ae(), this.aiValidator = new Z(), this.aiRetryManager = new ve(e.api), this.aiGenerationPanel = new we(this), this.editorPanel = new xe(this), this.quickInsertPanel = new Ie(this), this.managementPanel = new Ce(this), this.setupGlobalEventListeners(), this.simpleSearch = null, this.useSimpleSearch = !0, this.initializeTransparencyControl(), window.addEventListener("pes:show-toast", (r) => {
+    o.debug("[PanelManager] Constructor called"), this.promptManager = e, this.promptInserter = t, this.domManipulator = a, this.rootContainer = null, this.state = new Se(), this.scrollUtils = new Ee(), this.domUtils = new Ae(), this.aiValidator = new J(), this.aiRetryManager = new ve(e.api), this.aiGenerationPanel = new we(this), this.editorPanel = new xe(this), this.quickInsertPanel = new Ie(this), this.managementPanel = new Ce(this), this.setupGlobalEventListeners(), this.simpleSearch = null, this.useSimpleSearch = !0, this.initializeTransparencyControl(), window.addEventListener("pes:show-toast", (r) => {
       const { message: n, type: i } = r.detail;
       this.domUtils.showToast(n, i);
     });
@@ -8780,8 +8820,8 @@ class W {
     }
     if (!(r && r.contains(e.target)) && e.target.isConnected && !(e.target.closest(".pes-modal-overlay") || e.target.closest(".pes-message-overlay") || e.target.closest(".pes-confirm-overlay"))) {
       if (t && t.style.display !== "none" && (t.contains(e.target) || this.quickInsertPanel.close()), a && a.style.display !== "none") {
-        const s = document.getElementById("prompt-edit-modal"), d = document.getElementById("category-edit-modal"), p = s && s.classList.contains("is-visible") && s.contains(e.target), u = d && d.classList.contains("is-visible") && d.contains(e.target);
-        if (p || u)
+        const s = document.getElementById("prompt-edit-modal"), d = document.getElementById("category-edit-modal"), p = s && s.classList.contains("is-visible") && s.contains(e.target), m = d && d.classList.contains("is-visible") && d.contains(e.target);
+        if (p || m)
           return;
         a.contains(e.target) || this.managementPanel.close();
       }
@@ -9117,7 +9157,7 @@ Score: ${Math.round(c * 100)}%`), d.textContent = p.trim();
     i.id = "validation-result", i.className = "validation-result", o.debug("[PanelManager] displayAIResult: Created new result panel element.");
     const c = document.createElement("div");
     c.className = "ai-generated-preview";
-    const s = this.sanitizeHTML(e.title || l.t("untitled")), d = this.sanitizeHTML(e.content || l.t("no_content")).replace(/\n/g, "<br>"), p = this.sanitizeHTML(e.category || ""), u = this.sanitizeHTML(e.command || "");
+    const s = this.sanitizeHTML(e.title || l.t("untitled")), d = this.sanitizeHTML(e.content || l.t("no_content")).replace(/\n/g, "<br>"), p = this.sanitizeHTML(e.category || ""), m = this.sanitizeHTML(e.command || "");
     c.innerHTML = `
             <h5>${l.t("generated_preview_title")}</h5>
             <div class="preview-title">
@@ -9128,15 +9168,15 @@ Score: ${Math.round(c * 100)}%`), d.textContent = p.trim();
                 <div class="content-text">${d}</div>
             </div>
             ${p ? `<div class="preview-category"><strong>${l.t("category_label")}</strong>${p}</div>` : ""}
-            ${u ? `<div class="preview-command"><strong>${l.t("command_label")}</strong>/${u}</div>` : ""}
+            ${m ? `<div class="preview-command"><strong>${l.t("command_label")}</strong>/${m}</div>` : ""}
         `, i.appendChild(c);
-    const m = document.createElement("div");
-    m.className = "validation-score";
+    const u = document.createElement("div");
+    u.className = "validation-score";
     const g = Math.round(t.score * 100);
-    m.innerHTML = `
+    u.innerHTML = `
             <span class="score-label">${l.t("quality_score_label")}</span>
             <span class="score-value ${g >= 80 ? "excellent" : g >= 60 ? "good" : "poor"}">${g}%</span>
-        `, i.appendChild(m);
+        `, i.appendChild(u);
     const h = document.createElement("div");
     h.className = "validation-details";
     let v = "";
@@ -9416,11 +9456,11 @@ ${t.suggestions.slice(0, 3).join(`
 }
 class Me {
   constructor() {
-    this.version = "0.1.6", console.log(`%c 🚀 Open WebUI Prompt Plus v${this.version} %c https://github.com/fujie/open-webui-prompt-plus `, "background: #667eea; color: #fff; border-radius: 3px 0 0 3px; padding: 2px 5px; font-weight: bold;", "background: #764ba2; color: #fff; border-radius: 0 3px 3px 0; padding: 2px 5px;"), this.initialized = !1, this.buttonCreated = !1, this.domManipulator = new U(), this.promptManager = null, this.inputDetector = null, this.textInserter = null, this.promptInserter = null, this.panelManager = null, this.placeholderSet = !1, this.targetContainerCache = null, this.lastContainerCheck = 0, this.containerCheckInterval = 250, this.initializationQueue = [], this.isInitializing = !1;
+    this.version = "0.1.7", console.log(`%c 🚀 Open WebUI Prompt Plus v${this.version} %c https://github.com/Fu-Jie/open-webui-prompt-plus `, "background: #667eea; color: #fff; border-radius: 3px 0 0 3px; padding: 2px 5px; font-weight: bold;", "background: #764ba2; color: #fff; border-radius: 0 3px 3px 0; padding: 2px 5px;"), this.initialized = !1, this.buttonCreated = !1, this.domManipulator = new V(), this.promptManager = null, this.inputDetector = null, this.textInserter = null, this.promptInserter = null, this.panelManager = null, this.placeholderSet = !1, this.targetContainerCache = null, this.lastContainerCheck = 0, this.containerCheckInterval = 250, this.initializationQueue = [], this.isInitializing = !1;
   }
   // Fast Initialize - Create only necessary components (and provide immediately interactive lightweight instances)
   fastInitialize() {
-    this.domManipulator || (this.domManipulator = new U()), this.inputDetector || (this.inputDetector = new j()), this.textInserter || (this.textInserter = new G()), this.promptManager || (this.promptManager = new O()), this.promptInserter || (this.promptInserter = new H(this.inputDetector, this.textInserter)), this.panelManager || (this.panelManager = new W(this.promptManager, this.promptInserter, this.domManipulator)), window.promptManager = this.promptManager, window.panelManager = this.panelManager, window.loaderApp = this, this.buttonCreated = !0;
+    this.domManipulator || (this.domManipulator = new V()), this.inputDetector || (this.inputDetector = new j()), this.textInserter || (this.textInserter = new G()), this.promptManager || (this.promptManager = new O()), this.promptInserter || (this.promptInserter = new H(this.inputDetector, this.textInserter)), this.panelManager || (this.panelManager = new W(this.promptManager, this.promptInserter, this.domManipulator)), window.promptManager = this.promptManager, window.panelManager = this.panelManager, window.loaderApp = this, this.buttonCreated = !0;
   }
   // Full Initialize - Lazy load heavyweight components
   async fullInitialize() {

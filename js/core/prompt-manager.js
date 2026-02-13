@@ -1090,8 +1090,30 @@ export class PromptManager {
     // Update prompt
     async updatePrompt(promptId, promptData) {
         try {
-            const promptIndex = this.prompts.findIndex(p => p.id === promptId);
+            let promptIndex = this.prompts.findIndex(p => p.id === promptId);
+
+            // Fallback: If ID not found, try to match by command (for legacy ID migration scenarios)
+            if (promptIndex === -1 && typeof promptId === 'string' && promptId.startsWith('openwebui_')) {
+                const commandFromId = promptId.replace('openwebui_', '');
+                if (commandFromId) {
+                    // Try to match command (with or without slash)
+                    const targetCmd = commandFromId.replace(/^\//, ''); // Normalized command
+                    promptIndex = this.prompts.findIndex(p => {
+                        const pCmd = (p.command || '').replace(/^\//, '');
+                        return pCmd === targetCmd;
+                    });
+
+                    if (promptIndex !== -1) {
+                        // [CRITICAL FIX] Update the promptId to the new ID so subsequent logic uses the correct ID
+                        const specificId = this.prompts[promptIndex].id;
+                        logger.warn(`[PromptManager] Prompt ID mismatch in updatePrompt. Requested: ${promptId}, Found via command: ${specificId}. Using found prompt.`);
+                        // We don't update promptId variable because it's argument, but promptIndex is what matters for 'oldPrompt' retrieval.
+                    }
+                }
+            }
+
             if (promptIndex === -1) {
+                logger.error(`[PromptManager] Prompt not found. ID: ${promptId}. Available IDs: ${this.prompts.map(p => p.id).slice(0, 5).join(', ')}...`);
                 throw new Error('Prompt does not exist');
             }
 
@@ -1110,9 +1132,39 @@ export class PromptManager {
             // 1. Update OpenWebUI API first
             // OPTIMIZATION: Use fallback generation if command is missing.
             const command = updatedPrompt.command || this.fallbackGenerateCommand(updatedPrompt.title);
-
             // Extract real UUID if available (for 0.8.0+ API)
-            const realId = (updatedPrompt.id && !updatedPrompt.id.startsWith('openwebui_')) ? updatedPrompt.id : null;
+            // Ensure ID is a valid UUID to avoid 404s when "command" flows into "id"
+            const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+            let realId = null;
+
+            if (updatedPrompt.id && !updatedPrompt.id.startsWith('openwebui_') && uuidRegex.test(updatedPrompt.id)) {
+                realId = updatedPrompt.id;
+            } else if (updatedPrompt.openwebuiData && updatedPrompt.openwebuiData.id && uuidRegex.test(updatedPrompt.openwebuiData.id)) {
+                // Fallback to original OpenWebUI data if top-level ID was overwritten/corrupted
+                realId = updatedPrompt.openwebuiData.id;
+            }
+
+            // [Critical Fix] If we are on 0.8.0+ but don't have a real UUID, we MUST try to find it from the server.
+            // Command-based updates are forbidden (405), so we cannot proceed without a UUID.
+            if (!realId && this.api.serverCapability.isV080OrNewer) {
+                try {
+                    logger.warn(`[PromptManager] Missing UUID for prompt "${command}" on 0.8.0+, attempting to fetch from server...`);
+                    const freshPrompts = await this.api.getAllPrompts();
+                    // Match by command string (ignoring case and leading slash)
+                    const targetCmd = command.replace(/^\//, '').toLowerCase();
+                    const match = freshPrompts.find(p => p.command && p.command.replace(/^\//, '').toLowerCase() === targetCmd);
+
+                    if (match && match.id && uuidRegex.test(match.id)) {
+                        realId = match.id;
+                        updatedPrompt.id = realId; // Update local object too
+                        logger.info(`[PromptManager] ✅ Recovered UUID: ${realId}`);
+                    } else {
+                        logger.error(`[PromptManager] ❌ Could not find UUID for prompt "${command}" on server.`);
+                    }
+                } catch (err) {
+                    logger.error('[PromptManager] Failed to refresh prompts for UUID recovery:', err);
+                }
+            }
 
             const apiPayload = {
                 command: `/${command}`,
@@ -1180,7 +1232,24 @@ export class PromptManager {
     // Delete Prompt
     async deletePrompt(promptId) {
         try {
-            const promptIndex = this.prompts.findIndex(p => p.id === promptId);
+            let promptIndex = this.prompts.findIndex(p => p.id === promptId);
+
+            // Fallback: If ID not found, try to match by command (for legacy ID migration scenarios)
+            if (promptIndex === -1 && typeof promptId === 'string' && promptId.startsWith('openwebui_')) {
+                const commandFromId = promptId.replace('openwebui_', '');
+                if (commandFromId) {
+                    const targetCmd = commandFromId.replace(/^\//, '');
+                    promptIndex = this.prompts.findIndex(p => {
+                        const pCmd = (p.command || '').replace(/^\//, '');
+                        return pCmd === targetCmd;
+                    });
+
+                    if (promptIndex !== -1) {
+                        logger.warn(`[PromptManager] Prompt ID mismatch in deletePrompt. Requested: ${promptId}, Found via command: ${this.prompts[promptIndex].id}. Using found prompt.`);
+                    }
+                }
+            }
+
             if (promptIndex === -1) {
                 throw new Error('Prompt does not exist');
             }
@@ -1246,7 +1315,24 @@ export class PromptManager {
 
     // Get Prompt by ID
     getPromptById(id) {
-        return this.prompts.find(p => p.id === id);
+        let prompt = this.prompts.find(p => p.id === id);
+
+        // Fallback for legacy IDs: match by command
+        if (!prompt && typeof id === 'string' && id.startsWith('openwebui_')) {
+            const commandFromId = id.replace('openwebui_', '');
+            const targetCmd = commandFromId.replace(/^\//, ''); // Normalized
+
+            prompt = this.prompts.find(p => {
+                const pCmd = (p.command || '').replace(/^\//, '');
+                return pCmd === targetCmd;
+            });
+
+            if (prompt) {
+                logger.debug(`[PromptManager] getPromptById matched via command fallback: ${id} -> ${prompt.id}`);
+            }
+        }
+
+        return prompt;
     }
 
     // Filter by Category
