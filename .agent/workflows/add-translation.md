@@ -4,37 +4,33 @@ description: Add Translation - Standardized i18n update process
 
 # Add Translation Workflow
 
-> **Scenario**: When adding new UI text, ensure the i18n file is updated correctly.
+This workflow helps you add new translation keys or update existing ones across all supported languages in `js/core/i18n.js`.
 
-## 1. Determine Key Name
-Follow the `module_feature_description` format.
-- Example: `prompt_editor_save_success`
+## Steps
 
-## 2. Update i18n.js
-Add the key-value pairs in `static/js/core/i18n.js`.
+1. **Read the i18n File**:
+    - Read `js/core/i18n.js` to understand the current structure and existing keys.
 
-```javascript
-const translations = {
-    'en-US': {
-        // ...
-        'prompt_editor_save_success': 'Prompt saved successfully',
-    },
-    'zh-CN': {
-        // ...
-        'prompt_editor_save_success': 'Prompt saved successfully',
-    }
-};
-```
+2. **Identify Changes**:
+    - Determine which new keys need to be added or which existing keys need to be updated.
+    - The base language is **English (`en`)**.
 
-## 3. Use in Code
-Use `i18n.t()` to retrieve the translation.
+3. **Generate Translations**:
+    - For each new key in English, generate translations for all other supported languages:
+        - `zh-CN` (Simplified Chinese)
+        - `zh-TW` (Traditional Chinese)
+        - `ja` (Japanese)
+        - `ko` (Korean)
+        - `fr` (French)
+        - `de` (German)
+        - `es` (Spanish)
+        - `nl` (Dutch)
+        - `el` (Greek)
+    - Ensure translations are contextually appropriate for a UI/AI tool.
 
-```javascript
-import { i18n } from '../../core/i18n.js';
+4. **Update File**:
+    - Use `replace_file_content` (or `multi_replace_file_content` if changes are scattered) to update `js/core/i18n.js`.
+    - **Crucial**: Maintain the JSON structure validity inside the JS object.
 
-alert(i18n.t('prompt_editor_save_success'));
-```
-
-## 4. Verification
-- Switch languages to ensure the text updates correctly.
-- For dynamic content (e.g., categories), ensure dynamic retrieval logic is used.
+5. **Verify**:
+    - Check if any syntax errors were introduced.

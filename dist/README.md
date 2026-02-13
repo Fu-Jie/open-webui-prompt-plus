@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Open%20WebUI-Extension-blue?style=for-the-badge&logo=openai" alt="Open WebUI Extension">
-  <img src="https://img.shields.io/badge/Version-0.1.5-blue?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.1.6-blue?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/AI-Powered-purple?style=for-the-badge" alt="AI Powered">
   <img src="https://img.shields.io/badge/i18n-10+%20Languages-green?style=for-the-badge" alt="Languages">
   <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License">
@@ -185,7 +185,7 @@ Contributions are welcome! Whether it's a bug report, a feature request, or a ne
 
 Check out my other Open WebUI projects:
 
-- **[Awesome Open WebUI](https://github.com/Fu-Jie/awesome-openwebui)**: A curated list of extensions, tools, and resources for Open WebUI.
+- **[OpenWEBUI Extensions](https://github.com/Fu-Jie/openwebui-extensions)**: A curated list of extensions, tools, and resources for Open WebUI.
 - **[Open WebUI Chat Client](https://github.com/Fu-Jie/openwebui-chat-client)**: A Python client for programmatic chat interactions, fully visualized within the Open WebUI interface.
 
 ---

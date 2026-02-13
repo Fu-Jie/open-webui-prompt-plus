@@ -19,20 +19,6 @@ export class OpenWebUIAPI {
         this.metadataPromptId = null; // Store UUID for system metadata prompt
     }
 
-    // Get official server version
-    async getServerVersion() {
-        try {
-            const response = await fetch(`${this.baseURL}/api/version`);
-            if (response.ok) {
-                const data = await response.json();
-                return data.version;
-            }
-        } catch (error) {
-            logger.warn('Failed to fetch server version:', error);
-        }
-        return null;
-    }
-
     async getAuthToken() {
         const token = localStorage.getItem('token');
         logger.debug('[Auth] Token exists:', !!token, 'Length:', token?.length || 0);
@@ -117,6 +103,20 @@ export class OpenWebUIAPI {
         }
     }
 
+    // Get official server version
+    async getServerVersion() {
+        try {
+            const response = await fetch(`${this.baseURL}/api/version`);
+            if (response.ok) {
+                const data = await response.json();
+                return data.version;
+            }
+        } catch (error) {
+            logger.warn('Failed to fetch server version:', error);
+        }
+        return null;
+    }
+
     // Prompt related API
     async getAllPrompts() {
         const token = await this.getAuthToken();
@@ -195,6 +195,13 @@ export class OpenWebUIAPI {
 
             const metadataPrompt = await response.json();
             logger.debug('✅ Found existing _ command, parsing metadata...');
+
+            // Extract and store ID for 0.8.0+ compatibility
+            if (metadataPrompt.id) {
+                this.metadataPromptId = metadataPrompt.id;
+                this.serverCapability.supportsIdApi = true;
+                logger.debug('[API] Metadata Store ID captured:', this.metadataPromptId);
+            }
 
             // Parse JSON data in content
             try {
@@ -722,20 +729,24 @@ Command Name: `;
     }
 
     convertFromOpenWebUIFormat(openWebUIPrompt) {
+        const command = openWebUIPrompt.command?.replace('/', '') || '';
+        const title = openWebUIPrompt.name || openWebUIPrompt.title || command || 'Untitled Prompt';
+        const id = openWebUIPrompt.id || ('openwebui_' + (command || generateUUID()));
+
         return {
-            id: openWebUIPrompt.id || ('openwebui_' + (openWebUIPrompt.command?.replace('/', '') || generateUUID())),
-            title: openWebUIPrompt.name || openWebUIPrompt.title || openWebUIPrompt.command?.replace('/', '') || 'Untitled Prompt',
+            id: id,
+            title: title,
             content: openWebUIPrompt.content || '',
             category: 'productivity',
             tags: openWebUIPrompt.tags || ['OpenWebUI Import'],
-            description: `Imported from OpenWebUI (${openWebUIPrompt.command || ''})`,
+            description: `Imported from OpenWebUI (${command})`,
             createdAt: openWebUIPrompt.timestamp ?
                 new Date(openWebUIPrompt.timestamp * 1000).toISOString() :
                 new Date().toISOString(),
             updatedAt: new Date().toISOString(),
             usageCount: 0,
             isFavorite: false,
-            command: openWebUIPrompt.command?.replace('/', ''),
+            command: command,
             openwebuiData: openWebUIPrompt
         };
     }

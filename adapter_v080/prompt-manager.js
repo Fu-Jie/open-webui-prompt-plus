@@ -108,14 +108,9 @@ export class PromptManager {
         const cachedData = this.storage.load();
         if (cachedData) {
             this.prompts = cachedData.prompts || [];
-            // Merge cached categories if available
             if (cachedData.categories && Array.isArray(cachedData.categories)) {
-                // If we have cached categories, we use them to restore the UI state quickly.
-                // Note: This might contain stale default names if language changed, 
-                // but refreshCategories() or subsequent metadata sync will fix it.
                 this.categories = cachedData.categories;
             }
-            // If metadata is in cache, we can also try to merge properly
             if (cachedData.metadata && cachedData.metadata.categories) {
                 this.categories = this.mergeCategories(getDefaultCategories(), cachedData.metadata.categories);
             }
@@ -185,16 +180,14 @@ export class PromptManager {
                     if (typeof onUpdate === 'function') {
                         onUpdate(this.prompts);
                     }
-                    this.saveDataToCache(); // Save all latest data to cache
+                    this.saveDataToCache();
                 } else {
                     logger.debug('✅ [Background] Data is up to date.');
                 }
             }
-
         } catch (error) {
             logger.error('❌ [Background] Failed to sync data:', error);
             if (!cachedData) {
-                // If no cache and API fails, use default values
                 logger.debug('Failing over to default prompts');
                 await this.initializeWithDefaults();
                 if (typeof onUpdate === 'function') {
@@ -639,21 +632,7 @@ export class PromptManager {
             return [];
         }
 
-        return openWebUIPrompts.map((p, index) => {
-            return {
-                id: p.command?.replace('/', '') || generateUUID(),
-                title: p.title || p.command?.replace('/', '') || 'Untitled Prompt',
-                content: p.content || '',
-                category: null, // Category defaults to null
-                description: `OpenWebUI Prompt (${p.command || ''})`,
-                createdAt: p.timestamp ? new Date(p.timestamp * 1000).toISOString() : new Date().toISOString(),
-                updatedAt: new Date().toISOString(),
-                usageCount: 0,
-                isFavorite: false,
-                command: p.command?.replace('/', ''),
-                openwebuiData: p
-            };
-        });
+        return openWebUIPrompts.map(p => this.api.convertFromOpenWebUIFormat(p));
     }
 
     // Convert Local Format to OpenWebUI Format
@@ -1039,7 +1018,12 @@ export class PromptManager {
             };
 
             try {
-                await this.api.createPrompt(apiPayload);
+                const result = await this.api.createPrompt(apiPayload);
+                // If the server returned an ID (Open WebUI 0.8.0+), use it
+                if (result && result.id) {
+                    newPrompt.id = result.id;
+                    logger.debug(`📝 Captured server-generated ID: ${result.id}`);
+                }
             } catch (error) {
                 // If command already exists (400), try appending a random suffix
                 if (error.message.includes('400') || error.message.includes('already registered')) {
@@ -1110,47 +1094,43 @@ export class PromptManager {
             // 1. Update OpenWebUI API first
             // OPTIMIZATION: Use fallback generation if command is missing.
             const command = updatedPrompt.command || this.fallbackGenerateCommand(updatedPrompt.title);
-
-            // Extract real UUID if available (for 0.8.0+ API)
-            const realId = (updatedPrompt.id && !updatedPrompt.id.startsWith('openwebui_')) ? updatedPrompt.id : null;
-
             const apiPayload = {
+                id: updatedPrompt.id, // CRITICAL: Include ID for Open WebUI 0.8.0+ support
                 command: `/${command}`,
                 title: updatedPrompt.title,
                 content: updatedPrompt.content,
-                access_control: null,
-                id: realId, // Pass ID to API layer
-                name: updatedPrompt.title // Pass name to API layer (0.8.0+)
+                access_control: null
             };
-
-            const result = await this.api.updatePrompt(command, apiPayload);
-
-            // Update local ID if API returned a new one or confirmed one
-            if (result && result.id) {
-                updatedPrompt.id = result.id;
-            }
+            await this.api.updatePrompt(command, apiPayload);
 
             // 2. Update in-memory prompt list
             this.prompts[promptIndex] = updatedPrompt;
 
             // 3. Update metadata storage
-            if (this.metadata && this.metadata.prompts) {
-                const metadataKey = command; // Use command as key
-                const uuid = (updatedPrompt.id && !updatedPrompt.id.startsWith('openwebui_')) ? updatedPrompt.id : null;
+            if (this.metadata && this.currentUser) {
+                const oldCommand = oldPrompt.command;
+                const newCommand = command;
 
+                // Handle Rename Migration in Metadata
+                if (oldCommand && oldCommand !== newCommand && this.metadata.prompts[oldCommand]) {
+                    logger.debug(`[Migration] Renaming metadata key during update: ${oldCommand} -> ${newCommand}`);
+                    this.metadata.prompts[newCommand] = { ...this.metadata.prompts[oldCommand] };
+                    delete this.metadata.prompts[oldCommand];
+                }
+
+                const metadataKey = newCommand;
                 if (this.metadata.prompts[metadataKey]) {
-                    this.metadata.prompts[metadataKey] = {
-                        ...this.metadata.prompts[metadataKey],
-                        categoryId: categoryId,
-                        lastModifiedBy: this.currentUser,
-                        updatedAt: new Date().toISOString()
-                    };
-                    // Update fingerprint
-                    if (uuid) this.metadata.prompts[metadataKey].uuid = uuid;
+                    this.metadata.prompts[metadataKey].categoryId = categoryId;
+                    this.metadata.prompts[metadataKey].lastModifiedBy = this.currentUser;
+                    this.metadata.prompts[metadataKey].updatedAt = new Date().toISOString();
+                    // Sync fingerprint
+                    if (!this.metadata.prompts[metadataKey].uuid && updatedPrompt.id && !updatedPrompt.id.startsWith('openwebui_')) {
+                        this.metadata.prompts[metadataKey].uuid = updatedPrompt.id;
+                    }
                 } else {
-                    // Create new metadata entry if missing
+                    // If metadata does not exist, create new
                     this.metadata.prompts[metadataKey] = {
-                        uuid: uuid,
+                        uuid: (updatedPrompt.id && !updatedPrompt.id.startsWith('openwebui_')) ? updatedPrompt.id : null,
                         categoryId: categoryId,
                         isFavorite: false,
                         usage: {
@@ -1203,9 +1183,8 @@ export class PromptManager {
 
             // 1. Try to delete from OpenWebUI API first
             try {
-                logger.debug(`🗑️ Attempting to delete OpenWebUI prompt, command: ${command}`);
-                const realId = (prompt.id && !prompt.id.startsWith('openwebui_')) ? prompt.id : null;
-                await this.api.deletePrompt(command, realId);
+                logger.debug(`🗑️ Attempting to delete OpenWebUI prompt, command: ${command}, id: ${prompt.id}`);
+                await this.api.deletePrompt(command, prompt.id);
                 logger.debug('✅ Deleted from OpenWebUI API successfully');
             } catch (apiError) {
                 logger.warn('⚠️ Failed to delete from OpenWebUI API:', apiError);
@@ -1445,9 +1424,14 @@ export class PromptManager {
                     metadata.usage.total = (metadata.usage.total || 0) + 1;
                     metadata.usage.byUser[this.currentUser.id] = (metadata.usage.byUser[this.currentUser.id] || 0) + 1;
                     metadata.updatedAt = new Date().toISOString();
+                    // Sync fingerprint
+                    if (!metadata.uuid && prompt.id && !prompt.id.startsWith('openwebui_')) {
+                        metadata.uuid = prompt.id;
+                    }
                 } else {
                     // If metadata does not exist, create new
                     this.metadata.prompts[command] = {
+                        uuid: (prompt.id && !prompt.id.startsWith('openwebui_')) ? prompt.id : null,
                         categoryId: prompt.category || 'productivity',
                         isFavorite: prompt.isFavorite || false,
                         usage: {
@@ -1489,9 +1473,14 @@ export class PromptManager {
                     metadata.isFavorite = prompt.isFavorite;
                     metadata.lastModifiedBy = this.currentUser;
                     metadata.updatedAt = new Date().toISOString();
+                    // Sync fingerprint
+                    if (!metadata.uuid && prompt.id && !prompt.id.startsWith('openwebui_')) {
+                        metadata.uuid = prompt.id;
+                    }
                 } else {
                     // If metadata does not exist, create new
                     this.metadata.prompts[command] = {
+                        uuid: (prompt.id && !prompt.id.startsWith('openwebui_')) ? prompt.id : null,
                         categoryId: prompt.category || 'productivity',
                         isFavorite: prompt.isFavorite,
                         usage: {
