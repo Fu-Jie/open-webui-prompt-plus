@@ -906,7 +906,7 @@ You can use the following variable types to create rich prompt forms. Please use
         'ai_api_unavailable': 'ИИ API недоступен',
         'no_prompts': 'Нет промптов',
         'no_prompts_hint': 'Нажмите кнопку "+", чтобы создать свой первый промпт!',
-        'help_simple_var': 'Простой текстовый переменный',
+        'help_simple_var': 'Простая текстовая переменная',
         'help_typed_var': 'Указать тип переменной',
         'help_prop_var': 'Переменная со свойствами',
         'help_example_name': 'Введите имя',
