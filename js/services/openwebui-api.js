@@ -872,7 +872,6 @@ Command Name: `;
         }
 
         // Get current language name for injection
-        // Get current language name for injection
         let currentLangName = 'English';
         switch (i18n.lang) {
             case 'zh-CN': currentLangName = 'Simplified Chinese'; break;
@@ -883,6 +882,7 @@ Command Name: `;
             case 'fr-FR': currentLangName = 'French'; break;
             case 'es-ES': currentLangName = 'Spanish'; break;
             case 'el': currentLangName = 'Greek'; break;
+            case 'ru': currentLangName = 'Russian'; break;
             default: currentLangName = 'English'; break;
         }
 
